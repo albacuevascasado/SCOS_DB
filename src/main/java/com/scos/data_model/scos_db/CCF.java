@@ -1,4 +1,4 @@
-package com.scos.data_model;
+package com.scos.data_model.scos_db;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -76,6 +76,7 @@ public class CCF {
     @Column(name = "\"CCF_ACK\"")
     private int ccfAck;
 
+    //TODO file non esiste questa posizione -> aggiungere controllo
     @Column(name = "\"CCF_SUBSCHEDID\"")
     private int ccfSubschedid;
 }

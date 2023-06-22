@@ -63,7 +63,7 @@ public class FileWatcherService implements Runnable {
 
                     executor.execute(()->{
                         try {
-                            jobToBeExecuted(pathToDir+"/"+event.context());
+                            jobToBeExecuted(pathToDir+"/"+event.context(), event.context().toString());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -75,15 +75,13 @@ public class FileWatcherService implements Runnable {
                     break;
                 }
             }
-
         }
-
     }
 
-    private void jobToBeExecuted(String filePath) throws IOException {
+    private void jobToBeExecuted(String filePath, String fileName) throws IOException {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("application-context.xml");
         ReadFileUtility readFile = new ReadFileUtility(applicationContext);
-        readFile.listFilesFromFolder(filePath);
+        readFile.startProcessZipFolder(filePath, fileName);
     }
 
     @Override

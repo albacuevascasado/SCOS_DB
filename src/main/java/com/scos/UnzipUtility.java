@@ -1,6 +1,9 @@
 package com.scos;
 
+import org.springframework.util.FileSystemUtils;
+
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.zip.ZipEntry;
@@ -49,5 +52,20 @@ public class UnzipUtility {
         zipInput.close();
 
         return target;
+    }
+
+    public boolean deleteUnZipFolder(File directoryPath) {
+        File[] targetDirectoryFiles = directoryPath.listFiles();
+        System.out.println("Directory: " + directoryPath.getName());
+        boolean folderIsDeleted = false;
+        for(File file : targetDirectoryFiles) {
+            System.out.println("File: " + file.getName());
+            //System.out.println("Directory Target Folder: " + file.getPath());
+            folderIsDeleted = FileSystemUtils.deleteRecursively(file);
+            //Files.delete(file.toPath()); //ERROR DIRECTORY NOT EMPTY EXCEPTION -> synthetic folder
+            //FileUtils.deleteDirectory(file.getAbsoluteFile());  //NEW DEPENDENCY
+        }
+        //System.out.println("folderIsDeleted: " + folderIsDeleted);
+        return folderIsDeleted;
     }
 }

@@ -15,12 +15,22 @@
 
         <!-- <bean id="applicationContext" class="com.scos.ApplicationContextFactory" /> -->
 
-        <bean id="entityManager" class="com.scos.JpaEntityManagerFactory">
+        <!-- same @Beans different constructors @Qualifier-->
+        <bean id="SCOSentityManager" class="com.scos.JpaEntityManagerFactory">
                 <constructor-arg name="persistenceUnitName" value="scosEMF" />
                 <property name="DB_URL" value="${DB_URL}" />
                 <property name="DB_USER_NAME" value="${DB_USER_NAME}" />
                 <property name="DB_PASSWORD" value="${DB_PASSWORD}" />
+<!--                <property name="BATCH_SIZE" value="${BATCH_SIZE}" />-->
         </bean>
+
+<!--        <bean id="MPSentityManager" class="com.scos.JpaEntityManagerFactory">-->
+<!--                <constructor-arg name="persistenceUnitName" value="mpsEMF" />-->
+<!--                <property name="DB_URL" value="${MPS_DB_URL}" />-->
+<!--                <property name="DB_USER_NAME" value="${DB_USER_NAME}" />-->
+<!--                <property name="DB_PASSWORD" value="${DB_PASSWORD}" />-->
+<!--                &lt;!&ndash;                <property name="BATCH_SIZE" value="${BATCH_SIZE}" />&ndash;&gt;-->
+<!--        </bean>-->
 
         <!-- Initialize INSIDE Spring context -->
         <bean id="fileWatcher" class="com.scos.FileWatcherService">
@@ -30,10 +40,14 @@
 
         <!-- REPOSITORIES -->
         <bean id="scosRepository" class="com.scos.repositories.SCOSRepository" />
+<!--        <bean id="mpsRepository"  class="com.scos.repositories.MPSRepository" />-->
 
         <!-- SERVICE -->
         <bean id="scosService" class="com.scos.services.SCOSService">
                 <property name="scosRepository" ref="scosRepository" />
         </bean>
+<!--        <bean id="mpsService"  class="com.scos.services.MPSService">-->
+<!--                <property name="mpsRepository"  ref="mpsRepository" />-->
+<!--        </bean>-->
 
 </beans>

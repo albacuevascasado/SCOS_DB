@@ -1,8 +1,8 @@
 package com.scos;
 
-import com.scos.data_model.CAF;
-import com.scos.data_model.CVS;
-import com.scos.data_model.TEST;
+import com.scos.data_model.mps_db.ODBData;
+import com.scos.data_model.mps_db.ODBFiles;
+import com.scos.data_model.scos_db.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl;
@@ -25,18 +25,30 @@ public class JpaEntityManagerFactory {
     private String DB_USER_NAME;
     private String DB_PASSWORD;
 
+    public static int BATCH_SIZE = 50; //== global variable
+
     private String persistenceUnitName;
 
     private Class[] entityClasses = new Class[] {
-            CVS.class,
+            SCOSDB.class,
+            SCOSTABLES.class,
             CAF.class,
-            TEST.class
+            CAP.class,
+            CCA.class,
+            CCF.class,
+            CCS.class,
+            CDF.class,
+            CVS.class,
+            ODBFiles.class,
+            ODBData.class
     };
+
 
     //(application-context.xml) es un argumento del constructor de esta clase <constructor-arg>
     public  JpaEntityManagerFactory(String persistenceUnitName) {
         this.persistenceUnitName = persistenceUnitName;
         System.out.println("Persistence Unit Name: " + persistenceUnitName);
+
     }
 
     protected HibernatePersistenceUnitInfo getPersistenceUnitInfo(String name) {
@@ -69,9 +81,13 @@ public class JpaEntityManagerFactory {
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
         properties.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
         properties.put("hibernate.hbm2ddl.auto", "update");
-        properties.put("hibernate.jdbc.batch_size", "50");
+        properties.put("hibernate.jdbc.batch_size", BATCH_SIZE);
         /** batch all insert statements of the same entity type together */
         properties.put("hibernate.order_inserts", true);
+        /** batch updates to insert together */
+        properties.put("hibernate.order_updates", "true");
+        properties.put("hibernate.batch_versioned_data", "true");
+
         properties.put("hibernate.show_sql", true);
         properties.put("hibernate.format_sql", true);
         properties.put("hibernate.naming.implicit-strategy", "org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl");

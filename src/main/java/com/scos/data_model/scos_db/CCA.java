@@ -1,4 +1,4 @@
-package com.scos.data_model;
+package com.scos.data_model.scos_db;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,24 +17,24 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"CCA\"")
 public class CCA {
     @Id
-    @Column(name = "\" CCA_NUMBR\"", nullable = false)
+    @Column(name = "\"CCA_NUMBR\"", nullable = false)
     private String ccaNumbr;
 
-    @Column(name = "\" CCA_DESCR\"")
+    @Column(name = "\"CCA_DESCR\"")
     private String ccaDescr;
 
-    @Column(name = "\" CCA_ENGFMT\"")
+    @Column(name = "\"CCA_ENGFMT\"")
     private char ccaEngfmt = 'R';
     
-    @Column(name = "\" CCA_RAWFMT\"")
+    @Column(name = "\"CCA_RAWFMT\"")
     private char ccaRawfmt = 'U';
 
-    @Column(name = "\" CCA_RADIX\"")
+    @Column(name = "\"CCA_RADIX\"")
     private char ccaRadix = 'D';
 
-    @Column(name = "\" CCA_UNIT\"")
+    @Column(name = "\"CCA_UNIT\"")
     private String ccaUnit;
 
-    @Column(name = "\" CCA_NCURVE\"")
+    @Column(name = "\"CCA_NCURVE\"")
     private BigInteger ccaNcurve;
 }

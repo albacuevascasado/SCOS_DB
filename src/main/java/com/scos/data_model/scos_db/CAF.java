@@ -1,4 +1,4 @@
-package com.scos.data_model;
+package com.scos.data_model.scos_db;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ import java.math.BigInteger;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "\"CAF\"")
+@Table(schema = "scos_schema" , name = "\"CAF\"")
 public class CAF {
 
     @Id
@@ -25,13 +25,13 @@ public class CAF {
     private String cafDescr;
 
     @Column(name = "\"CAF_ENGFMT\"", nullable = false)
-    private Character cafEngfmt;
+    private char cafEngfmt;
 
     @Column(name = "\"CAF_RAWFMT\"", nullable = false)
-    private Character cafRawfmt;
+    private char cafRawfmt;
 
     @Column(name = "\"CAF_RADIX\"")
-    private Character cafRadix;
+    private char cafRadix;
 
     @Column(name = "\"CAF_UNIT\"")
     private String cafUnit;
@@ -40,5 +40,8 @@ public class CAF {
     private BigInteger cafNcurve;
 
     @Column(name = "\"CAF_INTER\"")
-    private Character cafInter = 'F';
+    private char cafInter = 'F';
+
+    private static final int nColumn = 8; // == cte
+
 }

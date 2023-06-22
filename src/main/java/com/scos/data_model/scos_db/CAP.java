@@ -1,4 +1,4 @@
-package com.scos.data_model;
+package com.scos.data_model.scos_db;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,22 +8,24 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(schema = "scos_schema", name = "\"CAP\"")
-public class CAP {
+public class CAP implements Serializable {
     @Id
-    @Column(name = "\" CAP_NUMBR\"", nullable = false)
+    @Column(name = "\"CAP_NUMBR\"", nullable = false)
     private String caPNumbr;
 
     @Id
-    @Column(name = "\" CAP_XVALS\"", nullable = false)
+    @Column(name = "\"CAP_XVALS\"", nullable = false)
     private String capXvals;
 
     @Id
-    @Column(name = "\" CAP_YVALS\"", nullable = false)
+    @Column(name = "\"CAP_YVALS\"", nullable = false)
     private String capYvals;
+
 }
