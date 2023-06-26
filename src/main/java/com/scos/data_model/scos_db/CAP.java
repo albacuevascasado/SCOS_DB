@@ -16,6 +16,7 @@ import java.io.Serializable;
 @Entity
 @Table(schema = "scos_schema", name = "\"CAP\"")
 public class CAP implements Serializable {
+
     @Id
     @Column(name = "\"CAP_NUMBR\"", nullable = false)
     private String caPNumbr;
@@ -28,4 +29,7 @@ public class CAP implements Serializable {
     @Column(name = "\"CAP_YVALS\"", nullable = false)
     private String capYvals;
 
+    public static final int MAX_COLUMN = 3;
+
+    public static final String DESCRIPTION = "Numerical calibration curve parameters";
 }

@@ -5,14 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 //import org.hibernate.validator.constraints.Range;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-//import javax.validation.Constraint;
-//import javax.validation.constraints.Max;
-//import javax.validation.constraints.Min;
-//import javax.validation.constraints.Size;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
@@ -23,24 +16,19 @@ public class CVS {
 
     @Id
     @Column(name = "\"CVS_ID\"", nullable = false)
-    //@Min(value = 0)
-    //@Max(value = 32767)
-    //@Range
-    //@Size
     private int cvsId;
 
     @Column(name = "\"CVS_TYPE\"", nullable = false)
     private char cvsType;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "\"CVS_SOURCE\"", nullable = false)
-    private char cvsSource;
+    private CvsSource cvsSource;
 
     @Column(name = "\"CVS_START\"", nullable = false)
-    //@Min(value = 0)
     private int cvsStart;
 
     @Column(name = "\"CVS_INTERVAL\"", nullable = false)
-    //@Min(value = 0)
     private int cvsInterval;
 
     @Column(name = "\"CVS_SPID\"")
@@ -48,5 +36,14 @@ public class CVS {
 
     @Column(name = "\"CVS_UNCERTAINTY\"")
     private int cvsUncertainty;
+
+    public static final int MAX_COLUMN = 7;
+
+    public static final String DESCRIPTION = "Command verification stage file";
+
+    public enum CvsSource {
+        R,
+        V
+    }
 
 }

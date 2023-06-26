@@ -54,18 +54,7 @@ public class UnzipUtility {
         return target;
     }
 
-    public boolean deleteUnZipFolder(File directoryPath) {
-        File[] targetDirectoryFiles = directoryPath.listFiles();
-        System.out.println("Directory: " + directoryPath.getName());
-        boolean folderIsDeleted = false;
-        for(File file : targetDirectoryFiles) {
-            System.out.println("File: " + file.getName());
-            //System.out.println("Directory Target Folder: " + file.getPath());
-            folderIsDeleted = FileSystemUtils.deleteRecursively(file);
-            //Files.delete(file.toPath()); //ERROR DIRECTORY NOT EMPTY EXCEPTION -> synthetic folder
-            //FileUtils.deleteDirectory(file.getAbsoluteFile());  //NEW DEPENDENCY
-        }
-        //System.out.println("folderIsDeleted: " + folderIsDeleted);
-        return folderIsDeleted;
+    public boolean deleteUnZipFolder(File directoryPath) throws IOException {
+        return FileSystemUtils.deleteRecursively(directoryPath.toPath());
     }
 }

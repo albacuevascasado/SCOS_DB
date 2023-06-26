@@ -1,13 +1,12 @@
 package com.scos.data_model.scos_db;
 
+import com.scos.data_model.scos_db.common._FMT;
+import com.scos.data_model.scos_db.common._RADIX;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigInteger;
 
 @Data
@@ -16,6 +15,7 @@ import java.math.BigInteger;
 @Entity
 @Table(schema = "scos_schema", name = "\"CCA\"")
 public class CCA {
+
     @Id
     @Column(name = "\"CCA_NUMBR\"", nullable = false)
     private String ccaNumbr;
@@ -23,18 +23,25 @@ public class CCA {
     @Column(name = "\"CCA_DESCR\"")
     private String ccaDescr;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "\"CCA_ENGFMT\"")
-    private char ccaEngfmt = 'R';
-    
-    @Column(name = "\"CCA_RAWFMT\"")
-    private char ccaRawfmt = 'U';
+    private _FMT ccaEngfmt;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "\"CCA_RAWFMT\"")
+    private _FMT ccaRawfmt;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "\"CCA_RADIX\"")
-    private char ccaRadix = 'D';
+    private _RADIX ccaRadix;
 
     @Column(name = "\"CCA_UNIT\"")
     private String ccaUnit;
 
     @Column(name = "\"CCA_NCURVE\"")
-    private BigInteger ccaNcurve;
+    private int ccaNcurve;
+
+    public static final int MAX_COLUMN = 7;
+
+    public static final String DESCRIPTION = "Calibration curve file";
 }

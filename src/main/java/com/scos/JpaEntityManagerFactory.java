@@ -80,7 +80,7 @@ public class JpaEntityManagerFactory {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
         properties.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
-        properties.put("hibernate.hbm2ddl.auto", "update");
+//        properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.jdbc.batch_size", BATCH_SIZE);
         /** batch all insert statements of the same entity type together */
         properties.put("hibernate.order_inserts", true);

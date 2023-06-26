@@ -1,13 +1,11 @@
 package com.scos.data_model.scos_db;
 
+import com.scos.data_model.scos_db.common.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -15,6 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(schema = "scos_schema", name = "\"CCF\"")
 public class CCF {
+
     @Id
     @Column(name = "\"CCF_CNAME\"", nullable = false)
     private String ccfCname;
@@ -25,11 +24,13 @@ public class CCF {
     @Column(name = "\"CCF_DESCR2\"")
     private String ccfDescr2;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "\"CCF_CTYPE\"")
-    private String ccfCtype;
+    private CcfCtype ccfCtype;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "\"CCF_CRITICAL\"")
-    private char ccfCritical = 'N';
+    private _YN ccfCritical;
 
     @Column(name = "\"CCF_PKTID\"", nullable = false)
     private String ccfPktid;
@@ -47,22 +48,26 @@ public class CCF {
     private int ccfNpars;
 
     @Column(name = "\"CCF_PLAN\"")
-    private char ccfPlan = 'N';
+    private CcfPlan ccfPlan;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "\"CCF_EXEC\"")
-    private char ccfExec = 'Y';
+    private _YN ccfExec;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "\"CCF_ILSCOPE\"")
-    private char ccfIlscope = 'N';
+    private CcfScope ccfIlscope;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "\"CCF_ILSTAGE\"")
-    private char ccfIlstage = 'C';
+    private CcfStage ccfIlstage;
 
     @Column(name = "\"CCF_SUBSYS\"")
     private int ccfSubsys;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "\"CCF_HIPRI\"")
-    private char ccfHipri = 'N';
+    private _YN ccfHipri;
 
     @Column(name = "\"CCF_MAPID\"")
     private int ccfMapid;
@@ -76,7 +81,43 @@ public class CCF {
     @Column(name = "\"CCF_ACK\"")
     private int ccfAck;
 
-    //TODO file non esiste questa posizione -> aggiungere controllo
     @Column(name = "\"CCF_SUBSCHEDID\"")
     private int ccfSubschedid;
+
+    public static final int MAX_COLUMN = 21;
+
+    public static final String DESCRIPTION = "Command characteristic file";
+
+    public enum CcfCtype {
+        R,
+        F,
+        S,
+        T,
+        N
+    }
+
+    public enum CcfPlan {
+        A,
+        F,
+        S,
+        N
+    }
+
+    public enum CcfScope {
+        G,
+        L,
+        S,
+        B,
+        F,
+        T,
+        N
+    }
+
+    public enum CcfStage {
+        R,
+        U,
+        O,
+        A,
+        C
+    }
 }

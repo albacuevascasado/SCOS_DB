@@ -14,22 +14,23 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(schema = "scos_schema", name = "\"CCS\"")
-public class CCS implements Serializable {
+@Table(schema = "scos_schema", name = "\"PAS\"")
+public class PAS implements Serializable {
 
     @Id
-    @Column(name = "\"CCS_NUMBR\"", nullable = false)
-    private String ccsNumbr;
+    @Column(name = "\"PAS_NUMBR\"", nullable = false)
+    private String pasNumbr;
 
     @Id
-    @Column(name = "\"CCS_XVALS\"", nullable = false)
-    private String ccsXvals;
+    @Column(name = "\"PAS_ALTXT\"", nullable = false)
+    private String pasAltxt;
 
     @Id
-    @Column(name = "\"CCS_YVALS\"", nullable = false)
-    private String ccsYvals;
+    @Column(name = "\"PAS_ALVAL\"", nullable = false)
+    private String pasAlval;
 
     public static final int MAX_COLUMN = 3;
 
-    public static final String DESCRIPTION = "Calibration curve set";
+    public static final String DESCRIPTION = "Parameter alias set";
+
 }

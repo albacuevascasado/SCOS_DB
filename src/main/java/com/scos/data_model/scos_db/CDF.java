@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigInteger;
 
 @Data
 @NoArgsConstructor
@@ -14,32 +13,35 @@ import java.math.BigInteger;
 @Entity
 @Table(schema = "scos_schema", name = "\"CDF\"")
 public class CDF implements Serializable {
+
     @Id
     @Column(name = "\"CDF_CNAME\"", nullable = false)
     private String cdfCname;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "\"CDF_ELTYPE\"", nullable = false)
-    private char cdfEltype;
+    private CdfType cdfEltype;
 
     @Column(name = "\"CDF_DESCR\"")
     private String cdfDescr;
 
     @Column(name = "\"CDF_ELLEN\"", nullable = false)
-    private BigInteger cdfEllen;
+    private int cdfEllen;
 
     @Id
     @Column(name = "\"CDF_BIT\"", nullable = false)
-    private BigInteger cdfBit;
+    private int cdfBit;
 
     @Id
     @Column(name = "\"CDF_GRPSIZE\"", nullable = false)
-    private BigInteger cdfGrpsize = BigInteger.ZERO;
+    private int cdfGrpsize;
 
     @Column(name = "\"CDF_PNAME\"")
     private String cdfPname;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "\"CDF_INTER\"")
-    private char cdfInter = 'R';
+    private CdfInter cdfInter;
 
     @Column(name = "\"CDF_VALUE\"")
     private String cdfValue;
@@ -47,4 +49,20 @@ public class CDF implements Serializable {
     @Column(name = "\"CDF_TMID\"")
     private String cdfTmid;
 
+    public static final int MAX_COLUMN = 10;
+
+    public static final String DESCRIPTION = "Command definition file";
+
+    public enum CdfType {
+        A,
+        F,
+        E
+    }
+
+    public enum CdfInter {
+        R,
+        E,
+        D,
+        T
+    }
 }
