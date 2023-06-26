@@ -5,13 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(schema = "scos_schema", name = "\"CVE\"")
-public class CVE {
+public class CVE implements Serializable {
 
     @Id
     @Column(name = "\"CVE_CVSID\"", nullable = false)
@@ -22,7 +23,7 @@ public class CVE {
     private String cveParnam;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "\"CVE_INTER\"", nullable = false)
+    @Column(name = "\"CVE_INTER\"")
     private CveInter cveInter;
 
     @Column(name = "\"CVE_VAL\"")

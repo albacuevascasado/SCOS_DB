@@ -489,6 +489,85 @@ public class SCOSService {
 
     }
 
+    public void createCSFRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "CSF";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<CSF> listCSF = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                CSF csf = new CSF();
+                String[] recordSplit = record.split("\t");
+
+                csf. setCsfName(recordSplit[0]);
+                csf.setCsfDesc(recordSplit[1]);
+                if(recordSplit.length > 2 && recordSplit[2].length() > 0) {
+                    csf.setCsfDesc2(recordSplit[2]);
+                }
+                if(recordSplit.length > 3 && recordSplit[3].length() > 0) {
+                    csf.setCsfIftt(CSF.CsfIftt.valueOf(recordSplit[3]));
+                }
+                if(recordSplit.length > 4 && recordSplit[4].length() > 0) {
+                    csf.setCsfNfpars(Integer.parseInt(recordSplit[4]));
+                }
+                if(recordSplit.length > 5 && recordSplit[5].length() > 0) {
+                    csf.setCsfElems(Integer.parseInt(recordSplit[5]));
+                }
+                if(recordSplit.length > 6 && recordSplit[6].length() > 0) {
+                    csf.setCsfCritical(_YN.valueOf(recordSplit[6]));
+                }
+                if(recordSplit.length > 7 && recordSplit[7].length() > 0) {
+                    csf.setCsfPlan(CSF.CsfPlan.valueOf(recordSplit[7]));
+                }
+                if(recordSplit.length > 8 && recordSplit[8].length() > 0) {
+                   csf.setCsfExec(_YN.valueOf(recordSplit[8]));
+                }
+                if(recordSplit.length > 9 && recordSplit[9].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[9]),1,255)) {
+                   csf.setCsfSubsys(Integer.parseInt(recordSplit[9]));
+                }
+                if(recordSplit.length > 10 && recordSplit[10].length() > 0) {
+                    csf.setCsfGentime(recordSplit[10]);
+                }
+                if(recordSplit.length > 11 && recordSplit[11].length() > 0) {
+                    csf.setCsfDocname(recordSplit[11]);
+                }
+                if(recordSplit.length > 12 && recordSplit[12].length() > 0) {
+                    csf.setCsfIssue(recordSplit[12]);
+                }
+                if(recordSplit.length > 13 && recordSplit[13].length() > 0) {
+                    csf.setCsfDate(recordSplit[13]);
+                }
+                if(recordSplit.length > 14 && recordSplit[14].length() > 0) {
+                    csf.setCsfDefset(recordSplit[14]);
+                }
+                if(recordSplit.length > 15 && recordSplit[15].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[15]),1,65535)) {
+                    csf.setCsfSubschedid(Integer.parseInt(recordSplit[15]));
+                }
+
+                listCSF.add(csf);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listCSF,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listCSF, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveCSFRecords(listCSF,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
     public void createCURRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
         String tableName = "CUR";
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -542,7 +621,9 @@ public class SCOSService {
 
                 cve.setCveCvsid(Integer.parseInt(recordSplit[0]));
                 cve.setCveParnam(recordSplit[1]);
-                cve.setCveInter(CVE.CveInter.valueOf(recordSplit[2]));
+                if(recordSplit.length > 2 && recordSplit[2].length() > 0) {
+                    cve.setCveInter(CVE.CveInter.valueOf(recordSplit[2]));
+                }
                 if(recordSplit.length > 3 && recordSplit[3].length() > 0) {
                     cve.setCveVal(recordSplit[3]);
                 }
@@ -637,7 +718,7 @@ public class SCOSService {
                     cvs.setCvsInterval(Integer.parseInt(recordSplit[4]));
                 }
                 if(recordSplit.length > 5 && recordSplit[5].length() > 0) {
-                    cvs.setCvsSpid(Integer.parseInt(recordSplit[5]));
+                    cvs.setCvsSpid(BigInteger.valueOf(Integer.parseInt(recordSplit[5])));
                 }
                 if(recordSplit.length > 6 && recordSplit[6].length() > 0 && checkLowerBoundary(Integer.parseInt(recordSplit[6]),0)) {
                     cvs.setCvsUncertainty(Integer.parseInt(recordSplit[6]));
@@ -714,6 +795,46 @@ public class SCOSService {
         } else {
             System.out.println("scosRepository has not been injected");
         }
+    }
+
+    public void createDSTRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "GRP";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<DST> listDST = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                DST dst = new DST();
+                String[] recordSplit = record.split("\t");
+
+                if(checkIntegerRange(Integer.parseInt(recordSplit[0]),0,65535)) {
+                    dst.setDstApid(Integer.parseInt(recordSplit[0]));
+                }
+                dst.setDstRoute(recordSplit[1]);
+
+                listDST.add(dst);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listDST,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listDST, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveDSTRecords(listDST,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+
     }
 
     public void createGRPRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
@@ -1347,6 +1468,297 @@ public class SCOSService {
         }
     }
 
+    public void createPTVRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "PTV";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<PTV> listPTV = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+               PTV ptv = new PTV();
+               String[] recordSplit = record.split("\t");
+
+               ptv.setPtvCname(recordSplit[0]);
+               ptv.setPtvParnam(recordSplit[1]);
+               ptv.setPtvInter(PTV.PtvInter.valueOf(recordSplit[2]));
+               ptv.setPtvVal(recordSplit[3]);
+
+               listPTV.add(ptv);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listPTV,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listPTV, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.savePTVRecords(listPTV,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
+    public void createSPFRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "SPF";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<SPF> listSPF = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                  SPF spf = new SPF();
+                  String[] recordSplit = record.split("\t");
+
+                  spf.setSpfNumbe(recordSplit[0]);
+                  spf.setSpfHead(recordSplit[1]);
+                  if(checkIntegerRange(Integer.parseInt(recordSplit[2]),1,5)) {
+                    spf.setSpfNpar(Integer.parseInt(recordSplit[2]));
+                  }
+                  if(recordSplit.length > 3 && recordSplit[3].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[3]),1,99)) {
+                    spf.setSpfUpun(Integer.parseInt(recordSplit[3]));
+                  }
+
+                  listSPF.add(spf);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listSPF,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listSPF, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveSPFRecords(listSPF,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
+    public void createTCPRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "TCP";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<TCP> listTCP = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                TCP tcp = new TCP();
+                String[] recordSplit = record.split("\t");
+
+                tcp.setTcpId(recordSplit[0]);
+                if(recordSplit.length > 1 && recordSplit[1].length() > 0) {
+                    tcp.setTcpDesc(recordSplit[1]);
+                }
+
+                listTCP.add(tcp);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listTCP,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listTCP, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveTCPRecords(listTCP,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
+    public void createTPCFRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "TPCF";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<TPCF> listTPCF = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                TPCF tpcf = new TPCF();
+                String[] recordSplit = record.split("\t");
+
+                tpcf.setTpcfSpid(BigInteger.valueOf(Integer.parseInt(recordSplit[0])));
+                if(recordSplit.length > 1 && recordSplit[1].length() > 0) {
+                    tpcf.setTpcfName(recordSplit[1]);
+                }
+                if(recordSplit.length > 2 && recordSplit[2].length() > 0) {
+                    tpcf.setTpcfSize(BigInteger.valueOf(Integer.parseInt(recordSplit[2])));
+                }
+
+                listTPCF.add(tpcf);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listTPCF,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listTPCF, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveTPCFRecords(listTPCF,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
+    public void createTXFRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "TXF";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<TXF> listTXF = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                TXF txf = new TXF();
+                String[] recordSplit = record.split("\t");
+
+                txf.setTxfNumbr(recordSplit[0]);
+                txf.setTxfDescr(recordSplit[1]);
+                txf.setTxfRawfmt(_FMT.valueOf(recordSplit[2]));
+                if(recordSplit.length > 3 && recordSplit[3].length() > 0) {
+                    txf.setTxfNalias(Integer.parseInt(recordSplit[3]));
+                }
+
+                listTXF.add(txf);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listTXF,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listTXF, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveTXFRecords(listTXF,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
+    public void createTXPRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "TXP";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<TXP> listTXP = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                TXP txp = new TXP();
+                String[] recordSplit = record.split("\t");
+
+                txp.setTxpNumbr(recordSplit[0]);
+                txp.setTxpFrom(recordSplit[1]);
+                txp.setTxpTo(recordSplit[2]);
+                txp.setTxpAltxt(recordSplit[3]);
+
+                listTXP.add(txp);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listTXP,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listTXP, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveTXPRecords(listTXP,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
+    public void createVDFRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "VDF";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<VDF> listVDF = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                VDF vdf = new VDF();
+                String[] recordSplit = record.split("\t");
+
+                vdf.setVdfName(recordSplit[0]);
+                if(recordSplit.length > 1 && recordSplit[1].length() > 0) {
+                    vdf.setVdfComment(recordSplit[1]);
+                }
+                if(recordSplit.length > 2 && recordSplit[2].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[2]),0,65535)) {
+                    vdf.setVdfDomainid(Integer.parseInt(recordSplit[2]));
+                }
+                if(recordSplit.length > 3 && recordSplit[3].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[3]),0,65535)) {
+                    vdf.setVdfRelease(Integer.parseInt(recordSplit[3]));
+                }
+                if(recordSplit.length > 4 && recordSplit[4].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[4]),0,65535)) {
+                    vdf.setVdfIssue(Integer.parseInt(recordSplit[4]));
+                }
+
+                listVDF.add(vdf);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listVDF,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listVDF, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveVDFRecords(listVDF,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
 
     /** UTILITIES */
     public boolean checkIntegerRange(int n, int min, int max) throws Exception {
@@ -1364,6 +1776,7 @@ public class SCOSService {
             throw new Exception("Value " + n + " is out of range");
         }
     }
+
 
 //    //USING SWITCH
 //    public void serviceSearchTable(String tableName, String[] record) {

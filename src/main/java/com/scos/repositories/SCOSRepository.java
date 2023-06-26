@@ -471,6 +471,60 @@ public class SCOSRepository {
         }
     }
 
+    public void saveCSFRecords(List<CSF> csfRecords, SCOSTABLES scostables, ODBData odbData) {
+        entityManager = scosEmf.getEntityManager();
+        EntityTransaction transaction = null;
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            //TRUNCATE
+            String sql = "TRUNCATE TABLE scos_schema.\"CSF\"";
+            Query query = entityManager.createNativeQuery(sql);
+            query.executeUpdate();
+            //CSF RECORD
+            int i = 0;
+            for(CSF csfRecord: csfRecords) {
+                if(i > 0 && i % (JpaEntityManagerFactory.BATCH_SIZE) == 0){
+                    entityManager.flush();
+                    entityManager.clear();
+                }
+                entityManager.persist(csfRecord);
+                i++;
+            }
+            //SCOS TABLE -> scostables | odbData UPDATED
+            SCOSTABLES scostablesCSF = entityManager.find(SCOSTABLES.class,scostables.getTableName());
+            if(scostablesCSF != null) {
+                scostablesCSF.setUpdateDate(LocalDateTime.now());
+                scostablesCSF.setScosDB(scostables.getScosDB());
+                scostablesCSF.setDimension(BigInteger.valueOf(csfRecords.size()));
+                scostablesCSF.setScosDB(scostables.getScosDB());
+                entityManager.merge(scostablesCSF);
+            } else {
+                entityManager.persist(scostables);
+            }
+            //ODB DATA
+            ODBData odbDataCSF = entityManager.find(ODBData.class, odbData.getOdbTableName());
+            if(odbDataCSF != null) {
+                odbDataCSF.setOdbTableSize(BigInteger.valueOf(csfRecords.size()));
+                odbDataCSF.setOdbFiles(odbData.getOdbFiles());
+                entityManager.merge(odbDataCSF);
+            } else {
+                entityManager.persist(odbData);
+            }
+
+            /** data stored permanently + no possible to rollback once the commit succeeds */
+            transaction.commit();
+
+        } catch (HibernateException hibernateException) {
+            if(transaction != null) {
+                transaction.rollback();
+            }
+            hibernateException.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+
     public void saveCURRecords(List<CUR> curRecords, SCOSTABLES scostables, ODBData odbData) {
         entityManager = scosEmf.getEntityManager();
         EntityTransaction transaction = null;
@@ -726,6 +780,60 @@ public class SCOSRepository {
                 odbDataDPC.setOdbTableSize(BigInteger.valueOf(dpcRecords.size()));
                 odbDataDPC.setOdbFiles(odbData.getOdbFiles());
                 entityManager.merge(odbDataDPC);
+            } else {
+                entityManager.persist(odbData);
+            }
+
+            /** data stored permanently + no possible to rollback once the commit succeeds */
+            transaction.commit();
+
+        } catch (HibernateException hibernateException) {
+            if(transaction != null) {
+                transaction.rollback();
+            }
+            hibernateException.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    public void saveDSTRecords(List<DST> dstRecords, SCOSTABLES scostables, ODBData odbData) {
+        entityManager = scosEmf.getEntityManager();
+        EntityTransaction transaction = null;
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            //TRUNCATE
+            String sql = "TRUNCATE TABLE scos_schema.\"DST\"";
+            Query query = entityManager.createNativeQuery(sql);
+            query.executeUpdate();
+            //GRP RECORD
+            int i = 0;
+            for(DST dstRecord: dstRecords) {
+                if(i > 0 && i % (JpaEntityManagerFactory.BATCH_SIZE) == 0){
+                    entityManager.flush();
+                    entityManager.clear();
+                }
+                entityManager.persist(dstRecord);
+                i++;
+            }
+            //SCOS TABLE -> scostables | odbData UPDATED
+            SCOSTABLES scostablesDST = entityManager.find(SCOSTABLES.class,scostables.getTableName());
+            if(scostablesDST != null) {
+                scostablesDST.setUpdateDate(LocalDateTime.now());
+                scostablesDST.setScosDB(scostables.getScosDB());
+                scostablesDST.setDimension(BigInteger.valueOf(dstRecords.size()));
+                scostablesDST.setScosDB(scostables.getScosDB());
+                entityManager.merge(scostablesDST);
+            } else {
+                entityManager.persist(scostables);
+            }
+            //ODB DATA
+            ODBData odbDataDST = entityManager.find(ODBData.class, odbData.getOdbTableName());
+            if(odbDataDST != null) {
+                odbDataDST.setOdbTableSize(BigInteger.valueOf(dstRecords.size()));
+                odbDataDST.setOdbFiles(odbData.getOdbFiles());
+                entityManager.merge(odbDataDST);
             } else {
                 entityManager.persist(odbData);
             }
@@ -1482,6 +1590,384 @@ public class SCOSRepository {
                 odbDataPRV.setOdbTableSize(BigInteger.valueOf(prvRecords.size()));
                 odbDataPRV.setOdbFiles(odbData.getOdbFiles());
                 entityManager.merge(odbDataPRV);
+            } else {
+                entityManager.persist(odbData);
+            }
+
+            /** data stored permanently + no possible to rollback once the commit succeeds */
+            transaction.commit();
+
+        } catch (HibernateException hibernateException) {
+            if(transaction != null) {
+                transaction.rollback();
+            }
+            hibernateException.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    public void savePTVRecords(List<PTV> ptvRecords, SCOSTABLES scostables, ODBData odbData) {
+        entityManager = scosEmf.getEntityManager();
+        EntityTransaction transaction = null;
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            //TRUNCATE
+            String sql = "TRUNCATE TABLE scos_schema.\"PTV\"";
+            Query query = entityManager.createNativeQuery(sql);
+            query.executeUpdate();
+            //PTV RECORD
+            int i = 0;
+            for(PTV ptvRecord: ptvRecords) {
+                if(i > 0 && i % (JpaEntityManagerFactory.BATCH_SIZE) == 0){
+                    entityManager.flush();
+                    entityManager.clear();
+                }
+                entityManager.persist(ptvRecord);
+                i++;
+            }
+            //SCOS TABLE -> scostables | odbData UPDATED
+            SCOSTABLES scostablesPTV = entityManager.find(SCOSTABLES.class,scostables.getTableName());
+            if(scostablesPTV != null) {
+                scostablesPTV.setUpdateDate(LocalDateTime.now());
+                scostablesPTV.setScosDB(scostables.getScosDB());
+                scostablesPTV.setDimension(BigInteger.valueOf(ptvRecords.size()));
+                scostablesPTV.setScosDB(scostables.getScosDB());
+                entityManager.merge(scostablesPTV);
+            } else {
+                entityManager.persist(scostables);
+            }
+            //ODB DATA
+            ODBData odbDataPTV = entityManager.find(ODBData.class, odbData.getOdbTableName());
+            if(odbDataPTV != null) {
+                odbDataPTV.setOdbTableSize(BigInteger.valueOf(ptvRecords.size()));
+                odbDataPTV.setOdbFiles(odbData.getOdbFiles());
+                entityManager.merge(odbDataPTV);
+            } else {
+                entityManager.persist(odbData);
+            }
+
+            /** data stored permanently + no possible to rollback once the commit succeeds */
+            transaction.commit();
+
+        } catch (HibernateException hibernateException) {
+            if(transaction != null) {
+                transaction.rollback();
+            }
+            hibernateException.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    public void saveSPFRecords(List<SPF> spfRecords, SCOSTABLES scostables, ODBData odbData) {
+        entityManager = scosEmf.getEntityManager();
+        EntityTransaction transaction = null;
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            //TRUNCATE
+            String sql = "TRUNCATE TABLE scos_schema.\"SPF\"";
+            Query query = entityManager.createNativeQuery(sql);
+            query.executeUpdate();
+            //SPF RECORD
+            int i = 0;
+            for(SPF spfRecord: spfRecords) {
+                if(i > 0 && i % (JpaEntityManagerFactory.BATCH_SIZE) == 0){
+                    entityManager.flush();
+                    entityManager.clear();
+                }
+                entityManager.persist(spfRecord);
+                i++;
+            }
+            //SCOS TABLE -> scostables | odbData UPDATED
+            SCOSTABLES scostablesSPF = entityManager.find(SCOSTABLES.class,scostables.getTableName());
+            if(scostablesSPF != null) {
+                scostablesSPF.setUpdateDate(LocalDateTime.now());
+                scostablesSPF.setScosDB(scostables.getScosDB());
+                scostablesSPF.setDimension(BigInteger.valueOf(spfRecords.size()));
+                scostablesSPF.setScosDB(scostables.getScosDB());
+                entityManager.merge(scostablesSPF);
+            } else {
+                entityManager.persist(scostables);
+            }
+            //ODB DATA
+            ODBData odbDataSPF = entityManager.find(ODBData.class, odbData.getOdbTableName());
+            if(odbDataSPF != null) {
+                odbDataSPF.setOdbTableSize(BigInteger.valueOf(spfRecords.size()));
+                odbDataSPF.setOdbFiles(odbData.getOdbFiles());
+                entityManager.merge(odbDataSPF);
+            } else {
+                entityManager.persist(odbData);
+            }
+
+            /** data stored permanently + no possible to rollback once the commit succeeds */
+            transaction.commit();
+
+        } catch (HibernateException hibernateException) {
+            if(transaction != null) {
+                transaction.rollback();
+            }
+            hibernateException.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    public void saveTCPRecords(List<TCP> tcpRecords, SCOSTABLES scostables, ODBData odbData) {
+        entityManager = scosEmf.getEntityManager();
+        EntityTransaction transaction = null;
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            //TRUNCATE
+            String sql = "TRUNCATE TABLE scos_schema.\"TCP\"";
+            Query query = entityManager.createNativeQuery(sql);
+            query.executeUpdate();
+            //TCP RECORD
+            int i = 0;
+            for(TCP tcpRecord: tcpRecords) {
+                if(i > 0 && i % (JpaEntityManagerFactory.BATCH_SIZE) == 0){
+                    entityManager.flush();
+                    entityManager.clear();
+                }
+                entityManager.persist(tcpRecord);
+                i++;
+            }
+            //SCOS TABLE -> scostables | odbData UPDATED
+            SCOSTABLES scostablesTCP = entityManager.find(SCOSTABLES.class,scostables.getTableName());
+            if(scostablesTCP != null) {
+                scostablesTCP.setUpdateDate(LocalDateTime.now());
+                scostablesTCP.setScosDB(scostables.getScosDB());
+                scostablesTCP.setDimension(BigInteger.valueOf(tcpRecords.size()));
+                scostablesTCP.setScosDB(scostables.getScosDB());
+                entityManager.merge(scostablesTCP);
+            } else {
+                entityManager.persist(scostables);
+            }
+            //ODB DATA
+            ODBData odbDataTCP = entityManager.find(ODBData.class, odbData.getOdbTableName());
+            if(odbDataTCP != null) {
+                odbDataTCP.setOdbTableSize(BigInteger.valueOf(tcpRecords.size()));
+                odbDataTCP.setOdbFiles(odbData.getOdbFiles());
+                entityManager.merge(odbDataTCP);
+            } else {
+                entityManager.persist(odbData);
+            }
+
+            /** data stored permanently + no possible to rollback once the commit succeeds */
+            transaction.commit();
+
+        } catch (HibernateException hibernateException) {
+            if(transaction != null) {
+                transaction.rollback();
+            }
+            hibernateException.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    public void saveTPCFRecords(List<TPCF> tpcfRecords, SCOSTABLES scostables, ODBData odbData) {
+        entityManager = scosEmf.getEntityManager();
+        EntityTransaction transaction = null;
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            //TRUNCATE
+            String sql = "TRUNCATE TABLE scos_schema.\"TPCF\"";
+            Query query = entityManager.createNativeQuery(sql);
+            query.executeUpdate();
+            //TPCF RECORD
+            int i = 0;
+            for(TPCF tpcfRecord: tpcfRecords) {
+                if(i > 0 && i % (JpaEntityManagerFactory.BATCH_SIZE) == 0){
+                    entityManager.flush();
+                    entityManager.clear();
+                }
+                entityManager.persist(tpcfRecord);
+                i++;
+            }
+            //SCOS TABLE -> scostables | odbData UPDATED
+            SCOSTABLES scostablesTPCF = entityManager.find(SCOSTABLES.class,scostables.getTableName());
+            if(scostablesTPCF != null) {
+                scostablesTPCF.setUpdateDate(LocalDateTime.now());
+                scostablesTPCF.setScosDB(scostables.getScosDB());
+                scostablesTPCF.setDimension(BigInteger.valueOf(tpcfRecords.size()));
+                scostablesTPCF.setScosDB(scostables.getScosDB());
+                entityManager.merge(scostablesTPCF);
+            } else {
+                entityManager.persist(scostables);
+            }
+            //ODB DATA
+            ODBData odbDataTPCF = entityManager.find(ODBData.class, odbData.getOdbTableName());
+            if(odbDataTPCF != null) {
+                odbDataTPCF.setOdbTableSize(BigInteger.valueOf(tpcfRecords.size()));
+                odbDataTPCF.setOdbFiles(odbData.getOdbFiles());
+                entityManager.merge(odbDataTPCF);
+            } else {
+                entityManager.persist(odbData);
+            }
+
+            /** data stored permanently + no possible to rollback once the commit succeeds */
+            transaction.commit();
+
+        } catch (HibernateException hibernateException) {
+            if(transaction != null) {
+                transaction.rollback();
+            }
+            hibernateException.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    public void saveTXFRecords(List<TXF> txfRecords, SCOSTABLES scostables, ODBData odbData) {
+        entityManager = scosEmf.getEntityManager();
+        EntityTransaction transaction = null;
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            //TRUNCATE
+            String sql = "TRUNCATE TABLE scos_schema.\"TXF\"";
+            Query query = entityManager.createNativeQuery(sql);
+            query.executeUpdate();
+            //TXF RECORD
+            int i = 0;
+            for(TXF txfRecord: txfRecords) {
+                if(i > 0 && i % (JpaEntityManagerFactory.BATCH_SIZE) == 0){
+                    entityManager.flush();
+                    entityManager.clear();
+                }
+                entityManager.persist(txfRecord);
+                i++;
+            }
+            //SCOS TABLE -> scostables | odbData UPDATED
+            SCOSTABLES scostablesTXF = entityManager.find(SCOSTABLES.class,scostables.getTableName());
+            if(scostablesTXF != null) {
+                scostablesTXF.setUpdateDate(LocalDateTime.now());
+                scostablesTXF.setScosDB(scostables.getScosDB());
+                scostablesTXF.setDimension(BigInteger.valueOf(txfRecords.size()));
+                scostablesTXF.setScosDB(scostables.getScosDB());
+                entityManager.merge(scostablesTXF);
+            } else {
+                entityManager.persist(scostables);
+            }
+            //ODB DATA
+            ODBData odbDataTXF = entityManager.find(ODBData.class, odbData.getOdbTableName());
+            if(odbDataTXF != null) {
+                odbDataTXF.setOdbTableSize(BigInteger.valueOf(txfRecords.size()));
+                odbDataTXF.setOdbFiles(odbData.getOdbFiles());
+                entityManager.merge(odbDataTXF);
+            } else {
+                entityManager.persist(odbData);
+            }
+
+            /** data stored permanently + no possible to rollback once the commit succeeds */
+            transaction.commit();
+
+        } catch (HibernateException hibernateException) {
+            if(transaction != null) {
+                transaction.rollback();
+            }
+            hibernateException.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    public void saveTXPRecords(List<TXP> txpRecords, SCOSTABLES scostables, ODBData odbData) {
+        entityManager = scosEmf.getEntityManager();
+        EntityTransaction transaction = null;
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            //TRUNCATE
+            String sql = "TRUNCATE TABLE scos_schema.\"TXP\"";
+            Query query = entityManager.createNativeQuery(sql);
+            query.executeUpdate();
+            //TXP RECORD
+            int i = 0;
+            for(TXP txpRecord: txpRecords) {
+                if(i > 0 && i % (JpaEntityManagerFactory.BATCH_SIZE) == 0){
+                    entityManager.flush();
+                    entityManager.clear();
+                }
+                entityManager.persist(txpRecord);
+                i++;
+            }
+            //SCOS TABLE -> scostables | odbData UPDATED
+            SCOSTABLES scostablesTXP = entityManager.find(SCOSTABLES.class,scostables.getTableName());
+            if(scostablesTXP != null) {
+                scostablesTXP.setUpdateDate(LocalDateTime.now());
+                scostablesTXP.setScosDB(scostables.getScosDB());
+                scostablesTXP.setDimension(BigInteger.valueOf(txpRecords.size()));
+                scostablesTXP.setScosDB(scostables.getScosDB());
+                entityManager.merge(scostablesTXP);
+            } else {
+                entityManager.persist(scostables);
+            }
+            //ODB DATA
+            ODBData odbDataTXP = entityManager.find(ODBData.class, odbData.getOdbTableName());
+            if(odbDataTXP != null) {
+                odbDataTXP.setOdbTableSize(BigInteger.valueOf(txpRecords.size()));
+                odbDataTXP.setOdbFiles(odbData.getOdbFiles());
+                entityManager.merge(odbDataTXP);
+            } else {
+                entityManager.persist(odbData);
+            }
+
+            /** data stored permanently + no possible to rollback once the commit succeeds */
+            transaction.commit();
+
+        } catch (HibernateException hibernateException) {
+            if(transaction != null) {
+                transaction.rollback();
+            }
+            hibernateException.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    public void saveVDFRecords(List<VDF> vdfRecords, SCOSTABLES scostables, ODBData odbData) {
+        entityManager = scosEmf.getEntityManager();
+        EntityTransaction transaction = null;
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            //TRUNCATE
+            String sql = "TRUNCATE TABLE scos_schema.\"VDF\"";
+            Query query = entityManager.createNativeQuery(sql);
+            query.executeUpdate();
+            //VDF RECORD
+            int i = 0;
+            for(VDF vdfRecord: vdfRecords) {
+                if(i > 0 && i % (JpaEntityManagerFactory.BATCH_SIZE) == 0){
+                    entityManager.flush();
+                    entityManager.clear();
+                }
+                entityManager.persist(vdfRecord);
+                i++;
+            }
+            //SCOS TABLE -> scostables | odbData UPDATED
+            SCOSTABLES scostablesVDF = entityManager.find(SCOSTABLES.class,scostables.getTableName());
+            if(scostablesVDF != null) {
+                scostablesVDF.setUpdateDate(LocalDateTime.now());
+                scostablesVDF.setScosDB(scostables.getScosDB());
+                scostablesVDF.setDimension(BigInteger.valueOf(vdfRecords.size()));
+                scostablesVDF.setScosDB(scostables.getScosDB());
+                entityManager.merge(scostablesVDF);
+            } else {
+                entityManager.persist(scostables);
+            }
+            //ODB DATA
+            ODBData odbDataVDF = entityManager.find(ODBData.class, odbData.getOdbTableName());
+            if(odbDataVDF != null) {
+                odbDataVDF.setOdbTableSize(BigInteger.valueOf(vdfRecords.size()));
+                odbDataVDF.setOdbFiles(odbData.getOdbFiles());
+                entityManager.merge(odbDataVDF);
             } else {
                 entityManager.persist(odbData);
             }

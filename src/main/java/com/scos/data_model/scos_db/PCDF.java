@@ -6,13 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(schema = "scos_schema", name = "\"PCDF\"")
-public class PCDF {
+public class PCDF implements Serializable {
 
     @Id
     @Column(name = "\"PCDF_TCNAME\"", nullable = false)
@@ -28,6 +29,7 @@ public class PCDF {
     @Column(name = "\"PCDF_LEN\"", nullable = false)
     private int pcdfLen;
 
+    @Id
     @Column(name = "\"PCDF_BIT\"", nullable = false)
     private int pcdfBit;
 

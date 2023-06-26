@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 //import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 
 @Data
 @AllArgsConstructor
@@ -32,7 +33,7 @@ public class CVS {
     private int cvsInterval;
 
     @Column(name = "\"CVS_SPID\"")
-    private int cvsSpid;
+    private BigInteger cvsSpid;
 
     @Column(name = "\"CVS_UNCERTAINTY\"")
     private int cvsUncertainty;

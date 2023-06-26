@@ -25,7 +25,7 @@ public class CAP implements Serializable {
     @Column(name = "\"CAP_XVALS\"", nullable = false)
     private String capXvals;
 
-    @Id
+
     @Column(name = "\"CAP_YVALS\"", nullable = false)
     private String capYvals;
 
