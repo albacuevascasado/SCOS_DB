@@ -27,16 +27,16 @@ public class MCF {
     private String mcfPol1;
 
     @Column(name = "\"MCF_POL2\"")
-    private String mcfPol2;
+    private String mcfPol2 = "0";
 
     @Column(name = "\"MCF_POL3\"")
-    private String mcfPol3;
+    private String mcfPol3 = "0";
 
     @Column(name = "\"MCF_POL4\"")
-    private String mcfPol4;
+    private String mcfPol4 = "0";
 
     @Column(name = "\"MCF_POL5\"")
-    private String mcfPol5;
+    private String mcfPol5 = "0";
 
     public static final int MAX_COLUMN = 7;
 

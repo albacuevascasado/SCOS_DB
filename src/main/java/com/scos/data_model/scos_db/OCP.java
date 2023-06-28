@@ -36,7 +36,7 @@ public class OCP implements Serializable {
     private String ocpRlchk;
 
     @Column(name = "\"OCP_VALPAR\"")
-    private int ocpValpar;
+    private int ocpValpar = 1;
 
     public static final int MAX_COLUMN = 7;
 

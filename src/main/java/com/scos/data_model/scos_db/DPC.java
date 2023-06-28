@@ -27,15 +27,15 @@ public class DPC implements Serializable {
     private int dpcFldn;
 
     @Column(name = "\"DPC_COMM\"")
-    private int dpcComm;
+    private int dpcComm = 0;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"DPC_MODE\"")
-    private _YN dpcMode;
+    private _YN dpcMode = _YN.Y;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"DPC_FORM\"")
-    private DpcForm dpcForm;
+    private DpcForm dpcForm = DpcForm.N;
 
     @Column(name = "\"DPC_TEXT\"")
     private String dpcText;

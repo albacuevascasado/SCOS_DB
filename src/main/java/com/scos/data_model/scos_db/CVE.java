@@ -24,7 +24,7 @@ public class CVE implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CVE_INTER\"")
-    private CveInter cveInter;
+    private CveInter cveInter = CveInter.R;
 
     @Column(name = "\"CVE_VAL\"")
     private String cveVal;
@@ -34,7 +34,7 @@ public class CVE implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CVE_CHECK\"")
-    private CveCheck cveCheck;
+    private CveCheck cveCheck = CveCheck.B;
 
     public static final int MAX_COLUMN = 6;
 

@@ -23,7 +23,7 @@ public class PTV {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"PTV_INTER\"")
-    private PtvInter ptvInter;
+    private PtvInter ptvInter = PtvInter.R;
 
     @Column(name = "\"PTV_VAL\"", nullable = false)
     private String ptvVal;

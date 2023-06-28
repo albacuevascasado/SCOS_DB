@@ -24,15 +24,15 @@ public class PRF {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"PRF_INTER\"")
-    private PrfInter prfInter;
+    private PrfInter prfInter = PrfInter.R;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"PRF_DSPFMT \"")
-    private PrfDspfmt prfDspfmt;
+    private PrfDspfmt prfDspfmt = PrfDspfmt.U;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"PRF_RADIX \"")
-    private _RADIX prfRadix;
+    private _RADIX prfRadix = _RADIX.D;
 
     @Column(name = "\"PRF_NRANGE \"")
     private int prfNrange;

@@ -27,16 +27,16 @@ public class LGF {
     private String lgfPol1;
 
     @Column(name = "\"LGF_POL2\"")
-    private String lgfPol2;
+    private String lgfPol2 = "0";
 
     @Column(name = "\"LGF_POL3\"")
-    private String lgfPol3;
+    private String lgfPol3 = "0" ;
 
     @Column(name = "\"LGF_POL4\"")
-    private String lgfPol4;
+    private String lgfPol4 = "0";
 
     @Column(name = "\"LGF_POL5\"")
-    private String lgfPol5;
+    private String lgfPol5 = "0";
 
     public static final int MAX_COLUMN = 7;
 

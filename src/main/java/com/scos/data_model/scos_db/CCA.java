@@ -25,15 +25,15 @@ public class CCA {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CCA_ENGFMT\"")
-    private _FMT ccaEngfmt;
+    private _FMT ccaEngfmt = _FMT.R;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CCA_RAWFMT\"")
-    private _FMT ccaRawfmt;
+    private _FMT ccaRawfmt = _FMT.U;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CCA_RADIX\"")
-    private _RADIX ccaRadix;
+    private _RADIX ccaRadix = _RADIX.D;
 
     @Column(name = "\"CCA_UNIT\"")
     private String ccaUnit;

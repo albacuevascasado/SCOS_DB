@@ -41,7 +41,7 @@ public class PCDF implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"PCDF_RADIX\"")
-    private _RADIX pcdfRadix;
+    private _RADIX pcdfRadix = _RADIX.H;
 
     public static final int MAX_COLUMN = 8;
 

@@ -40,7 +40,7 @@ public class PIC implements Serializable {
 
     @Id
     @Column(name = "\"PIC_APID\"")
-    private int picApid;
+    private int picApid = 99999;
 
     public static final int MAX_COLUMN = 7;
 

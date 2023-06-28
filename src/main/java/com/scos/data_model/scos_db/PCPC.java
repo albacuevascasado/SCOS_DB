@@ -22,7 +22,7 @@ public class PCPC {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"PCPC_CODE\"")
-    private PcpcCode pcpcCode;
+    private PcpcCode pcpcCode = PcpcCode.U;
 
     public static final int MAX_COLUMN = 3;
 

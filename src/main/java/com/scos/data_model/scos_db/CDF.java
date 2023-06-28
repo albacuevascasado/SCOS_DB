@@ -34,14 +34,14 @@ public class CDF implements Serializable {
 
     @Id
     @Column(name = "\"CDF_GRPSIZE\"", nullable = false)
-    private int cdfGrpsize;
+    private int cdfGrpsize = 0;
 
     @Column(name = "\"CDF_PNAME\"")
     private String cdfPname;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CDF_INTER\"")
-    private CdfInter cdfInter;
+    private CdfInter cdfInter = CdfInter.R;
 
     @Column(name = "\"CDF_VALUE\"")
     private String cdfValue;

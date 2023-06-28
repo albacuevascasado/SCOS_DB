@@ -36,7 +36,7 @@ public class CVS {
     private BigInteger cvsSpid;
 
     @Column(name = "\"CVS_UNCERTAINTY\"")
-    private int cvsUncertainty;
+    private int cvsUncertainty = -1;
 
     public static final int MAX_COLUMN = 7;
 
@@ -46,5 +46,7 @@ public class CVS {
         R,
         V
     }
+
+    public static final char[] arrayCVSType = new char[]{'A','S','0','1','2','3','4','5','6','7','8','9','C'};
 
 }

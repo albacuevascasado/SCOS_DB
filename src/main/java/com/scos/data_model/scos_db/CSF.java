@@ -27,7 +27,7 @@ public class CSF {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CSF_IFTT\"")
-    private CsfIftt csfIftt;
+    private CsfIftt csfIftt = CsfIftt.N;
 
     @Column(name = "\"CSF_NFPARS\"")
     private int csfNfpars;
@@ -37,15 +37,15 @@ public class CSF {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CSF_CRITICAL\"")
-    private _YN csfCritical;
+    private _YN csfCritical = _YN.N;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CSF_PLAN\"")
-    private CsfPlan csfPlan;
+    private CsfPlan csfPlan = CsfPlan.N;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CSF_EXEC\"")
-    private _YN csfExec;
+    private _YN csfExec = _YN.Y;
 
     @Column(name = "\"CSF_SUBSYS\"")
     private int csfSubsys;

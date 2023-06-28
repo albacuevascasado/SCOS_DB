@@ -21,7 +21,7 @@ public class CVP implements Serializable {
     @Id
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CVP_TYPE\"", nullable = false)
-    private CvpType cvpType;
+    private CvpType cvpType = CvpType.C;
 
     @Id
     @Column(name = "\"CVP_CVSID\"", nullable = false)

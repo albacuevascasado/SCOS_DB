@@ -30,4 +30,6 @@ public class DPF {
 
     public static final String DESCRIPTION = "Alphanumeric display";
 
+    public static final char[] arrayDPFType = new char[] {'1','3'};
+
 }

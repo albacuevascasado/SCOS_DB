@@ -28,11 +28,11 @@ public class VDF implements Serializable {
 
     @Id
     @Column(name = "\"VDF_RELEASE\"")
-    private int vdfRelease;
+    private int vdfRelease = 0;
 
     @Id
     @Column(name = "\"VDF_ISSUE\"")
-    private int vdfIssue;
+    private int vdfIssue = 0;
 
     public static final int MAX_COLUMN = 5;
 

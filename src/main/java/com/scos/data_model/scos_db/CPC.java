@@ -29,18 +29,18 @@ public class CPC {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CPC_DISPFMT\"")
-    private CpcDispfmt cpcDispfmt;
+    private CpcDispfmt cpcDispfmt = CpcDispfmt.R;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CPC_RADIX\"")
-    private _RADIX cpcRadix;
+    private _RADIX cpcRadix =_RADIX.D;
 
     @Column(name = "\"CPC_UNIT\"")
     private String cpcUnit;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CPC_CATEG\"")
-    private CpcCateg cpcCateg;
+    private CpcCateg cpcCateg = CpcCateg.N;
 
     @Column(name = "\"CPC_PRFREF\"")
     private String cpcPrfref;
@@ -53,14 +53,14 @@ public class CPC {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CPC_INTER\"")
-    private CpcInter cpcInter;
+    private CpcInter cpcInter = CpcInter.R;
 
     @Column(name = "\"CPC_DEFVAL\"")
     private String cpcDefval;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CPC_CORR\"")
-    private _YN cpcCorr;
+    private _YN cpcCorr = _YN.Y;
 
     @Column(name = "\"CPC_OBTID\"")
     private int cpcObtid;
@@ -70,7 +70,7 @@ public class CPC {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CPC_ENDIAN\"")
-    private CpcEndian cpcEndian;
+    private CpcEndian cpcEndian = CpcEndian.B;
 
     public static final int MAX_COLUMN = 17;
 

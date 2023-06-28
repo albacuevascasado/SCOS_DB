@@ -100,7 +100,9 @@ public class SCOSService {
                 String[] recordSplit = record.split("\t");
 
                 caf.setCafNumbr(recordSplit[0]);
-                caf.setCafDescr(recordSplit[1]);
+                if(recordSplit[1].length() > 0) {
+                    caf.setCafDescr(recordSplit[1]);
+                }
                 caf.setCafEngfmt(_FMT.valueOf(recordSplit[2]));
                 caf.setCafRawfmt(_FMT.valueOf(recordSplit[3]));
 
@@ -244,7 +246,9 @@ public class SCOSService {
 
                 ccf.setCcfCname(recordSplit[0]);
                 ccf.setCcfDescr(recordSplit[1]);
-                ccf.setCcfDescr2(recordSplit[2]);
+                if(recordSplit[2].length() > 0) {
+                    ccf.setCcfDescr2(recordSplit[2]);
+                }
                 if(recordSplit[3].length() > 0) {
                     ccf.setCcfCtype(CCF.CcfCtype.valueOf(recordSplit[3]));
                 }
@@ -258,7 +262,7 @@ public class SCOSService {
                 if (recordSplit.length > 7 && recordSplit[7].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[7]), 0, 255)) {
                     ccf.setCcfStype(Integer.parseInt(recordSplit[7]));
                 }
-                if (recordSplit.length > 8 && recordSplit[8].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[8]), 0, 255)) {
+                if (recordSplit.length > 8 && recordSplit[8].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[8]), 0, 65535)) {
                     ccf.setCcfApid(Integer.parseInt(recordSplit[8]));
                 }
                 if (recordSplit.length > 9 && recordSplit[9].length() > 0) {
@@ -371,10 +375,14 @@ public class SCOSService {
 
                 cdf.setCdfCname(recordSplit[0]);
                 cdf.setCdfEltype(CDF.CdfType.valueOf(recordSplit[1]));
-                cdf.setCdfDescr(recordSplit[2]);
+                if(recordSplit[2].length() > 0) {
+                    cdf.setCdfDescr(recordSplit[2]);
+                }
                 cdf.setCdfEllen(Integer.parseInt(recordSplit[3]));
                 cdf.setCdfBit(Integer.parseInt(recordSplit[4]));
-                cdf.setCdfGrpsize(Integer.parseInt(recordSplit[5]));
+                if(recordSplit.length > 5 && recordSplit[5].length() > 0) {
+                    cdf.setCdfGrpsize(Integer.parseInt(recordSplit[5]));
+                }
                 if(recordSplit.length > 6 && recordSplit[6].length() > 0) {
                     cdf.setCdfPname(recordSplit[6]);
                 }
@@ -422,7 +430,9 @@ public class SCOSService {
                 String[] recordSplit = record.split("\t");
 
                 cpc.setCpcPname(recordSplit[0]);
-                cpc.setCpcDescr(recordSplit[1]);
+                if(recordSplit[1].length() > 0) {
+                    cpc.setCpcDescr(recordSplit[1]);
+                }
                 cpc.setCpcPtc(Double.parseDouble(recordSplit[2]));
                 cpc.setCpcPfc(Integer.parseInt(recordSplit[3]));
                 if(recordSplit.length > 4 && recordSplit[4].length() > 0) {
@@ -709,7 +719,9 @@ public class SCOSService {
                 if(checkIntegerRange(Integer.parseInt(recordSplit[0]), 0, 32767)) {
                     cvs.setCvsId(Integer.parseInt(recordSplit[0]));
                 }
-                cvs.setCvsType(recordSplit[1].charAt(0));
+                if(checkAlphaNumericRange(recordSplit[1].charAt(0), CVS.arrayCVSType)) {
+                    cvs.setCvsType(recordSplit[1].charAt(0));
+                }
                 cvs.setCvsSource(CVS.CvsSource.valueOf(recordSplit[2]));
                 if(checkLowerBoundary(Integer.parseInt(recordSplit[3]), 0)) {
                     cvs.setCvsStart(Integer.parseInt(recordSplit[3]));
@@ -759,7 +771,9 @@ public class SCOSService {
                 String[] recordSplit = record.split("\t");
 
                 dpc.setDpcNumbe(recordSplit[0]);
-                dpc.setDpcName(recordSplit[1]);
+                if(recordSplit[1].length() > 0) {
+                    dpc.setDpcName(recordSplit[1]);
+                }
                 dpc.setDpcFldn(Integer.parseInt(recordSplit[2]));
                 if(recordSplit.length > 3 && recordSplit[3].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[3]),0,9999)) {
                     dpc.setDpcFldn(Integer.parseInt(recordSplit[3]));
@@ -792,6 +806,48 @@ public class SCOSService {
 
         if(scosRepository != null) {
             scosRepository.saveDPCRecords(listDPC,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
+    public void createDPFRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "DPF";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<DPF> listDPF = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                DPF dpf = new DPF();
+                String[] recordSplit = record.split("\t");
+
+                dpf.setDpfNumbe(recordSplit[0]);
+                if(checkAlphaNumericRange(recordSplit[1].charAt(0), DPF.arrayDPFType)) {
+                    dpf.setDpfType(recordSplit[1].charAt(0));
+                }
+                if(recordSplit.length > 2 && recordSplit[2].length() > 0) {
+                    dpf.setDpfHead(recordSplit[2]);
+                }
+
+                listDPF.add(dpf);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listDPF,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listDPF, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveDPFRecords(listDPF,scostables,odbData);
         } else {
             System.out.println("scosRepository has not been injected");
         }
@@ -835,6 +891,137 @@ public class SCOSService {
             System.out.println("scosRepository has not been injected");
         }
 
+    }
+
+    public void createGPCRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "GPC";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<GPC> listGPC = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                GPC gpc = new GPC();
+                String[] recordSplit = record.split("\t");
+
+                gpc.setGpcNumbe(recordSplit[0]);
+                gpc.setGpcPos(Integer.parseInt(recordSplit[1]));
+                if(checkAlphaNumericRange(recordSplit[2].charAt(0),GPC.arrayGPCWhere)) {
+                    gpc.setGpcWhere(recordSplit[2].charAt(0));
+                }
+                gpc.setGpcName(recordSplit[3]);
+                if(recordSplit[4].length() > 0) {
+                    gpc.setGpcRaw(GPC.GpcRaw.valueOf(recordSplit[4]));
+                }
+                gpc.setGpcMinim(recordSplit[5]);
+                gpc.setGpcMaxim(recordSplit[6]);
+                if(checkAlphaNumericRange(recordSplit[7].charAt(0),GPC.arrayGPCPrclr)) {
+                    gpc.setGpcPrclr(recordSplit[7].charAt(0));
+                }
+                if(recordSplit.length > 8 && recordSplit[8].length() > 0 && checkAlphaNumericRange(recordSplit[8].charAt(0),GPC.arrayGPCSymb0)) {
+                    gpc.setGpcSymb0(recordSplit[8].charAt(0));
+                }
+                if(recordSplit.length > 9 && recordSplit[9].length() > 0 && checkAlphaNumericRange(recordSplit[9].charAt(0),GPC.arrayGPCLine)) {
+                    gpc.setGpcLine(recordSplit[9].charAt(0));
+                }
+                if(recordSplit.length > 10 && recordSplit[10].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[10]),0,65535)) {
+                    gpc.setGpcDomain(Integer.parseInt(recordSplit[10]));
+                }
+
+                listGPC.add(gpc);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listGPC,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listGPC, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveGPCRecords(listGPC,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
+    public void createGPFRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "GPF";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<GPF> listGPF = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                GPF gpf = new GPF();
+                String[] recordSplit = record.split("\t");
+
+                gpf.setGpfNumbe(recordSplit[0]);
+                gpf.setGpfType(GPF.GpfType.valueOf(recordSplit[1]));
+                if(recordSplit[2].length() > 0) {
+                    gpf.setGpfHead(recordSplit[2]);
+                }
+                if(recordSplit[3].length() > 0) {
+                    gpf.setGpfScrol(_YN.valueOf(recordSplit[3]));
+                }
+                if(recordSplit[4].length() > 0) {
+                    gpf.setGpfHcopy(_YN.valueOf(recordSplit[4]));
+                }
+                if(checkIntegerRange(Integer.parseInt(recordSplit[5]),0,99)) {
+                    gpf.setGpfDays(Integer.parseInt(recordSplit[5]));
+                }
+                if(checkIntegerRange(Integer.parseInt(recordSplit[6]),0,23)) {
+                    gpf.setGpfHours(Integer.parseInt(recordSplit[6]));
+                }
+                if(checkIntegerRange(Integer.parseInt(recordSplit[7]),0,59)) {
+                    gpf.setGpfMinut(Integer.parseInt(recordSplit[7]));
+                }
+                if(checkAlphaNumericRange(recordSplit[8].charAt(0),GPF.arrayGpfAxclr)) {
+                    gpf.setGpfAxclr(recordSplit[8].charAt(0));
+                }
+                if(checkIntegerRange(Integer.parseInt(recordSplit[9]),1,99)) {
+                    gpf.setGpfXtic(Integer.parseInt(recordSplit[9]));
+                }
+                if(checkIntegerRange(Integer.parseInt(recordSplit[10]),1,99)) {
+                    gpf.setGpfYtic(Integer.parseInt(recordSplit[10]));
+                }
+                if(checkIntegerRange(Integer.parseInt(recordSplit[11]),1,99)) {
+                    gpf.setGpfXgrid(Integer.parseInt(recordSplit[11]));
+                }
+                if(checkIntegerRange(Integer.parseInt(recordSplit[12]),1,99)) {
+                    gpf.setGpfYgrid(Integer.parseInt(recordSplit[12]));
+                }
+                if(recordSplit.length > 13 && recordSplit[13].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[13]),1,99))  {
+                    gpf.setGpfUpun(Integer.parseInt(recordSplit[13]));
+                }
+
+                listGPF.add(gpf);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listGPF,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listGPF, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveGPFRecords(listGPF,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
     }
 
     public void createGRPRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
@@ -961,7 +1148,9 @@ public class SCOSService {
                 String[] recordSplit = record.split("\t");
 
                 lgf.setLgfIdent(recordSplit[0]);
-                lgf.setLgfDescr(recordSplit[1]);
+                if(recordSplit[1].length() > 0) {
+                    lgf.setLgfDescr(recordSplit[1]);
+                }
                 lgf.setLgfPol1(recordSplit[2]);
                 if(recordSplit.length > 3 && recordSplit[3].length() > 0) {
                     lgf.setLgfPol2(recordSplit[3]);
@@ -1011,7 +1200,9 @@ public class SCOSService {
                 String[] recordSplit = record.split("\t");
 
                 mcf.setMcfIdent(recordSplit[0]);
-                mcf.setMcfDescr(recordSplit[1]);
+                if(recordSplit[1].length() > 0) {
+                    mcf.setMcfDescr(recordSplit[1]);
+                }
                 mcf.setMcfPol1(recordSplit[2]);
                 if(recordSplit.length > 3 && recordSplit[3].length() > 0) {
                     mcf.setMcfPol2(recordSplit[3]);
@@ -1142,6 +1333,51 @@ public class SCOSService {
         }
     }
 
+    public void createPAFRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "PAF";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<PAF> listPAF = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                PAF paf = new PAF();
+                String[] recordSplit = record.split("\t");
+
+                paf.setPAF_NUMBR(recordSplit[0]);
+                if(recordSplit.length > 1 && recordSplit[1].length() > 0) {
+                    paf.setPAF_DESCR(recordSplit[1]);
+                }
+                if(recordSplit.length > 2 && recordSplit[2].length() > 0) {
+                    paf.setPAF_RAWFMT(_FMT.valueOf(recordSplit[2]));
+                }
+                if(recordSplit.length > 3 && recordSplit[3].length() > 0) {
+                    paf.setPAF_NALIAS(Integer.parseInt(recordSplit[3]));
+                }
+
+                listPAF.add(paf);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listPAF,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listPAF, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.savePAFRecords(listPAF,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
     public void createPASRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
         String tableName = "PAS";
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -1193,11 +1429,15 @@ public class SCOSService {
                 String[] recordSplit = record.split("\t");
 
                 pcdf.setPcdfTcname(recordSplit[0]);
-                pcdf.setPcdfDesc(recordSplit[1]);
+                if(recordSplit[1].length() > 0) {
+                    pcdf.setPcdfDesc(recordSplit[1]);
+                }
                 pcdf.setPcdfType(PCDF.PcdfType.valueOf(recordSplit[2]));
                 pcdf.setPcdfLen(Integer.parseInt(recordSplit[3]));
                 pcdf.setPcdfBit(Integer.parseInt(recordSplit[4]));
-                pcdf.setPcdfPname(recordSplit[5]);
+                if(recordSplit[5].length() > 0) {
+                    pcdf.setPcdfPname(recordSplit[5]);
+                }
                 pcdf.setPcdfValue(recordSplit[6]);
                 if(recordSplit.length > 7 && recordSplit[7].length() > 0) {
                     pcdf.setPcdfRadix(_RADIX.valueOf(recordSplit[7]));
@@ -1225,6 +1465,34 @@ public class SCOSService {
             System.out.println("scosRepository has not been injected");
         }
     }
+
+//    public void createPCFRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+//        String tableName = "PCF";
+//        BufferedReader reader = new BufferedReader(new FileReader(file));
+//        List<PCF> listPCF = new ArrayList<>();
+//        //Start file
+//        String record = reader.readLine();
+//        while (record != null) {
+//            try {
+//                PCF pcf = new PCF();
+//                String[] recordSplit = record.split("\t");
+//
+//                pcf.setPcfName(recordSplit[0]);
+//                pcf.setPcfDescr(recordSplit[1]);
+////                if(recordSplit.length > 2 && recordSplit[2].length() > 0 && checkBigIntegerRange(Long.parseLong(recordSplit[2]),0,4294967295)) {
+////                    pcf.setPcfPid(Long.parseLong(recordSplit[2]));
+////                }
+//
+//            } catch (Exception e){
+//                e.printStackTrace();
+//            }
+//
+//            record = reader.readLine();
+//        }
+//
+//        reader.close();
+//    }
+
 
     public void createPCPCRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
         String tableName = "PCPC";
@@ -1481,7 +1749,9 @@ public class SCOSService {
 
                ptv.setPtvCname(recordSplit[0]);
                ptv.setPtvParnam(recordSplit[1]);
-               ptv.setPtvInter(PTV.PtvInter.valueOf(recordSplit[2]));
+               if(recordSplit[2].length() > 0) {
+                   ptv.setPtvInter(PTV.PtvInter.valueOf(recordSplit[2]));
+               }
                ptv.setPtvVal(recordSplit[3]);
 
                listPTV.add(ptv);
@@ -1507,6 +1777,61 @@ public class SCOSService {
         }
     }
 
+    public void createSPCRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "SPC";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<SPC> listSPC = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                SPC spc = new SPC();
+                String[] recordSplit = record.split("\t");
+
+                spc.setSpcNumbe(recordSplit[0]);
+                if(checkLowerBoundary(Integer.parseInt(recordSplit[1]),0)) {
+                    spc.setSpcPos(Integer.parseInt(recordSplit[1]));
+                }
+                spc.setSpcName(recordSplit[2]);
+                if(recordSplit[3].length() > 0 && checkAlphaNumericRange(recordSplit[3].charAt(0), SPC.arraySPCUpdt)) {
+                    spc.setSpcUpdt(recordSplit[3].charAt(0));
+                }
+                if(recordSplit[4].length() > 0 && checkAlphaNumericRange(recordSplit[4].charAt(0), SPC.arraySPCMode)) {
+                    spc.setSpcMode(recordSplit[4].charAt(0));
+                }
+                if(recordSplit[5].length() > 0) {
+                    spc.setSpcForm(SPC.SpcForm.valueOf(recordSplit[5]));
+                }
+                if(recordSplit[6].length() > 0 && checkAlphaNumericRange(recordSplit[6].charAt(0), SPC.arraySPCBack)) {
+                    spc.setSpcBack(recordSplit[6].charAt(0));
+                }
+                if(checkAlphaNumericRange(recordSplit[7].charAt(0), SPC.arraySPCFore)) {
+                    spc.setSpcFore(recordSplit[7].charAt(0));
+                }
+
+                listSPC.add(spc);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listSPC,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listSPC, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveSPCRecords(listSPC,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
     public void createSPFRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
         String tableName = "SPF";
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -1519,7 +1844,9 @@ public class SCOSService {
                   String[] recordSplit = record.split("\t");
 
                   spf.setSpfNumbe(recordSplit[0]);
-                  spf.setSpfHead(recordSplit[1]);
+                  if(recordSplit[1].length() > 0) {
+                      spf.setSpfHead(recordSplit[1]);
+                  }
                   if(checkIntegerRange(Integer.parseInt(recordSplit[2]),1,5)) {
                     spf.setSpfNpar(Integer.parseInt(recordSplit[2]));
                   }
@@ -1643,7 +1970,9 @@ public class SCOSService {
                 String[] recordSplit = record.split("\t");
 
                 txf.setTxfNumbr(recordSplit[0]);
-                txf.setTxfDescr(recordSplit[1]);
+                if(recordSplit[1].length() > 0) {
+                    txf.setTxfDescr(recordSplit[1]);
+                }
                 txf.setTxfRawfmt(_FMT.valueOf(recordSplit[2]));
                 if(recordSplit.length > 3 && recordSplit[3].length() > 0) {
                     txf.setTxfNalias(Integer.parseInt(recordSplit[3]));
@@ -1759,6 +2088,77 @@ public class SCOSService {
         }
     }
 
+    public void createVPDRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "VPD";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<VPD> listVPD = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                VPD vpd = new VPD();
+                String[] recordSplit = record.split("\t");
+
+                vpd.setVpdTpsd(BigInteger.valueOf(Integer.parseInt(recordSplit[0])));
+                vpd.setVpdPos(Integer.parseInt(recordSplit[1]));
+                vpd.setVpdName(recordSplit[2]);
+                if(recordSplit[3].length() > 0) {
+                    vpd.setVpdGrpsize(Integer.parseInt(recordSplit[3]));
+                }
+                if(recordSplit[4].length() > 0 && checkLowerBoundary(Integer.parseInt(recordSplit[4]),-1)) {
+                    vpd.setVpdFixrep(Integer.parseInt(recordSplit[4]));
+                }
+                if(recordSplit[5].length() > 0) {
+                    vpd.setVpdChoice(_YN.valueOf(recordSplit[5]));
+                }
+                if(recordSplit[6].length() > 0) {
+                    vpd.setVpdPidref(_YN.valueOf(recordSplit[6]));
+                }
+                if(recordSplit[7].length() > 0) {
+                    vpd.setVpdDisdesc(recordSplit[7]);
+                }
+                if(checkLowerBoundary(Integer.parseInt(recordSplit[8]),0)) {
+                    vpd.setVpdWidth(Integer.parseInt(recordSplit[8]));
+                }
+                if(recordSplit.length > 9 && recordSplit[9].length() > 0) {
+                    vpd.setVpdJustify(VPD.VpdJustify.valueOf(recordSplit[9]));
+                }
+                if(recordSplit.length > 10 && recordSplit[10].length() > 0) {
+                    vpd.setVpdNewline(_YN.valueOf(recordSplit[10]));
+                }
+                if(recordSplit.length > 11 && recordSplit[11].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[11]),0,2)) {
+                    vpd.setVpdDchar(Integer.parseInt(recordSplit[11]));
+                }
+                if(recordSplit.length > 12 && recordSplit[12].length() > 0) {
+                    vpd.setVpdForm(VPD.VpdForm.valueOf(recordSplit[12]));
+                }
+                if(recordSplit.length > 13 && recordSplit[13].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[13]),-32768,32767)) {
+                    vpd.setVpdOffset(BigInteger.valueOf(Integer.parseInt(recordSplit[13])));
+                }
+
+                listVPD.add(vpd);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listVPD,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listVPD, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveVPDRecords(listVPD,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
 
     /** UTILITIES */
     public boolean checkIntegerRange(int n, int min, int max) throws Exception {
@@ -1769,6 +2169,14 @@ public class SCOSService {
             }
     }
 
+//    public boolean checkBigIntegerRange(long n, long min, long max) throws Exception {
+//        if(( min <= n) && (n <= max)) {
+//            return true;
+//        } else {
+//            throw new Exception("Value " + n + " out of range.");
+//        }
+//    }
+
     public boolean checkLowerBoundary(int n, int min) throws Exception {
         if( n >= min ) {
             return  true;
@@ -1777,6 +2185,14 @@ public class SCOSService {
         }
     }
 
+    public boolean checkAlphaNumericRange(char c, char[] array) throws Exception {
+       for(char x: array) {
+           if(x == c) {
+               return true;
+           }
+       }
+       throw  new Exception("Value is out of bounds");
+    }
 
 //    //USING SWITCH
 //    public void serviceSearchTable(String tableName, String[] record) {

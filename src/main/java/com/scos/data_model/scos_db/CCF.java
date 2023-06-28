@@ -30,7 +30,7 @@ public class CCF {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CCF_CRITICAL\"")
-    private _YN ccfCritical;
+    private _YN ccfCritical = _YN.N;
 
     @Column(name = "\"CCF_PKTID\"", nullable = false)
     private String ccfPktid;
@@ -48,11 +48,11 @@ public class CCF {
     private int ccfNpars;
 
     @Column(name = "\"CCF_PLAN\"")
-    private CcfPlan ccfPlan;
+    private CcfPlan ccfPlan = CcfPlan.N;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CCF_EXEC\"")
-    private _YN ccfExec;
+    private _YN ccfExec = _YN.Y;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CCF_ILSCOPE\"")
@@ -60,14 +60,14 @@ public class CCF {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CCF_ILSTAGE\"")
-    private CcfStage ccfIlstage;
+    private CcfStage ccfIlstage = CcfStage.C;
 
     @Column(name = "\"CCF_SUBSYS\"")
     private int ccfSubsys;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CCF_HIPRI\"")
-    private _YN ccfHipri;
+    private _YN ccfHipri = _YN.N;
 
     @Column(name = "\"CCF_MAPID\"")
     private int ccfMapid;

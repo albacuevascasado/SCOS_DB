@@ -33,16 +33,16 @@ public class PLF implements Serializable {
     private int plfOffbi;
 
     @Column(name = "\"PLF_NBOCC\"")
-    private int plfNbocc ;
+    private int plfNbocc = 1 ;
 
     @Column(name = "\"PLF_LGOCC\"")
-    private int plfLgocc;
+    private int plfLgocc = 0;
 
     @Column(name = "\"PLF_TIME\"")
-    private BigInteger plfTime;
+    private BigInteger plfTime = BigInteger.ZERO;
 
     @Column(name = "\"PLF_TDOCC\"")
-    private BigInteger plfTdocc;
+    private BigInteger plfTdocc = BigInteger.ONE;
 
     public static final int MAX_COLUMN = 8;
 
