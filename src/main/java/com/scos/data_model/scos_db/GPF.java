@@ -15,6 +15,34 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"GPF\"")
 public class GPF {
 
+    public enum COLUMNS {
+        GPF_NUMBE (0),
+        GPF_TYPE (1),
+        GPF_HEAD (2),
+        GPF_SCROL (3),
+        GPF_HCOPY (4),
+        GPF_DAYS (5),
+        GPF_HOURS (6),
+        GPF_MINUT (7),
+        GPF_AXCLR (8),
+        GPF_XTICK (9),
+        GPF_YTICK (10),
+        GPF_XGRID (11),
+        GPF_YGRID (12),
+        GPF_UPUN (13);
+
+        private int hierarchy;
+
+        private COLUMNS (final int hierarchy) {
+            this.hierarchy = hierarchy;
+        }
+
+        public int getHierarchy() {
+            return hierarchy;
+        }
+
+    }
+
     @Id
     @Column(name = "\"GPF_NUMBE\"", nullable = false)
     private String gpfNumbe;

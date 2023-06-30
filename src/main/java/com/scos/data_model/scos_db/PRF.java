@@ -15,6 +15,16 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"PRF\"")
 public class PRF {
 
+    public enum COLUMNS {
+        PRF_NUMBR,
+        PRF_DESCR,
+        PRF_INTER,
+        PRF_DSPFMT,
+        PRF_RADIX,
+        PRF_NRANGE,
+        PRF_UNIT
+    }
+
     @Id
     @Column(name = "\"PRF_NUMBR\"", nullable = false)
     private String prfNumbr;
@@ -27,14 +37,14 @@ public class PRF {
     private PrfInter prfInter = PrfInter.R;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "\"PRF_DSPFMT \"")
+    @Column(name = "\"PRF_DSPFMT\"")
     private PrfDspfmt prfDspfmt = PrfDspfmt.U;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "\"PRF_RADIX \"")
+    @Column(name = "\"PRF_RADIX\"")
     private _RADIX prfRadix = _RADIX.D;
 
-    @Column(name = "\"PRF_NRANGE \"")
+    @Column(name = "\"PRF_NRANGE\"")
     private int prfNrange;
 
     @Column(name = "\"PRF_UNIT\"")

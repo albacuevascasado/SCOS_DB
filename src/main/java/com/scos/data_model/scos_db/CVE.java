@@ -14,6 +14,15 @@ import java.io.Serializable;
 @Table(schema = "scos_schema", name = "\"CVE\"")
 public class CVE implements Serializable {
 
+    public enum COLUMNS {
+        CVE_CVSID,
+        CVE_PARNAM,
+        CVE_INTER,
+        CVE_VAL,
+        CVE_TOL,
+        CVE_CHECK
+    }
+
     @Id
     @Column(name = "\"CVE_CVSID\"", nullable = false)
     private int cveCvsid;

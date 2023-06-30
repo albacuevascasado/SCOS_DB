@@ -15,6 +15,44 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"PCF\"")
 public class PCF {
 
+    public enum COLUMNS {
+        PCF_NAME (0),
+        PCF_DESCR (1),
+        PCF_PID (2),
+        PCF_UNIT (3),
+        PCF_PTC (4),
+        PCF_PFC (5),
+        PCF_WIDTH (6),
+        PCF_VALID (7),
+        PCF_RELATED (8),
+        PCF_CATEG (9),
+        PCF_NATUR (10),
+        PCF_CURTX (11),
+        PCF_INTER (12),
+        PCF_USCON (13),
+        PCF_DECIM (14),
+        PCF_PARVAL (15),
+        PCF_SUBSYS (16),
+        PCF_VALPAR (17),
+        PCF_SPTYPE (18),
+        PCF_CORR (19),
+        PCF_OBTID (20),
+        PCF_DARC (21),
+        PCF_ENDIAN (22),
+        PCF_DESCR2 (23);
+
+        private int hierarchy;
+
+        private COLUMNS (final int hierarchy) {
+            this.hierarchy = hierarchy;
+        }
+
+        public int getHierarchy() {
+            return hierarchy;
+        }
+
+    }
+
     @Id
     @Column(name = "\"PCF_NAME\"", nullable = false)
     private String pcfName;
@@ -52,7 +90,7 @@ public class PCF {
     private PcfNatur pcfNatur;
 
     @Column(name = "\"PCF_CURTX\"")
-    private char pcfCurtx;
+    private String pcfCurtx;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"PCF_INTER\"")
@@ -72,7 +110,7 @@ public class PCF {
     private String pcfSubsys;
 
     @Column(name = "\"PCF_VALPAR\"")
-    private int pcfValpar = Integer.valueOf(1);
+    private int pcfValpar = 1;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"PCF_SPTYPE\"")
@@ -88,6 +126,7 @@ public class PCF {
     @Column(name = "\"PCF_DARC\"")
     private char pcfDarc = '0';
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "\"PCF_ENDIAN\"")
     private PcfEndian pcfEndian = PcfEndian.B;
 

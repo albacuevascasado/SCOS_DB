@@ -16,6 +16,16 @@ import javax.persistence.Table;
 @Table(schema = "scos_schema", name = "\"LGF\"")
 public class LGF {
 
+    public enum COLUMNS {
+        LGF_IDENT,
+        LGF_DESCR,
+        LGF_POL1,
+        LGF_POL2,
+        LGF_POL3,
+        LGF_POL4,
+        LGF_POL5
+    }
+
     @Id
     @Column(name = "\"LGF_IDENT\"", nullable = false)
     private String lgfIdent;

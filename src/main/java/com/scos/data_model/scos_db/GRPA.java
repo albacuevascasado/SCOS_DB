@@ -17,6 +17,11 @@ import java.io.Serializable;
 @Table(schema = "scos_schema", name = "\"GRPA\"")
 public class GRPA implements Serializable {
 
+    public enum COLUMNS {
+        GRPA_GNAME,
+        GRPA_PANAME
+    }
+
     @Id
     @Column(name = "\"GRPA_GNAME\"", nullable = false)
     private String grpaGname;

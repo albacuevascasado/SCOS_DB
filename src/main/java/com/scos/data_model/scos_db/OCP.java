@@ -14,6 +14,16 @@ import java.io.Serializable;
 @Table(schema = "scos_schema", name = "\"OCP\"")
 public class OCP implements Serializable {
 
+    public enum COLUMNS {
+        OCP_NAME,
+        OCP_POS,
+        OCP_TYPE,
+        OCP_LVALU,
+        OCP_HVALU,
+        OCP_RLCHK,
+        OCP_VALPAR
+    }
+
     @Id
     @Column(name = "\"OCP_NAME\"", nullable = false)
     private String ocpName;

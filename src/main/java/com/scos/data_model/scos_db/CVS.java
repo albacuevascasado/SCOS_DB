@@ -15,6 +15,16 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema" , name = "\"CVS\"")
 public class CVS {
 
+    public enum COLUMNS {
+        CVS_ID,
+        CVS_TYPE,
+        CVS_SOURCE,
+        CVS_START,
+        CVS_INTERVAL,
+        CVS_SPID,
+        CVS_UNCERTAINTY
+    }
+
     @Id
     @Column(name = "\"CVS_ID\"", nullable = false)
     private int cvsId;

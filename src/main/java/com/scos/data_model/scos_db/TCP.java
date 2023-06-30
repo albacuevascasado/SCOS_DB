@@ -16,6 +16,11 @@ import javax.persistence.Table;
 @Table(schema = "scos_schema", name = "\"TCP\"")
 public class TCP {
 
+    public enum COLUMNS {
+        TCP_ID,
+        TCP_DESC
+    }
+
     @Id
     @Column(name = "\"TCP_ID\"", nullable = false)
     private String tcpId;

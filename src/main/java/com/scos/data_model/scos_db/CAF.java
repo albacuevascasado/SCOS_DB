@@ -15,6 +15,17 @@ import javax.persistence.*;
 @Table(schema = "scos_schema" , name = "\"CAF\"")
 public class CAF {
 
+    public enum COLUMNS {
+        CAF_NUMBR,
+        CAF_DESCR,
+        CAF_ENGFMT,
+        CAF_RAWFMT,
+        CAF_RADIX,
+        CAF_UNIT,
+        CAF_NCURVE,
+        CAF_INTER
+    }
+
     @Id
     @Column(name = "\"CAF_NUMBR\"", nullable = false)
     private String cafNumbr;

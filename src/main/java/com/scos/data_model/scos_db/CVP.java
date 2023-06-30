@@ -14,6 +14,12 @@ import java.io.Serializable;
 @Table(schema = "scos_schema", name = "\"CVP\"")
 public class CVP implements Serializable {
 
+    public enum COLUMNS {
+        CVP_TASK,
+        CVP_TYPE,
+        CVP_CVSID
+    }
+
     @Id
     @Column(name = "\"CVP_TASK\"", nullable = false)
     private String cvpTask;

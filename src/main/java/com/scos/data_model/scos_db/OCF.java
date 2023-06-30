@@ -13,6 +13,14 @@ import javax.persistence.*;
 @Table(schema = "scos_schema", name = "\"OCF\"")
 public class OCF {
 
+    public enum COLUMNS {
+        OCF_NAME,
+        OCF_NBCHCK,
+        OCF_NBOOl,
+        OCF_INTER,
+        OCF_CODIN
+    }
+
     @Id
     @Column(name = "\"OCF_NAME\"", nullable = false)
     private String ocfName;

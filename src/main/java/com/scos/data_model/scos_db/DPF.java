@@ -16,6 +16,12 @@ import javax.persistence.Table;
 @Table(schema = "scos_schema", name = "\"DPF\"")
 public class DPF {
 
+    public enum COLUMNS {
+        DPF_NUMBE,
+        DPF_TYPE,
+        DPF_HEAD
+    }
+
     @Id
     @Column(name = "\"DPF_NUMBE\"", nullable = false)
     private String dpfNumbe;

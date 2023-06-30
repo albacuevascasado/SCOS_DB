@@ -18,6 +18,16 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"PIC\"")
 public class PIC implements Serializable {
 
+    public enum COLUMNS {
+        PIC_TYPE,
+        PIC_STYPE,
+        PIC_PI1_OFF,
+        PIC_PI1_WID,
+        PIC_PI2_OFF,
+        PIC_PI2_WID,
+        PIC_APID
+    }
+
     @Id
     @Column(name = "\"PIC_TYPE\"", nullable = false)
     private int picType;

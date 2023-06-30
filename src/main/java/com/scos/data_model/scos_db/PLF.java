@@ -18,6 +18,17 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"PLF\"")
 public class PLF implements Serializable {
 
+    public enum COLUMNS {
+        PLF_NAME,
+        PLF_SPID,
+        PLF_OFFBY,
+        PLF_OFFBI,
+        PLF_NBOCC,
+        PLF_LGOCC,
+        PLF_TIME,
+        PLF_TDOCC
+    }
+
     @Id
     @Column(name = "\"PLF_NAME\"", nullable = false)
     private String plfName;

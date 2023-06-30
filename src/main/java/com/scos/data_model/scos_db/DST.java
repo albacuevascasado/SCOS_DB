@@ -17,6 +17,11 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"DST\"")
 public class DST {
 
+    public enum COLUMNS {
+        DST_APID,
+        DST_ROUTE
+    }
+
     @Id
     @Column(name = "\"DST_APID\"", nullable = false)
     private int dstApid;

@@ -15,6 +15,16 @@ import java.io.Serializable;
 @Table(schema = "scos_schema", name = "\"DPC\"")
 public class DPC implements Serializable {
 
+    public enum COLUMNS {
+        DPC_NUMBE,
+        DPC_NAME,
+        DPC_FLDN,
+        DPC_COMM,
+        DPC_MODE,
+        DPC_FORM,
+        DPC_TEXT
+    }
+
     @Id
     @Column(name = "\"DPC_NUMBE\"", nullable = false)
     private String dpcNumbe;

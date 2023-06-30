@@ -15,6 +15,17 @@ import java.io.Serializable;
 @Table(schema = "scos_schema", name = "\"PCDF\"")
 public class PCDF implements Serializable {
 
+    public enum COLUMNS {
+        PCDF_TCNAME,
+        PCDF_DESC,
+        PCDF_TYPE,
+        PCDF_LEN,
+        PCDF_BIT,
+        PCDF_PNAME,
+        PCDF_VALUE,
+        PCDF_RADIX
+    }
+
     @Id
     @Column(name = "\"PCDF_TCNAME\"", nullable = false)
     private String pcdfTcname;

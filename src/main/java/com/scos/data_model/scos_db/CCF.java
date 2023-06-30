@@ -14,6 +14,40 @@ import javax.persistence.*;
 @Table(schema = "scos_schema", name = "\"CCF\"")
 public class CCF {
 
+    public enum COLUMNS {
+        CCF_CNAME (0),
+        CCF_DESCR (1),
+        CCF_DESCR2 (2),
+        CCF_CTYPE (3),
+        CCF_CRITICAL (4),
+        CCF_PKTID (5),
+        CCF_TYPE (6),
+        CCF_STYPE (7),
+        CCF_APID (8),
+        CCF_NPARS (9),
+        CCF_PLAN (10),
+        CCF_EXEC (11),
+        CCF_ILSCOPE (12),
+        CCF_ILSTAGE (13),
+        CCF_SUBSYS (14),
+        CCF_HIPRI (15),
+        CCF_MAPID (16),
+        CCF_DEFSET (17),
+        CCF_RAPID (18),
+        CCF_ACK (19),
+        CCF_SUBSCHEDID (20);
+
+        private int hierarchy;
+
+        private COLUMNS (final int hierarchy) {
+            this.hierarchy = hierarchy;
+        }
+
+        public int getHierarchy() {
+            return hierarchy;
+        }
+    }
+
     @Id
     @Column(name = "\"CCF_CNAME\"", nullable = false)
     private String ccfCname;

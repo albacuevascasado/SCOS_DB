@@ -17,6 +17,13 @@ import java.io.Serializable;
 @Table(schema = "scos_schema", name = "\"TXP\"")
 public class TXP implements Serializable {
 
+    public enum COLUMNS {
+        TXP_NUMBR,
+        TXP_FROM,
+        TXP_TO,
+        TXP_ALTXT
+    }
+
     @Id
     @Column(name = "\"TXP_NUMBR\"", nullable = false)
     private String txpNumbr;

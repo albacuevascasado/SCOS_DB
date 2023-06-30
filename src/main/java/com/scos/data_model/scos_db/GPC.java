@@ -15,6 +15,20 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"GPC\"")
 public class GPC implements Serializable {
 
+    public enum COLUMNS {
+        GPC_NUMBE,
+        GPC_POS,
+        GPC_WHERE,
+        GPC_NAME,
+        GPC_RAW,
+        GPC_MINIM,
+        GPC_MAXIM,
+        GPC_PRCLR,
+        GPC_SYMB0,
+        GPC_LINE,
+        GPC_DOMAIN
+    }
+
     @Id
     @Column(name = "\"GPC_NUMBE\"", nullable = false)
     private String gpcNumbe;

@@ -15,29 +15,11 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"PAF\"")
 public class PAF {
 
-    public enum PafColumn{
-        PAF_NUMBR(0),
-        PAF_DESCR(1),
-        PAF_RAWFMT(2),
-        PAF_NALIAS(3);
-
-        private final int i;
-
-        PafColumn(int i) {
-            this.i = i;
-        }
-
-        public int getIndex(){
-            return this.i;
-        }
-
-        public static String getEnumByIndex(int code){
-            for(PafColumn e : PafColumn.values()){
-                if(e.getIndex()==code) return e.name();
-            }
-            return null;
-        }
-
+    public enum COLUMNS{
+        PAF_NUMBR,
+        PAF_DESCR,
+        PAF_RAWFMT,
+        PAF_NALIAS
     }
 
     @Id
@@ -58,15 +40,4 @@ public class PAF {
 
     public static final String DESCRIPTION = "Parameter alias file";
 
-    public void setProperty(PafColumn name, String value) throws NoSuchFieldException, IllegalAccessException {
-        getClass().getDeclaredField(name.toString()).set(this, value);
-    }
-
-    public void setProperty(PafColumn name, char value) throws NoSuchFieldException, IllegalAccessException {
-        getClass().getDeclaredField(name.toString()).setChar(this, value);
-    }
-
-    public void setProperty(PafColumn name, BigInteger value) throws NoSuchFieldException, IllegalAccessException {
-        getClass().getDeclaredField(name.toString()).set(this, value);
-    }
 }

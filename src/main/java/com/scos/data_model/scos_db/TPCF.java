@@ -17,6 +17,12 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"TPCF\"")
 public class TPCF {
 
+    public enum COLUMNS {
+        TPCF_SPID,
+        TPCF_NAME,
+        TPCF_SIZE
+    }
+
     @Id
     @Column(name = "\"TPCF_SPID\"", nullable = false)
     private BigInteger tpcfSpid;

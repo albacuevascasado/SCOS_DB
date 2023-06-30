@@ -18,6 +18,11 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"GRPK\"")
 public class GRPK implements Serializable {
 
+    public enum COLUMNS {
+        GRPK_GNAME,
+        GRPK_PKSPID
+    }
+
     @Id
     @Column(name = "\"GRPK_GNAME\"", nullable = false)
     private String grpkGname;

@@ -13,6 +13,13 @@ import javax.persistence.*;
 @Table(schema = "scos_schema", name = "\"PTV\"")
 public class PTV {
 
+    public enum COLUMNS {
+        PTV_CNAME,
+        PTV_PARNAM,
+        PTV_INTER,
+        PTV_VAL
+    }
+
     @Id
     @Column(name = "\"PTV_CNAME\"", nullable = false)
     private String ptvCname;

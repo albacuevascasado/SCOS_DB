@@ -17,6 +17,12 @@ import java.io.Serializable;
 @Table(schema = "scos_schema", name = "\"PAS\"")
 public class PAS implements Serializable {
 
+    public enum COLUMNS {
+        PAS_NUMBR,
+        PAS_ALTXT,
+        PAS_ALVAL
+    }
+
     @Id
     @Column(name = "\"PAS_NUMBR\"", nullable = false)
     private String pasNumbr;

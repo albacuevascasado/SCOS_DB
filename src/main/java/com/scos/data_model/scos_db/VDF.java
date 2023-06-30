@@ -16,6 +16,14 @@ import java.util.Objects;
 @Table(schema = "scos_schema", name = "\"VDF\"")
 public class VDF implements Serializable {
 
+    public enum COLUMNS {
+        VDF_NAME,
+        VDF_COMMENT,
+        VDF_DOMAINID,
+        VDF_RELEASE,
+        VDF_ISSUE
+    }
+
     @Id
     @Column(name = "\"VDF_NAME\"", nullable = false)
     private String vdfName;

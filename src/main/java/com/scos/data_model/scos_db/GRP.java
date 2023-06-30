@@ -13,6 +13,12 @@ import javax.persistence.*;
 @Table(schema = "scos_schema", name = "\"GRP\"")
 public class GRP {
 
+    public enum COLUMNS {
+        GRP_NAME,
+        GRP_DESCR,
+        GRP_GTYPE
+    }
+
     @Id
     @Column(name = "\"GRP_NAME\"", nullable = false)
     private String grpName;

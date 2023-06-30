@@ -15,6 +15,35 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"CSF\"")
 public class CSF {
 
+    public enum COLUMNS {
+        CSF_NAME (0),
+        CSF_DESC (1),
+        CSF_DESC2 (2),
+        CSF_IFTT (3),
+        CSF_NFPARS (4),
+        CSF_ELEMS (5),
+        CSF_CRITICAL (6),
+        CSF_PLAN (7),
+        CSF_EXEC (8),
+        CSF_SUBSYS (9),
+        CSF_GENTIME (10),
+        CSF_DOCNAME (11),
+        CSF_ISSUE (12),
+        CSF_DATE (13),
+        CSF_DEFSET (14),
+        CSF_SUBSCHEDID (15);
+
+        private int hierarchy;
+
+        private COLUMNS (final int hierarchy) {
+            this.hierarchy = hierarchy;
+        }
+
+        public int getHierarchy() {
+            return getHierarchy();
+        }
+    }
+
     @Id
     @Column(name = "\"CSF_NAME\"", nullable = false)
     private String csfName;

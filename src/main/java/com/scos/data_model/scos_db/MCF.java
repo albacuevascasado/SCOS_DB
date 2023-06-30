@@ -16,6 +16,16 @@ import javax.persistence.Table;
 @Table(schema = "scos_schema", name = "\"MCF\"")
 public class MCF {
 
+    public enum COLUMNS {
+        MCF_IDENT,
+        MCF_DESCR,
+        MCF_POL1,
+        MCF_POL2,
+        MCF_POL3,
+        MCF_POL4,
+        MCF_POL5
+    }
+
     @Id
     @Column(name = "\"MCF_IDENT\"", nullable = false)
     private String mcfIdent;

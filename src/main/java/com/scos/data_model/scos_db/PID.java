@@ -16,6 +16,36 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"PID\"")
 public class PID implements Serializable {
 
+    public enum COLUMNS {
+        PID_TYPE (0),
+        PID_STYPE (1),
+        PID_APID (2),
+        PID_PI1_VAL (3),
+        PID_PI2_VAL (4),
+        PID_SPID (5),
+        PID_DESCR (6),
+        PID_UNIT (7),
+        PID_TPSD (8),
+        PID_DFHSIZE (9),
+        PID_TIME (10),
+        PID_INTER (11),
+        PID_VALID (12),
+        PID_CHECK (13),
+        PID_EVENT (14),
+        PID_EVID (15);
+
+        private int hierarchy;
+
+        private COLUMNS (final int hierarchy) {
+            this.hierarchy = hierarchy;
+        }
+
+        public int getHierarchy() {
+            return hierarchy;
+        }
+
+    }
+
     @Id
     @Column(name = "\"PID_TYPE\"", nullable = false)
     private int pidType;
@@ -30,11 +60,11 @@ public class PID implements Serializable {
 
     @Id
     @Column(name = "\"PID_PI1_VAL\"")
-    private BigInteger pidPi1Val = BigInteger.valueOf(0);
+    private BigInteger pidPi1Val = BigInteger.ZERO;
 
     @Id
     @Column(name = "\"PID_PI2_VAL\"")
-    private BigInteger pidPi2Val = BigInteger.valueOf(0);
+    private BigInteger pidPi2Val = BigInteger.ZERO;
 
     @Id
     @Column(name = "\"PID_SPID\"", nullable = false)

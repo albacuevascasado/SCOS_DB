@@ -14,6 +14,19 @@ import java.io.Serializable;
 @Table(schema = "scos_schema", name = "\"CDF\"")
 public class CDF implements Serializable {
 
+    public enum COLUMNS {
+        CDF_CNAME,
+        CDF_ELTYPE,
+        CDF_DESCR,
+        CDF_ELLEN,
+        CDF_BIT,
+        CDF_GRPSIZE,
+        CDF_PNAME,
+        CDF_INTER,
+        CDF_VALUE,
+        CDF_TMID
+    }
+
     @Id
     @Column(name = "\"CDF_CNAME\"", nullable = false)
     private String cdfCname;

@@ -17,6 +17,12 @@ import java.io.Serializable;
 @Table(schema = "scos_schema", name = "\"CCS\"")
 public class CCS implements Serializable {
 
+    public enum COLUMNS {
+        CCS_NUMBR,
+        CCS_XVALS,
+        CCS_YVALS
+    }
+
     @Id
     @Column(name = "\"CCS_NUMBR\"", nullable = false)
     private String ccsNumbr;

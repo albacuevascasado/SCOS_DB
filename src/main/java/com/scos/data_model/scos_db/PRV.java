@@ -17,6 +17,12 @@ import java.io.Serializable;
 @Table(schema = "scos_schema", name = "\"PRV\"")
 public class PRV implements Serializable {
 
+    public enum COLUMNS {
+        PRV_NUMBR,
+        PRV_MINVAL,
+        PRV_MAXVAL
+    }
+
     @Id
     @Column(name = "\"PRV_NUMBR\"", nullable = false)
     private String prvNumbr;

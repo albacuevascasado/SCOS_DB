@@ -88,6 +88,8 @@ public class SCOSService {
         return odbData;
     }
 
+    /** SCOS TABLES */
+
     public void createCAFRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
         String tableName = "CAF";
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -99,24 +101,24 @@ public class SCOSService {
                 CAF caf = new CAF();
                 String[] recordSplit = record.split("\t");
 
-                caf.setCafNumbr(recordSplit[0]);
-                if(recordSplit[1].length() > 0) {
-                    caf.setCafDescr(recordSplit[1]);
+                caf.setCafNumbr(recordSplit[CAF.COLUMNS.CAF_NUMBR.ordinal()]);
+                if(recordSplit[CAF.COLUMNS.CAF_DESCR.ordinal()].length() > 0) {
+                    caf.setCafDescr(recordSplit[CAF.COLUMNS.CAF_DESCR.ordinal()]);
                 }
-                caf.setCafEngfmt(_FMT.valueOf(recordSplit[2]));
-                caf.setCafRawfmt(_FMT.valueOf(recordSplit[3]));
+                caf.setCafEngfmt(_FMT.valueOf(recordSplit[CAF.COLUMNS.CAF_ENGFMT.ordinal()]));
+                caf.setCafRawfmt(_FMT.valueOf(recordSplit[CAF.COLUMNS.CAF_RAWFMT.ordinal()]));
 
-                if(recordSplit.length > 4 && recordSplit[4].length() > 0) {
-                    caf.setCafRadix(_RADIX.valueOf(recordSplit[4]));
+                if(recordSplit.length > CAF.COLUMNS.CAF_RADIX.ordinal() && recordSplit[CAF.COLUMNS.CAF_RADIX.ordinal()].length() > 0) {
+                    caf.setCafRadix(_RADIX.valueOf(recordSplit[CAF.COLUMNS.CAF_RADIX.ordinal()]));
                 }
-                if(recordSplit.length > 5 && recordSplit[5].length() > 0) {
-                    caf.setCafUnit(recordSplit[5]);
+                if(recordSplit.length > CAF.COLUMNS.CAF_UNIT.ordinal() && recordSplit[CAF.COLUMNS.CAF_UNIT.ordinal()].length() > 0) {
+                    caf.setCafUnit(recordSplit[CAF.COLUMNS.CAF_UNIT.ordinal()]);
                 }
-                if(recordSplit.length > 6 && recordSplit[6].length() > 0) {
-                    caf.setCafNcurve(Integer.parseInt(recordSplit[6]));
+                if(recordSplit.length > CAF.COLUMNS.CAF_NCURVE.ordinal() && recordSplit[CAF.COLUMNS.CAF_NCURVE.ordinal()].length() > 0) {
+                    caf.setCafNcurve(Integer.parseInt(recordSplit[CAF.COLUMNS.CAF_NCURVE.ordinal()]));
                 }
-                if(recordSplit.length > 7 && recordSplit[7].length() > 0) {
-                    caf.setCafInter(CAF.CafInter.valueOf(recordSplit[7]));
+                if(recordSplit.length > CAF.COLUMNS.CAF_INTER.ordinal() && recordSplit[CAF.COLUMNS.CAF_INTER.ordinal()].length() > 0) {
+                    caf.setCafInter(CAF.CafInter.valueOf(recordSplit[CAF.COLUMNS.CAF_INTER.ordinal()]));
                 }
 
                 listCAF.add(caf);
@@ -153,9 +155,9 @@ public class SCOSService {
                 CAP cap = new CAP();
                 String[] recordSplit = record.split("\t");
 
-                cap.setCaPNumbr(recordSplit[0]);
-                cap.setCapXvals(recordSplit[1]);
-                cap.setCapYvals(recordSplit[2]);
+                cap.setCaPNumbr(recordSplit[CAP.COLUMNS.CAP_NUMBR.ordinal()]);
+                cap.setCapXvals(recordSplit[CAP.COLUMNS.CAP_XVALS.ordinal()]);
+                cap.setCapYvals(recordSplit[CAP.COLUMNS.CAP_YVALS.ordinal()]);
 
                 listCAP.add(cap);
 
@@ -190,24 +192,24 @@ public class SCOSService {
                 CCA cca = new CCA();
                 String[] recordSplit = record.split("\t");
 
-                cca.setCcaNumbr(recordSplit[0]);
-                if(recordSplit.length > 1 && recordSplit[1].length() > 0) {
-                    cca.setCcaDescr(recordSplit[1]);
+                cca.setCcaNumbr(recordSplit[CCA.COLUMNS.CCA_NUMBR.ordinal()]);
+                if(recordSplit.length > CCA.COLUMNS.CCA_DESCR.ordinal() && recordSplit[CCA.COLUMNS.CCA_DESCR.ordinal()].length() > 0) {
+                    cca.setCcaDescr(recordSplit[CCA.COLUMNS.CCA_DESCR.ordinal()]);
                 }
-                if(recordSplit.length > 2 && recordSplit[2].length() > 0) {
-                    cca.setCcaEngfmt(_FMT.valueOf(recordSplit[2]));
+                if(recordSplit.length > CCA.COLUMNS.CCA_ENGFMT.ordinal() && recordSplit[CCA.COLUMNS.CCA_ENGFMT.ordinal()].length() > 0) {
+                    cca.setCcaEngfmt(_FMT.valueOf(recordSplit[CCA.COLUMNS.CCA_ENGFMT.ordinal()]));
                 }
-                if(recordSplit.length > 3 && recordSplit[3].length() > 0) {
-                    cca.setCcaRawfmt(_FMT.valueOf(recordSplit[3]));
+                if(recordSplit.length > CCA.COLUMNS.CCA_RAWFMT.ordinal() && recordSplit[CCA.COLUMNS.CCA_RAWFMT.ordinal()].length() > 0) {
+                    cca.setCcaRawfmt(_FMT.valueOf(recordSplit[CCA.COLUMNS.CCA_RAWFMT.ordinal()]));
                 }
-                if(recordSplit.length > 4 && recordSplit[4].length() > 0) {
-                    cca.setCcaRadix(_RADIX.valueOf(recordSplit[4]));
+                if(recordSplit.length > CCA.COLUMNS.CCA_RADIX.ordinal() && recordSplit[CCA.COLUMNS.CCA_RADIX.ordinal()].length() > 0) {
+                    cca.setCcaRadix(_RADIX.valueOf(recordSplit[CCA.COLUMNS.CCA_RADIX.ordinal()]));
                 }
-                if(recordSplit.length > 5 && recordSplit[5].length() > 0) {
-                    cca.setCcaUnit(recordSplit[5]);
+                if(recordSplit.length > CCA.COLUMNS.CCA_UNIT.ordinal() && recordSplit[CCA.COLUMNS.CCA_UNIT.ordinal()].length() > 0) {
+                    cca.setCcaUnit(recordSplit[CCA.COLUMNS.CCA_UNIT.ordinal()]);
                 }
-                if(recordSplit.length > 6 && recordSplit[6].length() > 0) {
-                    cca.setCcaNcurve(Integer.parseInt(recordSplit[6]));
+                if(recordSplit.length > CCA.COLUMNS.CCA_NCURVE.ordinal() && recordSplit[CCA.COLUMNS.CCA_NCURVE.ordinal()].length() > 0) {
+                    cca.setCcaNcurve(Integer.parseInt(recordSplit[CCA.COLUMNS.CCA_NCURVE.ordinal()]));
                 }
 
                 listCCA.add(cca);
@@ -244,62 +246,62 @@ public class SCOSService {
                 CCF ccf = new CCF();
                 String[] recordSplit = record.split("\t");
 
-                ccf.setCcfCname(recordSplit[0]);
-                ccf.setCcfDescr(recordSplit[1]);
-                if(recordSplit[2].length() > 0) {
-                    ccf.setCcfDescr2(recordSplit[2]);
+                ccf.setCcfCname(recordSplit[CCF.COLUMNS.CCF_CNAME.getHierarchy()]);
+                ccf.setCcfDescr(recordSplit[CCF.COLUMNS.CCF_DESCR.getHierarchy()]);
+                if(recordSplit[CCF.COLUMNS.CCF_DESCR2.getHierarchy()].length() > 0) {
+                    ccf.setCcfDescr2(recordSplit[CCF.COLUMNS.CCF_DESCR2.getHierarchy()]);
                 }
-                if(recordSplit[3].length() > 0) {
-                    ccf.setCcfCtype(CCF.CcfCtype.valueOf(recordSplit[3]));
+                if(recordSplit[CCF.COLUMNS.CCF_CTYPE.getHierarchy()].length() > 0) {
+                    ccf.setCcfCtype(CCF.CcfCtype.valueOf(recordSplit[CCF.COLUMNS.CCF_CTYPE.getHierarchy()]));
                 }
-                if(recordSplit[4].length() > 0) {
-                    ccf.setCcfCritical(_YN.valueOf(recordSplit[4]));
+                if(recordSplit[CCF.COLUMNS.CCF_CRITICAL.getHierarchy()].length() > 0) {
+                    ccf.setCcfCritical(_YN.valueOf(recordSplit[CCF.COLUMNS.CCF_CRITICAL.getHierarchy()]));
                 }
-                ccf.setCcfPktid(recordSplit[5]);
-                if (recordSplit.length > 6 && recordSplit[6].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[6]), 0, 255)) {
-                    ccf.setCcfType(Integer.parseInt(recordSplit[6]));
+                ccf.setCcfPktid(recordSplit[CCF.COLUMNS.CCF_PKTID.getHierarchy()]);
+                if (recordSplit.length > CCF.COLUMNS.CCF_TYPE.getHierarchy() && recordSplit[CCF.COLUMNS.CCF_TYPE.getHierarchy()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[CCF.COLUMNS.CCF_TYPE.getHierarchy()]), 0, 255)) {
+                    ccf.setCcfType(Integer.parseInt(recordSplit[CCF.COLUMNS.CCF_TYPE.getHierarchy()]));
                 }
-                if (recordSplit.length > 7 && recordSplit[7].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[7]), 0, 255)) {
-                    ccf.setCcfStype(Integer.parseInt(recordSplit[7]));
+                if (recordSplit.length > CCF.COLUMNS.CCF_STYPE.getHierarchy() && recordSplit[CCF.COLUMNS.CCF_STYPE.getHierarchy()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[CCF.COLUMNS.CCF_STYPE.getHierarchy()]), 0, 255)) {
+                    ccf.setCcfStype(Integer.parseInt(recordSplit[CCF.COLUMNS.CCF_STYPE.getHierarchy()]));
                 }
-                if (recordSplit.length > 8 && recordSplit[8].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[8]), 0, 65535)) {
-                    ccf.setCcfApid(Integer.parseInt(recordSplit[8]));
+                if (recordSplit.length > CCF.COLUMNS.CCF_APID.getHierarchy() && recordSplit[CCF.COLUMNS.CCF_APID.getHierarchy()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[CCF.COLUMNS.CCF_APID.getHierarchy()]), 0, 65535)) {
+                    ccf.setCcfApid(Integer.parseInt(recordSplit[CCF.COLUMNS.CCF_APID.getHierarchy()]));
                 }
-                if (recordSplit.length > 9 && recordSplit[9].length() > 0) {
-                    ccf.setCcfNpars(Integer.parseInt(recordSplit[9]));
+                if (recordSplit.length > CCF.COLUMNS.CCF_NPARS.getHierarchy() && recordSplit[CCF.COLUMNS.CCF_NPARS.getHierarchy()].length() > 0) {
+                    ccf.setCcfNpars(Integer.parseInt(recordSplit[CCF.COLUMNS.CCF_NPARS.getHierarchy()]));
                 }
-                if(recordSplit.length > 10 && recordSplit[10].length() > 0) {
-                    ccf.setCcfPlan(CCF.CcfPlan.valueOf(recordSplit[10]));
+                if(recordSplit.length > CCF.COLUMNS.CCF_PLAN.getHierarchy() && recordSplit[CCF.COLUMNS.CCF_PLAN.getHierarchy()].length() > 0) {
+                    ccf.setCcfPlan(CCF.CcfPlan.valueOf(recordSplit[CCF.COLUMNS.CCF_PLAN.getHierarchy()]));
                 }
-                if(recordSplit.length > 11 && recordSplit[11].length() > 0) {
-                    ccf.setCcfExec(_YN.valueOf(recordSplit[11]));
+                if(recordSplit.length > CCF.COLUMNS.CCF_EXEC.getHierarchy() && recordSplit[CCF.COLUMNS.CCF_EXEC.getHierarchy()].length() > 0) {
+                    ccf.setCcfExec(_YN.valueOf(recordSplit[CCF.COLUMNS.CCF_EXEC.getHierarchy()]));
                 }
-                if(recordSplit.length > 12 && recordSplit[12].length() > 0) {
-                    ccf.setCcfIlscope(CCF.CcfScope.valueOf(recordSplit[12]));
+                if(recordSplit.length > CCF.COLUMNS.CCF_ILSCOPE.getHierarchy() && recordSplit[CCF.COLUMNS.CCF_ILSCOPE.getHierarchy()].length() > 0) {
+                    ccf.setCcfIlscope(CCF.CcfScope.valueOf(recordSplit[CCF.COLUMNS.CCF_ILSCOPE.getHierarchy()]));
                 }
-                if(recordSplit.length > 13 && recordSplit[13].length() > 0) {
-                    ccf.setCcfIlstage(CCF.CcfStage.valueOf(recordSplit[13]));
+                if(recordSplit.length > CCF.COLUMNS.CCF_ILSTAGE.getHierarchy() && recordSplit[CCF.COLUMNS.CCF_ILSTAGE.getHierarchy()].length() > 0) {
+                    ccf.setCcfIlstage(CCF.CcfStage.valueOf(recordSplit[CCF.COLUMNS.CCF_ILSTAGE.getHierarchy()]));
                 }
-                if (recordSplit.length > 14 && recordSplit[14].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[14]), 1, 255)) {
-                    ccf.setCcfSubsys(Integer.parseInt(recordSplit[14]));
+                if (recordSplit.length > CCF.COLUMNS.CCF_SUBSYS.getHierarchy() && recordSplit[CCF.COLUMNS.CCF_SUBSYS.getHierarchy()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[14]), 1, 255)) {
+                    ccf.setCcfSubsys(Integer.parseInt(recordSplit[CCF.COLUMNS.CCF_SUBSYS.getHierarchy()]));
                 }
-                if(recordSplit.length > 15 && recordSplit[15].length() > 0) {
-                    ccf.setCcfHipri(_YN.valueOf(recordSplit[15]));
+                if(recordSplit.length > CCF.COLUMNS.CCF_HIPRI.getHierarchy() && recordSplit[CCF.COLUMNS.CCF_HIPRI.getHierarchy()].length() > 0) {
+                    ccf.setCcfHipri(_YN.valueOf(recordSplit[CCF.COLUMNS.CCF_HIPRI.getHierarchy()]));
                 }
-                if(recordSplit.length > 16 && recordSplit[16].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[16]), 0, 63)) {
-                    ccf.setCcfMapid(Integer.parseInt(recordSplit[16]));
+                if(recordSplit.length > CCF.COLUMNS.CCF_MAPID.getHierarchy() && recordSplit[CCF.COLUMNS.CCF_MAPID.getHierarchy()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[16]), 0, 63)) {
+                    ccf.setCcfMapid(Integer.parseInt(recordSplit[CCF.COLUMNS.CCF_MAPID.getHierarchy()]));
                 }
-                if(recordSplit.length > 17 && recordSplit[17].length() > 0) {
-                    ccf.setCcfDefset(recordSplit[17]);
+                if(recordSplit.length > CCF.COLUMNS.CCF_DEFSET.getHierarchy() && recordSplit[CCF.COLUMNS.CCF_DEFSET.getHierarchy()].length() > 0) {
+                    ccf.setCcfDefset(recordSplit[CCF.COLUMNS.CCF_DEFSET.getHierarchy()]);
                 }
-                if (recordSplit.length > 18  && recordSplit[18].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[18]), 1, 65535)) {
-                    ccf.setCcfRapid(Integer.parseInt(recordSplit[18]));
+                if (recordSplit.length > CCF.COLUMNS.CCF_RAPID.getHierarchy()  && recordSplit[CCF.COLUMNS.CCF_RAPID.getHierarchy()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[18]), 1, 65535)) {
+                    ccf.setCcfRapid(Integer.parseInt(recordSplit[CCF.COLUMNS.CCF_RAPID.getHierarchy()]));
                 }
-                if (recordSplit.length > 19  && recordSplit[19].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[19]), 0, 15)) {
-                    ccf.setCcfAck(Integer.parseInt(recordSplit[19]));
+                if (recordSplit.length > CCF.COLUMNS.CCF_ACK.getHierarchy()  && recordSplit[CCF.COLUMNS.CCF_ACK.getHierarchy()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[19]), 0, 15)) {
+                    ccf.setCcfAck(Integer.parseInt(recordSplit[CCF.COLUMNS.CCF_ACK.getHierarchy()]));
                 }
-                if (recordSplit.length > 20 && recordSplit[20].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[20]), 1, 65535)) {
-                    ccf.setCcfSubschedid(Integer.parseInt(recordSplit[20]));
+                if (recordSplit.length > CCF.COLUMNS.CCF_SUBSCHEDID.getHierarchy() && recordSplit[CCF.COLUMNS.CCF_SUBSCHEDID.getHierarchy()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[20]), 1, 65535)) {
+                    ccf.setCcfSubschedid(Integer.parseInt(recordSplit[CCF.COLUMNS.CCF_SUBSCHEDID.getHierarchy()]));
                 }
 
                 listCCF.add(ccf);
@@ -335,9 +337,9 @@ public class SCOSService {
                 CCS ccs = new CCS();
                 String[] recordSplit = record.split("\t");
 
-                ccs.setCcsNumbr(recordSplit[0]);
-                ccs.setCcsXvals(recordSplit[1]);
-                ccs.setCcsYvals(recordSplit[2]);
+                ccs.setCcsNumbr(recordSplit[CCS.COLUMNS.CCS_NUMBR.ordinal()]);
+                ccs.setCcsXvals(recordSplit[CCS.COLUMNS.CCS_XVALS.ordinal()]);
+                ccs.setCcsYvals(recordSplit[CCS.COLUMNS.CCS_YVALS.ordinal()]);
 
                 listCCS.add(ccs);
 
@@ -373,27 +375,27 @@ public class SCOSService {
                 CDF cdf = new CDF();
                 String[] recordSplit = record.split("\t");
 
-                cdf.setCdfCname(recordSplit[0]);
-                cdf.setCdfEltype(CDF.CdfType.valueOf(recordSplit[1]));
-                if(recordSplit[2].length() > 0) {
-                    cdf.setCdfDescr(recordSplit[2]);
+                cdf.setCdfCname(recordSplit[CDF.COLUMNS.CDF_CNAME.ordinal()]);
+                cdf.setCdfEltype(CDF.CdfType.valueOf(recordSplit[CDF.COLUMNS.CDF_ELTYPE.ordinal()]));
+                if(recordSplit[CDF.COLUMNS.CDF_DESCR.ordinal()].length() > 0) {
+                    cdf.setCdfDescr(recordSplit[CDF.COLUMNS.CDF_DESCR.ordinal()]);
                 }
-                cdf.setCdfEllen(Integer.parseInt(recordSplit[3]));
-                cdf.setCdfBit(Integer.parseInt(recordSplit[4]));
-                if(recordSplit.length > 5 && recordSplit[5].length() > 0) {
-                    cdf.setCdfGrpsize(Integer.parseInt(recordSplit[5]));
+                cdf.setCdfEllen(Integer.parseInt(recordSplit[CDF.COLUMNS.CDF_ELLEN.ordinal()]));
+                cdf.setCdfBit(Integer.parseInt(recordSplit[CDF.COLUMNS.CDF_BIT.ordinal()]));
+                if(recordSplit.length > CDF.COLUMNS.CDF_GRPSIZE.ordinal() && recordSplit[CDF.COLUMNS.CDF_GRPSIZE.ordinal()].length() > 0) {
+                    cdf.setCdfGrpsize(Integer.parseInt(recordSplit[CDF.COLUMNS.CDF_GRPSIZE.ordinal()]));
                 }
-                if(recordSplit.length > 6 && recordSplit[6].length() > 0) {
-                    cdf.setCdfPname(recordSplit[6]);
+                if(recordSplit.length > CDF.COLUMNS.CDF_PNAME.ordinal() && recordSplit[CDF.COLUMNS.CDF_PNAME.ordinal()].length() > 0) {
+                    cdf.setCdfPname(recordSplit[CDF.COLUMNS.CDF_PNAME.ordinal()]);
                 }
-                if(recordSplit.length > 7 && recordSplit[7].length() > 0) {
-                    cdf.setCdfInter(CDF.CdfInter.valueOf(recordSplit[7]));
+                if(recordSplit.length > CDF.COLUMNS.CDF_INTER.ordinal() && recordSplit[CDF.COLUMNS.CDF_INTER.ordinal()].length() > 0) {
+                    cdf.setCdfInter(CDF.CdfInter.valueOf(recordSplit[CDF.COLUMNS.CDF_INTER.ordinal()]));
                 }
-                if(recordSplit.length > 8 && recordSplit[8].length() > 0) {
-                    cdf.setCdfValue(recordSplit[8]);
+                if(recordSplit.length > CDF.COLUMNS.CDF_VALUE.ordinal() && recordSplit[CDF.COLUMNS.CDF_VALUE.ordinal()].length() > 0) {
+                    cdf.setCdfValue(recordSplit[CDF.COLUMNS.CDF_VALUE.ordinal()]);
                 }
-                if(recordSplit.length > 9 && recordSplit[9].length() > 0) {
-                    cdf.setCdfTmid(recordSplit[9]);
+                if(recordSplit.length > CDF.COLUMNS.CDF_TMID.ordinal() && recordSplit[CDF.COLUMNS.CDF_TMID.ordinal()].length() > 0) {
+                    cdf.setCdfTmid(recordSplit[CDF.COLUMNS.CDF_TMID.ordinal()]);
                 }
 
                 listCDF.add(cdf);
@@ -429,50 +431,50 @@ public class SCOSService {
                 CPC cpc = new CPC();
                 String[] recordSplit = record.split("\t");
 
-                cpc.setCpcPname(recordSplit[0]);
-                if(recordSplit[1].length() > 0) {
-                    cpc.setCpcDescr(recordSplit[1]);
+                cpc.setCpcPname(recordSplit[CPC.COLUMNS.CPC_PNAME.getHierarchy()]);
+                if(recordSplit[CPC.COLUMNS.CPC_DESCR.getHierarchy()].length() > 0) {
+                    cpc.setCpcDescr(recordSplit[CPC.COLUMNS.CPC_DESCR.getHierarchy()]);
                 }
-                cpc.setCpcPtc(Double.parseDouble(recordSplit[2]));
-                cpc.setCpcPfc(Integer.parseInt(recordSplit[3]));
-                if(recordSplit.length > 4 && recordSplit[4].length() > 0) {
-                    cpc.setCpcDispfmt(CPC.CpcDispfmt.valueOf(recordSplit[4]));
+                cpc.setCpcPtc(Double.parseDouble(recordSplit[CPC.COLUMNS.CPC_PTC.getHierarchy()]));
+                cpc.setCpcPfc(Integer.parseInt(recordSplit[CPC.COLUMNS.CPC_PFC.getHierarchy()]));
+                if(recordSplit.length > CPC.COLUMNS.CPC_DISPFMT.getHierarchy() && recordSplit[CPC.COLUMNS.CPC_DISPFMT.getHierarchy()].length() > 0) {
+                    cpc.setCpcDispfmt(CPC.CpcDispfmt.valueOf(recordSplit[CPC.COLUMNS.CPC_DISPFMT.getHierarchy()]));
                 }
-                if(recordSplit.length > 5 && recordSplit[5].length() > 0) {
-                    cpc.setCpcRadix(_RADIX.valueOf(recordSplit[5]));
+                if(recordSplit.length > CPC.COLUMNS.CPC_RADIX.getHierarchy() && recordSplit[CPC.COLUMNS.CPC_RADIX.getHierarchy()].length() > 0) {
+                    cpc.setCpcRadix(_RADIX.valueOf(recordSplit[CPC.COLUMNS.CPC_RADIX.getHierarchy()]));
                 }
-                if(recordSplit.length > 6 && recordSplit[6].length() > 0) {
-                    cpc.setCpcUnit(recordSplit[6]);
+                if(recordSplit.length > CPC.COLUMNS.CPC_UNIT.getHierarchy() && recordSplit[CPC.COLUMNS.CPC_UNIT.getHierarchy()].length() > 0) {
+                    cpc.setCpcUnit(recordSplit[CPC.COLUMNS.CPC_UNIT.getHierarchy()]);
                 }
-                if(recordSplit.length > 7 && recordSplit[7].length() > 0) {
-                   cpc.setCpcCateg(CPC.CpcCateg.valueOf(recordSplit[7]));
+                if(recordSplit.length > CPC.COLUMNS.CPC_CATEG.getHierarchy() && recordSplit[CPC.COLUMNS.CPC_CATEG.getHierarchy()].length() > 0) {
+                   cpc.setCpcCateg(CPC.CpcCateg.valueOf(recordSplit[CPC.COLUMNS.CPC_CATEG.getHierarchy()]));
                 }
-                if(recordSplit.length > 8 && recordSplit[8].length() > 0) {
-                   cpc.setCpcPrfref(recordSplit[8]);
+                if(recordSplit.length > CPC.COLUMNS.CPC_PRFREF.getHierarchy() && recordSplit[CPC.COLUMNS.CPC_PRFREF.getHierarchy()].length() > 0) {
+                   cpc.setCpcPrfref(recordSplit[CPC.COLUMNS.CPC_PRFREF.getHierarchy()]);
                 }
-                if(recordSplit.length > 9 && recordSplit[9].length() > 0) {
-                    cpc.setCpcCcaref(recordSplit[9]);
+                if(recordSplit.length > CPC.COLUMNS.CPC_CCAREF.getHierarchy() && recordSplit[CPC.COLUMNS.CPC_CCAREF.getHierarchy()].length() > 0) {
+                    cpc.setCpcCcaref(recordSplit[CPC.COLUMNS.CPC_CCAREF.getHierarchy()]);
                 }
-                if(recordSplit.length > 10 && recordSplit[10].length() > 0) {
-                    cpc.setCpcPafref(recordSplit[10]);
+                if(recordSplit.length > CPC.COLUMNS.CPC_PAFREF.getHierarchy() && recordSplit[CPC.COLUMNS.CPC_PAFREF.getHierarchy()].length() > 0) {
+                    cpc.setCpcPafref(recordSplit[CPC.COLUMNS.CPC_PAFREF.getHierarchy()]);
                 }
-                if(recordSplit.length > 11 && recordSplit[11].length() > 0) {
-                    cpc.setCpcInter(CPC.CpcInter.valueOf(recordSplit[11]));
+                if(recordSplit.length > CPC.COLUMNS.CPC_INTER.getHierarchy() && recordSplit[CPC.COLUMNS.CPC_INTER.getHierarchy()].length() > 0) {
+                    cpc.setCpcInter(CPC.CpcInter.valueOf(recordSplit[CPC.COLUMNS.CPC_INTER.getHierarchy()]));
                 }
-                if(recordSplit.length > 12 && recordSplit[12].length() > 0) {
-                    cpc.setCpcDefval(recordSplit[12]);
+                if(recordSplit.length > CPC.COLUMNS.CPC_DEFVAL.getHierarchy() && recordSplit[CPC.COLUMNS.CPC_DEFVAL.getHierarchy()].length() > 0) {
+                    cpc.setCpcDefval(recordSplit[CPC.COLUMNS.CPC_DEFVAL.getHierarchy()]);
                 }
-                if(recordSplit.length > 13 && recordSplit[13].length() > 0) {
-                    cpc.setCpcCorr(_YN.valueOf(recordSplit[13]));
+                if(recordSplit.length > CPC.COLUMNS.CPC_CORR.getHierarchy() && recordSplit[CPC.COLUMNS.CPC_CORR.getHierarchy()].length() > 0) {
+                    cpc.setCpcCorr(_YN.valueOf(recordSplit[CPC.COLUMNS.CPC_CORR.getHierarchy()]));
                 }
-                if(recordSplit.length > 14 && recordSplit[14].length() > 0) {
-                    cpc.setCpcObtid(Integer.parseInt(recordSplit[14]));
+                if(recordSplit.length > CPC.COLUMNS.CPC_OBTID.getHierarchy() && recordSplit[CPC.COLUMNS.CPC_OBTID.getHierarchy()].length() > 0) {
+                    cpc.setCpcObtid(Integer.parseInt(recordSplit[CPC.COLUMNS.CPC_OBTID.getHierarchy()]));
                 }
-                if(recordSplit.length > 15 && recordSplit[15].length() > 0) {
-                    cpc.setCpcDescr2(recordSplit[15]);
+                if(recordSplit.length > CPC.COLUMNS.CPC_DESCR2.getHierarchy() && recordSplit[CPC.COLUMNS.CPC_DESCR2.getHierarchy()].length() > 0) {
+                    cpc.setCpcDescr2(recordSplit[CPC.COLUMNS.CPC_DESCR2.getHierarchy()]);
                 }
-                if(recordSplit.length > 16 && recordSplit[16].length() > 0) {
-                    cpc.setCpcEndian(CPC.CpcEndian.valueOf(recordSplit[16]));
+                if(recordSplit.length > CPC.COLUMNS.CPC_ENDIAN.getHierarchy() && recordSplit[CPC.COLUMNS.CPC_ENDIAN.getHierarchy()].length() > 0) {
+                    cpc.setCpcEndian(CPC.CpcEndian.valueOf(recordSplit[CPC.COLUMNS.CPC_ENDIAN.getHierarchy()]));
                 }
 
                 listCPC.add(cpc);
@@ -510,49 +512,49 @@ public class SCOSService {
                 CSF csf = new CSF();
                 String[] recordSplit = record.split("\t");
 
-                csf. setCsfName(recordSplit[0]);
-                csf.setCsfDesc(recordSplit[1]);
-                if(recordSplit.length > 2 && recordSplit[2].length() > 0) {
-                    csf.setCsfDesc2(recordSplit[2]);
+                csf. setCsfName(recordSplit[CSF.COLUMNS.CSF_NAME.getHierarchy()]);
+                csf.setCsfDesc(recordSplit[CSF.COLUMNS.CSF_DESC.getHierarchy()]);
+                if(recordSplit.length > CSF.COLUMNS.CSF_DESC2.getHierarchy() && recordSplit[CSF.COLUMNS.CSF_DESC2.getHierarchy()].length() > 0) {
+                    csf.setCsfDesc2(recordSplit[CSF.COLUMNS.CSF_DESC2.getHierarchy()]);
                 }
-                if(recordSplit.length > 3 && recordSplit[3].length() > 0) {
-                    csf.setCsfIftt(CSF.CsfIftt.valueOf(recordSplit[3]));
+                if(recordSplit.length > CSF.COLUMNS.CSF_IFTT.getHierarchy() && recordSplit[CSF.COLUMNS.CSF_IFTT.getHierarchy()].length() > 0) {
+                    csf.setCsfIftt(CSF.CsfIftt.valueOf(recordSplit[CSF.COLUMNS.CSF_IFTT.getHierarchy()]));
                 }
-                if(recordSplit.length > 4 && recordSplit[4].length() > 0) {
-                    csf.setCsfNfpars(Integer.parseInt(recordSplit[4]));
+                if(recordSplit.length > CSF.COLUMNS.CSF_NFPARS.getHierarchy() && recordSplit[CSF.COLUMNS.CSF_NFPARS.getHierarchy()].length() > 0) {
+                    csf.setCsfNfpars(Integer.parseInt(recordSplit[CSF.COLUMNS.CSF_NFPARS.getHierarchy()]));
                 }
-                if(recordSplit.length > 5 && recordSplit[5].length() > 0) {
-                    csf.setCsfElems(Integer.parseInt(recordSplit[5]));
+                if(recordSplit.length > CSF.COLUMNS.CSF_ELEMS.getHierarchy() && recordSplit[CSF.COLUMNS.CSF_ELEMS.getHierarchy()].length() > 0) {
+                    csf.setCsfElems(Integer.parseInt(recordSplit[CSF.COLUMNS.CSF_ELEMS.getHierarchy()]));
                 }
-                if(recordSplit.length > 6 && recordSplit[6].length() > 0) {
-                    csf.setCsfCritical(_YN.valueOf(recordSplit[6]));
+                if(recordSplit.length > CSF.COLUMNS.CSF_CRITICAL.getHierarchy() && recordSplit[CSF.COLUMNS.CSF_CRITICAL.getHierarchy()].length() > 0) {
+                    csf.setCsfCritical(_YN.valueOf(recordSplit[CSF.COLUMNS.CSF_CRITICAL.getHierarchy()]));
                 }
-                if(recordSplit.length > 7 && recordSplit[7].length() > 0) {
-                    csf.setCsfPlan(CSF.CsfPlan.valueOf(recordSplit[7]));
+                if(recordSplit.length > CSF.COLUMNS.CSF_PLAN.getHierarchy() && recordSplit[CSF.COLUMNS.CSF_PLAN.getHierarchy()].length() > 0) {
+                    csf.setCsfPlan(CSF.CsfPlan.valueOf(recordSplit[CSF.COLUMNS.CSF_PLAN.getHierarchy()]));
                 }
-                if(recordSplit.length > 8 && recordSplit[8].length() > 0) {
-                   csf.setCsfExec(_YN.valueOf(recordSplit[8]));
+                if(recordSplit.length > CSF.COLUMNS.CSF_EXEC.getHierarchy() && recordSplit[CSF.COLUMNS.CSF_EXEC.getHierarchy()].length() > 0) {
+                   csf.setCsfExec(_YN.valueOf(recordSplit[CSF.COLUMNS.CSF_EXEC.getHierarchy()]));
                 }
-                if(recordSplit.length > 9 && recordSplit[9].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[9]),1,255)) {
-                   csf.setCsfSubsys(Integer.parseInt(recordSplit[9]));
+                if(recordSplit.length > CSF.COLUMNS.CSF_SUBSYS.getHierarchy() && recordSplit[CSF.COLUMNS.CSF_SUBSYS.getHierarchy()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[CSF.COLUMNS.CSF_SUBSYS.getHierarchy()]),1,255)) {
+                   csf.setCsfSubsys(Integer.parseInt(recordSplit[CSF.COLUMNS.CSF_SUBSYS.getHierarchy()]));
                 }
-                if(recordSplit.length > 10 && recordSplit[10].length() > 0) {
-                    csf.setCsfGentime(recordSplit[10]);
+                if(recordSplit.length > CSF.COLUMNS.CSF_GENTIME.getHierarchy() && recordSplit[CSF.COLUMNS.CSF_GENTIME.getHierarchy()].length() > 0) {
+                    csf.setCsfGentime(recordSplit[CSF.COLUMNS.CSF_GENTIME.getHierarchy()]);
                 }
-                if(recordSplit.length > 11 && recordSplit[11].length() > 0) {
-                    csf.setCsfDocname(recordSplit[11]);
+                if(recordSplit.length > CSF.COLUMNS.CSF_DOCNAME.getHierarchy() && recordSplit[CSF.COLUMNS.CSF_DOCNAME.getHierarchy()].length() > 0) {
+                    csf.setCsfDocname(recordSplit[CSF.COLUMNS.CSF_DOCNAME.getHierarchy()]);
                 }
-                if(recordSplit.length > 12 && recordSplit[12].length() > 0) {
-                    csf.setCsfIssue(recordSplit[12]);
+                if(recordSplit.length > CSF.COLUMNS.CSF_ISSUE.getHierarchy() && recordSplit[CSF.COLUMNS.CSF_ISSUE.getHierarchy()].length() > 0) {
+                    csf.setCsfIssue(recordSplit[CSF.COLUMNS.CSF_ISSUE.getHierarchy()]);
                 }
-                if(recordSplit.length > 13 && recordSplit[13].length() > 0) {
-                    csf.setCsfDate(recordSplit[13]);
+                if(recordSplit.length > CSF.COLUMNS.CSF_DATE.getHierarchy() && recordSplit[CSF.COLUMNS.CSF_DATE.getHierarchy()].length() > 0) {
+                    csf.setCsfDate(recordSplit[CSF.COLUMNS.CSF_DATE.getHierarchy()]);
                 }
-                if(recordSplit.length > 14 && recordSplit[14].length() > 0) {
-                    csf.setCsfDefset(recordSplit[14]);
+                if(recordSplit.length > CSF.COLUMNS.CSF_DEFSET.getHierarchy() && recordSplit[CSF.COLUMNS.CSF_DEFSET.getHierarchy()].length() > 0) {
+                    csf.setCsfDefset(recordSplit[CSF.COLUMNS.CSF_DEFSET.getHierarchy()]);
                 }
-                if(recordSplit.length > 15 && recordSplit[15].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[15]),1,65535)) {
-                    csf.setCsfSubschedid(Integer.parseInt(recordSplit[15]));
+                if(recordSplit.length > CSF.COLUMNS.CSF_SUBSCHEDID.getHierarchy() && recordSplit[CSF.COLUMNS.CSF_SUBSCHEDID.getHierarchy()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[CSF.COLUMNS.CSF_SUBSCHEDID.getHierarchy()]),1,65535)) {
+                    csf.setCsfSubschedid(Integer.parseInt(recordSplit[CSF.COLUMNS.CSF_SUBSCHEDID.getHierarchy()]));
                 }
 
                 listCSF.add(csf);
@@ -589,11 +591,11 @@ public class SCOSService {
                 CUR cur = new CUR();
                 String[] recordSplit = record.split("\t");
 
-                cur.setCurPname(recordSplit[0]);
-                cur.setCurPos(Integer.parseInt(recordSplit[1]));
-                cur.setCurRlchk(recordSplit[2]);
-                cur.setCurValpar(Integer.parseInt(recordSplit[3]));
-                cur.setCurSelect(recordSplit[4]);
+                cur.setCurPname(recordSplit[CUR.COLUMNS.CUR_PNAME.ordinal()]);
+                cur.setCurPos(Integer.parseInt(recordSplit[CUR.COLUMNS.CUR_POS.ordinal()]));
+                cur.setCurRlchk(recordSplit[CUR.COLUMNS.CUR_RLCHK.ordinal()]);
+                cur.setCurValpar(Integer.parseInt(recordSplit[CUR.COLUMNS.CUR_VALPAR.ordinal()]));
+                cur.setCurSelect(recordSplit[CUR.COLUMNS.CUR_SELECT.ordinal()]);
 
                 listCUR.add(cur);
 
@@ -629,19 +631,19 @@ public class SCOSService {
                 CVE cve = new CVE();
                 String[] recordSplit = record.split("\t");
 
-                cve.setCveCvsid(Integer.parseInt(recordSplit[0]));
-                cve.setCveParnam(recordSplit[1]);
-                if(recordSplit.length > 2 && recordSplit[2].length() > 0) {
-                    cve.setCveInter(CVE.CveInter.valueOf(recordSplit[2]));
+                cve.setCveCvsid(Integer.parseInt(recordSplit[CVE.COLUMNS.CVE_CVSID.ordinal()]));
+                cve.setCveParnam(recordSplit[CVE.COLUMNS.CVE_PARNAM.ordinal()]);
+                if(recordSplit.length > CVE.COLUMNS.CVE_INTER.ordinal() && recordSplit[CVE.COLUMNS.CVE_INTER.ordinal()].length() > 0) {
+                    cve.setCveInter(CVE.CveInter.valueOf(recordSplit[CVE.COLUMNS.CVE_INTER.ordinal()]));
                 }
-                if(recordSplit.length > 3 && recordSplit[3].length() > 0) {
-                    cve.setCveVal(recordSplit[3]);
+                if(recordSplit.length > CVE.COLUMNS.CVE_VAL.ordinal() && recordSplit[CVE.COLUMNS.CVE_VAL.ordinal()].length() > 0) {
+                    cve.setCveVal(recordSplit[CVE.COLUMNS.CVE_VAL.ordinal()]);
                 }
-                if(recordSplit.length > 4 && recordSplit[4].length() > 0) {
-                    cve.setCveTol(recordSplit[4]);
+                if(recordSplit.length > CVE.COLUMNS.CVE_TOL.ordinal() && recordSplit[CVE.COLUMNS.CVE_TOL.ordinal()].length() > 0) {
+                    cve.setCveTol(recordSplit[CVE.COLUMNS.CVE_TOL.ordinal()]);
                 }
-                if(recordSplit.length > 5 && recordSplit[5].length() > 0) {
-                    cve.setCveCheck(CVE.CveCheck.valueOf(recordSplit[5]));
+                if(recordSplit.length > CVE.COLUMNS.CVE_CHECK.ordinal() && recordSplit[CVE.COLUMNS.CVE_CHECK.ordinal()].length() > 0) {
+                    cve.setCveCheck(CVE.CveCheck.valueOf(recordSplit[CVE.COLUMNS.CVE_CHECK.ordinal()]));
                 }
 
                 listCVE.add((cve));
@@ -678,9 +680,9 @@ public class SCOSService {
                 CVP cvp = new CVP();
                 String[] recordSplit = record.split("\t");
 
-                cvp.setCvpTask(recordSplit[0]);
-                cvp.setCvpType(CVP.CvpType.valueOf(recordSplit[1]));
-                cvp.setCvpCvsid(Integer.parseInt(recordSplit[2]));
+                cvp.setCvpTask(recordSplit[CVP.COLUMNS.CVP_TASK.ordinal()]);
+                cvp.setCvpType(CVP.CvpType.valueOf(recordSplit[CVP.COLUMNS.CVP_TYPE.ordinal()]));
+                cvp.setCvpCvsid(Integer.parseInt(recordSplit[CVP.COLUMNS.CVP_CVSID.ordinal()]));
 
                 listCVP.add(cvp);
 
@@ -716,24 +718,24 @@ public class SCOSService {
                 CVS cvs = new CVS();
                 String[] recordSplit = record.split("\t");
 
-                if(checkIntegerRange(Integer.parseInt(recordSplit[0]), 0, 32767)) {
-                    cvs.setCvsId(Integer.parseInt(recordSplit[0]));
+                if(checkIntegerRange(Integer.parseInt(recordSplit[CVS.COLUMNS.CVS_ID.ordinal()]), 0, 32767)) {
+                    cvs.setCvsId(Integer.parseInt(recordSplit[CVS.COLUMNS.CVS_ID.ordinal()]));
                 }
-                if(checkAlphaNumericRange(recordSplit[1].charAt(0), CVS.arrayCVSType)) {
-                    cvs.setCvsType(recordSplit[1].charAt(0));
+                if(checkAlphaNumericRange(recordSplit[CVS.COLUMNS.CVS_TYPE.ordinal()].charAt(0), CVS.arrayCVSType)) {
+                    cvs.setCvsType(recordSplit[CVS.COLUMNS.CVS_TYPE.ordinal()].charAt(0));
                 }
-                cvs.setCvsSource(CVS.CvsSource.valueOf(recordSplit[2]));
-                if(checkLowerBoundary(Integer.parseInt(recordSplit[3]), 0)) {
-                    cvs.setCvsStart(Integer.parseInt(recordSplit[3]));
+                cvs.setCvsSource(CVS.CvsSource.valueOf(recordSplit[CVS.COLUMNS.CVS_SOURCE.ordinal()]));
+                if(checkLowerBoundary(Integer.parseInt(recordSplit[CVS.COLUMNS.CVS_START.ordinal()]), 0)) {
+                    cvs.setCvsStart(Integer.parseInt(recordSplit[CVS.COLUMNS.CVS_START.ordinal()]));
                 }
-                if(checkLowerBoundary(Integer.parseInt(recordSplit[4]), 0)) {
-                    cvs.setCvsInterval(Integer.parseInt(recordSplit[4]));
+                if(checkLowerBoundary(Integer.parseInt(recordSplit[CVS.COLUMNS.CVS_INTERVAL.ordinal()]), 0)) {
+                    cvs.setCvsInterval(Integer.parseInt(recordSplit[CVS.COLUMNS.CVS_INTERVAL.ordinal()]));
                 }
-                if(recordSplit.length > 5 && recordSplit[5].length() > 0) {
-                    cvs.setCvsSpid(BigInteger.valueOf(Integer.parseInt(recordSplit[5])));
+                if(recordSplit.length > CVS.COLUMNS.CVS_SPID.ordinal() && recordSplit[CVS.COLUMNS.CVS_SPID.ordinal()].length() > 0) {
+                    cvs.setCvsSpid(BigInteger.valueOf(Integer.parseInt(recordSplit[CVS.COLUMNS.CVS_SPID.ordinal()])));
                 }
-                if(recordSplit.length > 6 && recordSplit[6].length() > 0 && checkLowerBoundary(Integer.parseInt(recordSplit[6]),0)) {
-                    cvs.setCvsUncertainty(Integer.parseInt(recordSplit[6]));
+                if(recordSplit.length > CVS.COLUMNS.CVS_UNCERTAINTY.ordinal() && recordSplit[CVS.COLUMNS.CVS_UNCERTAINTY.ordinal()].length() > 0 && checkLowerBoundary(Integer.parseInt(recordSplit[6]),0)) {
+                    cvs.setCvsUncertainty(Integer.parseInt(recordSplit[CVS.COLUMNS.CVS_UNCERTAINTY.ordinal()]));
                 }
 
                 listCVS.add(cvs);
@@ -770,22 +772,22 @@ public class SCOSService {
                 DPC dpc = new DPC();
                 String[] recordSplit = record.split("\t");
 
-                dpc.setDpcNumbe(recordSplit[0]);
-                if(recordSplit[1].length() > 0) {
-                    dpc.setDpcName(recordSplit[1]);
+                dpc.setDpcNumbe(recordSplit[DPC.COLUMNS.DPC_NUMBE.ordinal()]);
+                if(recordSplit[DPC.COLUMNS.DPC_NAME.ordinal()].length() > 0) {
+                    dpc.setDpcName(recordSplit[DPC.COLUMNS.DPC_NAME.ordinal()]);
                 }
-                dpc.setDpcFldn(Integer.parseInt(recordSplit[2]));
-                if(recordSplit.length > 3 && recordSplit[3].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[3]),0,9999)) {
-                    dpc.setDpcFldn(Integer.parseInt(recordSplit[3]));
+                dpc.setDpcFldn(Integer.parseInt(recordSplit[DPC.COLUMNS.DPC_FLDN.ordinal()]));
+                if(recordSplit.length > DPC.COLUMNS.DPC_COMM.ordinal() && recordSplit[DPC.COLUMNS.DPC_COMM.ordinal()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[3]),0,9999)) {
+                    dpc.setDpcComm(Integer.parseInt(recordSplit[DPC.COLUMNS.DPC_COMM.ordinal()]));
                 }
-                if(recordSplit.length > 4 && recordSplit[4].length() > 0) {
-                    dpc.setDpcMode(_YN.valueOf(recordSplit[4]));
+                if(recordSplit.length > DPC.COLUMNS.DPC_MODE.ordinal() && recordSplit[DPC.COLUMNS.DPC_MODE.ordinal()].length() > 0) {
+                    dpc.setDpcMode(_YN.valueOf(recordSplit[DPC.COLUMNS.DPC_MODE.ordinal()]));
                 }
-                if(recordSplit.length > 5 && recordSplit[5].length() > 0) {
-                   dpc.setDpcForm(DPC.DpcForm.valueOf(recordSplit[5]));
+                if(recordSplit.length > DPC.COLUMNS.DPC_FORM.ordinal() && recordSplit[DPC.COLUMNS.DPC_FORM.ordinal()].length() > 0) {
+                   dpc.setDpcForm(DPC.DpcForm.valueOf(recordSplit[DPC.COLUMNS.DPC_FORM.ordinal()]));
                 }
-                if(recordSplit.length > 6 && recordSplit[6].length() > 0) {
-                    dpc.setDpcText(recordSplit[6]);
+                if(recordSplit.length > DPC.COLUMNS.DPC_TEXT.ordinal() && recordSplit[DPC.COLUMNS.DPC_TEXT.ordinal()].length() > 0) {
+                    dpc.setDpcText(recordSplit[DPC.COLUMNS.DPC_TEXT.ordinal()]);
                 }
 
                 listDPC.add(dpc);
@@ -822,12 +824,12 @@ public class SCOSService {
                 DPF dpf = new DPF();
                 String[] recordSplit = record.split("\t");
 
-                dpf.setDpfNumbe(recordSplit[0]);
-                if(checkAlphaNumericRange(recordSplit[1].charAt(0), DPF.arrayDPFType)) {
-                    dpf.setDpfType(recordSplit[1].charAt(0));
+                dpf.setDpfNumbe(recordSplit[DPF.COLUMNS.DPF_NUMBE.ordinal()]);
+                if(checkAlphaNumericRange(recordSplit[DPF.COLUMNS.DPF_TYPE.ordinal()].charAt(0), DPF.arrayDPFType)) {
+                    dpf.setDpfType(recordSplit[DPF.COLUMNS.DPF_TYPE.ordinal()].charAt(0));
                 }
-                if(recordSplit.length > 2 && recordSplit[2].length() > 0) {
-                    dpf.setDpfHead(recordSplit[2]);
+                if(recordSplit.length > DPF.COLUMNS.DPF_HEAD.ordinal() && recordSplit[DPF.COLUMNS.DPF_HEAD.ordinal()].length() > 0) {
+                    dpf.setDpfHead(recordSplit[DPF.COLUMNS.DPF_HEAD.ordinal()]);
                 }
 
                 listDPF.add(dpf);
@@ -864,8 +866,8 @@ public class SCOSService {
                 DST dst = new DST();
                 String[] recordSplit = record.split("\t");
 
-                if(checkIntegerRange(Integer.parseInt(recordSplit[0]),0,65535)) {
-                    dst.setDstApid(Integer.parseInt(recordSplit[0]));
+                if(checkIntegerRange(Integer.parseInt(recordSplit[DST.COLUMNS.DST_APID.ordinal()]),0,65535)) {
+                    dst.setDstApid(Integer.parseInt(recordSplit[DST.COLUMNS.DST_ROUTE.ordinal()]));
                 }
                 dst.setDstRoute(recordSplit[1]);
 
@@ -904,28 +906,28 @@ public class SCOSService {
                 GPC gpc = new GPC();
                 String[] recordSplit = record.split("\t");
 
-                gpc.setGpcNumbe(recordSplit[0]);
-                gpc.setGpcPos(Integer.parseInt(recordSplit[1]));
-                if(checkAlphaNumericRange(recordSplit[2].charAt(0),GPC.arrayGPCWhere)) {
-                    gpc.setGpcWhere(recordSplit[2].charAt(0));
+                gpc.setGpcNumbe(recordSplit[GPC.COLUMNS.GPC_NUMBE.ordinal()]);
+                gpc.setGpcPos(Integer.parseInt(recordSplit[GPC.COLUMNS.GPC_POS.ordinal()]));
+                if(checkAlphaNumericRange(recordSplit[GPC.COLUMNS.GPC_WHERE.ordinal()].charAt(0),GPC.arrayGPCWhere)) {
+                    gpc.setGpcWhere(recordSplit[GPC.COLUMNS.GPC_WHERE.ordinal()].charAt(0));
                 }
-                gpc.setGpcName(recordSplit[3]);
-                if(recordSplit[4].length() > 0) {
-                    gpc.setGpcRaw(GPC.GpcRaw.valueOf(recordSplit[4]));
+                gpc.setGpcName(recordSplit[GPC.COLUMNS.GPC_NAME.ordinal()]);
+                if(recordSplit[GPC.COLUMNS.GPC_RAW.ordinal()].length() > 0) {
+                    gpc.setGpcRaw(GPC.GpcRaw.valueOf(recordSplit[GPC.COLUMNS.GPC_RAW.ordinal()]));
                 }
-                gpc.setGpcMinim(recordSplit[5]);
-                gpc.setGpcMaxim(recordSplit[6]);
-                if(checkAlphaNumericRange(recordSplit[7].charAt(0),GPC.arrayGPCPrclr)) {
-                    gpc.setGpcPrclr(recordSplit[7].charAt(0));
+                gpc.setGpcMinim(recordSplit[GPC.COLUMNS.GPC_MINIM.ordinal()]);
+                gpc.setGpcMaxim(recordSplit[GPC.COLUMNS.GPC_MAXIM.ordinal()]);
+                if(checkAlphaNumericRange(recordSplit[GPC.COLUMNS.GPC_PRCLR.ordinal()].charAt(0),GPC.arrayGPCPrclr)) {
+                    gpc.setGpcPrclr(recordSplit[GPC.COLUMNS.GPC_PRCLR.ordinal()].charAt(0));
                 }
-                if(recordSplit.length > 8 && recordSplit[8].length() > 0 && checkAlphaNumericRange(recordSplit[8].charAt(0),GPC.arrayGPCSymb0)) {
-                    gpc.setGpcSymb0(recordSplit[8].charAt(0));
+                if(recordSplit.length > GPC.COLUMNS.GPC_SYMB0.ordinal() && recordSplit[GPC.COLUMNS.GPC_SYMB0.ordinal()].length() > 0 && checkAlphaNumericRange(recordSplit[8].charAt(0),GPC.arrayGPCSymb0)) {
+                    gpc.setGpcSymb0(recordSplit[GPC.COLUMNS.GPC_SYMB0.ordinal()].charAt(0));
                 }
-                if(recordSplit.length > 9 && recordSplit[9].length() > 0 && checkAlphaNumericRange(recordSplit[9].charAt(0),GPC.arrayGPCLine)) {
-                    gpc.setGpcLine(recordSplit[9].charAt(0));
+                if(recordSplit.length > GPC.COLUMNS.GPC_LINE.ordinal() && recordSplit[GPC.COLUMNS.GPC_LINE.ordinal()].length() > 0 && checkAlphaNumericRange(recordSplit[9].charAt(0),GPC.arrayGPCLine)) {
+                    gpc.setGpcLine(recordSplit[GPC.COLUMNS.GPC_LINE.ordinal()].charAt(0));
                 }
-                if(recordSplit.length > 10 && recordSplit[10].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[10]),0,65535)) {
-                    gpc.setGpcDomain(Integer.parseInt(recordSplit[10]));
+                if(recordSplit.length > GPC.COLUMNS.GPC_DOMAIN.ordinal() && recordSplit[GPC.COLUMNS.GPC_DOMAIN.ordinal()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[10]),0,65535)) {
+                    gpc.setGpcDomain(Integer.parseInt(recordSplit[GPC.COLUMNS.GPC_DOMAIN.ordinal()]));
                 }
 
                 listGPC.add(gpc);
@@ -962,43 +964,43 @@ public class SCOSService {
                 GPF gpf = new GPF();
                 String[] recordSplit = record.split("\t");
 
-                gpf.setGpfNumbe(recordSplit[0]);
-                gpf.setGpfType(GPF.GpfType.valueOf(recordSplit[1]));
-                if(recordSplit[2].length() > 0) {
-                    gpf.setGpfHead(recordSplit[2]);
+                gpf.setGpfNumbe(recordSplit[GPF.COLUMNS.GPF_NUMBE.getHierarchy()]);
+                gpf.setGpfType(GPF.GpfType.valueOf(recordSplit[GPF.COLUMNS.GPF_TYPE.getHierarchy()]));
+                if(recordSplit[GPF.COLUMNS.GPF_HEAD.getHierarchy()].length() > 0) {
+                    gpf.setGpfHead(recordSplit[GPF.COLUMNS.GPF_HEAD.getHierarchy()]);
                 }
-                if(recordSplit[3].length() > 0) {
-                    gpf.setGpfScrol(_YN.valueOf(recordSplit[3]));
+                if(recordSplit[GPF.COLUMNS.GPF_SCROL.getHierarchy()].length() > 0) {
+                    gpf.setGpfScrol(_YN.valueOf(recordSplit[GPF.COLUMNS.GPF_SCROL.getHierarchy()]));
                 }
-                if(recordSplit[4].length() > 0) {
-                    gpf.setGpfHcopy(_YN.valueOf(recordSplit[4]));
+                if(recordSplit[GPF.COLUMNS.GPF_HCOPY.getHierarchy()].length() > 0) {
+                    gpf.setGpfHcopy(_YN.valueOf(recordSplit[GPF.COLUMNS.GPF_HCOPY.getHierarchy()]));
                 }
-                if(checkIntegerRange(Integer.parseInt(recordSplit[5]),0,99)) {
-                    gpf.setGpfDays(Integer.parseInt(recordSplit[5]));
+                if(checkIntegerRange(Integer.parseInt(recordSplit[GPF.COLUMNS.GPF_DAYS.getHierarchy()]),0,99)) {
+                    gpf.setGpfDays(Integer.parseInt(recordSplit[GPF.COLUMNS.GPF_DAYS.getHierarchy()]));
                 }
-                if(checkIntegerRange(Integer.parseInt(recordSplit[6]),0,23)) {
-                    gpf.setGpfHours(Integer.parseInt(recordSplit[6]));
+                if(checkIntegerRange(Integer.parseInt(recordSplit[GPF.COLUMNS.GPF_HOURS.getHierarchy()]),0,23)) {
+                    gpf.setGpfHours(Integer.parseInt(recordSplit[GPF.COLUMNS.GPF_HOURS.getHierarchy()]));
                 }
-                if(checkIntegerRange(Integer.parseInt(recordSplit[7]),0,59)) {
-                    gpf.setGpfMinut(Integer.parseInt(recordSplit[7]));
+                if(checkIntegerRange(Integer.parseInt(recordSplit[GPF.COLUMNS.GPF_MINUT.getHierarchy()]),0,59)) {
+                    gpf.setGpfMinut(Integer.parseInt(recordSplit[GPF.COLUMNS.GPF_MINUT.getHierarchy()]));
                 }
-                if(checkAlphaNumericRange(recordSplit[8].charAt(0),GPF.arrayGpfAxclr)) {
-                    gpf.setGpfAxclr(recordSplit[8].charAt(0));
+                if(checkAlphaNumericRange(recordSplit[GPF.COLUMNS.GPF_AXCLR.getHierarchy()].charAt(0),GPF.arrayGpfAxclr)) {
+                    gpf.setGpfAxclr(recordSplit[GPF.COLUMNS.GPF_AXCLR.getHierarchy()].charAt(0));
                 }
-                if(checkIntegerRange(Integer.parseInt(recordSplit[9]),1,99)) {
-                    gpf.setGpfXtic(Integer.parseInt(recordSplit[9]));
+                if(checkIntegerRange(Integer.parseInt(recordSplit[GPF.COLUMNS.GPF_XTICK.getHierarchy()]),1,99)) {
+                    gpf.setGpfXtic(Integer.parseInt(recordSplit[GPF.COLUMNS.GPF_XTICK.getHierarchy()]));
                 }
-                if(checkIntegerRange(Integer.parseInt(recordSplit[10]),1,99)) {
-                    gpf.setGpfYtic(Integer.parseInt(recordSplit[10]));
+                if(checkIntegerRange(Integer.parseInt(recordSplit[GPF.COLUMNS.GPF_YTICK.getHierarchy()]),1,99)) {
+                    gpf.setGpfYtic(Integer.parseInt(recordSplit[GPF.COLUMNS.GPF_YTICK.getHierarchy()]));
                 }
-                if(checkIntegerRange(Integer.parseInt(recordSplit[11]),1,99)) {
-                    gpf.setGpfXgrid(Integer.parseInt(recordSplit[11]));
+                if(checkIntegerRange(Integer.parseInt(recordSplit[GPF.COLUMNS.GPF_XGRID.getHierarchy()]),1,99)) {
+                    gpf.setGpfXgrid(Integer.parseInt(recordSplit[GPF.COLUMNS.GPF_XGRID.getHierarchy()]));
                 }
-                if(checkIntegerRange(Integer.parseInt(recordSplit[12]),1,99)) {
-                    gpf.setGpfYgrid(Integer.parseInt(recordSplit[12]));
+                if(checkIntegerRange(Integer.parseInt(recordSplit[GPF.COLUMNS.GPF_YGRID.getHierarchy()]),1,99)) {
+                    gpf.setGpfYgrid(Integer.parseInt(recordSplit[GPF.COLUMNS.GPF_YGRID.getHierarchy()]));
                 }
-                if(recordSplit.length > 13 && recordSplit[13].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[13]),1,99))  {
-                    gpf.setGpfUpun(Integer.parseInt(recordSplit[13]));
+                if(recordSplit.length > GPF.COLUMNS.GPF_UPUN.getHierarchy() && recordSplit[GPF.COLUMNS.GPF_UPUN.getHierarchy()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[GPF.COLUMNS.GPF_UPUN.getHierarchy()]),1,99))  {
+                    gpf.setGpfUpun(Integer.parseInt(recordSplit[GPF.COLUMNS.GPF_UPUN.getHierarchy()]));
                 }
 
                 listGPF.add(gpf);
@@ -1035,9 +1037,9 @@ public class SCOSService {
                 GRP grp = new GRP();
                 String[] recordSplit = record.split("\t");
 
-                grp.setGrpName(recordSplit[0]);
-                grp.setGrpDescr(recordSplit[1]);
-                grp.setGrpGtype(GRP.GrpGtype.valueOf(recordSplit[2]));
+                grp.setGrpName(recordSplit[GRP.COLUMNS.GRP_NAME.ordinal()]);
+                grp.setGrpDescr(recordSplit[GRP.COLUMNS.GRP_DESCR.ordinal()]);
+                grp.setGrpGtype(GRP.GrpGtype.valueOf(recordSplit[GRP.COLUMNS.GRP_GTYPE.ordinal()]));
 
                 listGRP.add(grp);
 
@@ -1073,8 +1075,8 @@ public class SCOSService {
                 GRPA grpa = new GRPA();
                 String[] recordSplit = record.split("\t");
 
-                grpa.setGrpaGname(recordSplit[0]);
-                grpa.setGrpaPaname(recordSplit[1]);
+                grpa.setGrpaGname(recordSplit[GRPA.COLUMNS.GRPA_GNAME.ordinal()]);
+                grpa.setGrpaPaname(recordSplit[GRPA.COLUMNS.GRPA_PANAME.ordinal()]);
 
                 listGRPA.add(grpa);
 
@@ -1110,8 +1112,8 @@ public class SCOSService {
                 GRPK grpk = new GRPK();
                 String[] recordSplit = record.split("\t");
 
-                grpk.setGrpkGname(recordSplit[0]);
-                grpk.setGrpkPkspid(Long.parseLong(recordSplit[1]));
+                grpk.setGrpkGname(recordSplit[GRPK.COLUMNS.GRPK_GNAME.ordinal()]);
+                grpk.setGrpkPkspid(Long.parseLong(recordSplit[GRPK.COLUMNS.GRPK_PKSPID.ordinal()]));
 
                 listGRPK.add(grpk);
 
@@ -1147,22 +1149,22 @@ public class SCOSService {
                 LGF lgf = new LGF();
                 String[] recordSplit = record.split("\t");
 
-                lgf.setLgfIdent(recordSplit[0]);
-                if(recordSplit[1].length() > 0) {
-                    lgf.setLgfDescr(recordSplit[1]);
+                lgf.setLgfIdent(recordSplit[LGF.COLUMNS.LGF_IDENT.ordinal()]);
+                if(recordSplit[LGF.COLUMNS.LGF_DESCR.ordinal()].length() > 0) {
+                    lgf.setLgfDescr(recordSplit[LGF.COLUMNS.LGF_DESCR.ordinal()]);
                 }
-                lgf.setLgfPol1(recordSplit[2]);
-                if(recordSplit.length > 3 && recordSplit[3].length() > 0) {
-                    lgf.setLgfPol2(recordSplit[3]);
+                lgf.setLgfPol1(recordSplit[LGF.COLUMNS.LGF_POL1.ordinal()]);
+                if(recordSplit.length > LGF.COLUMNS.LGF_POL2.ordinal() && recordSplit[LGF.COLUMNS.LGF_POL2.ordinal()].length() > 0) {
+                    lgf.setLgfPol2(recordSplit[LGF.COLUMNS.LGF_POL2.ordinal()]);
                 }
-                if(recordSplit.length > 4 && recordSplit[4].length() > 0) {
-                    lgf.setLgfPol3(recordSplit[4]);
+                if(recordSplit.length > LGF.COLUMNS.LGF_POL3.ordinal() && recordSplit[LGF.COLUMNS.LGF_POL3.ordinal()].length() > 0) {
+                    lgf.setLgfPol3(recordSplit[LGF.COLUMNS.LGF_POL3.ordinal()]);
                 }
-                if(recordSplit.length > 5 && recordSplit[5].length() > 0) {
-                   lgf.setLgfPol4(recordSplit[5]);
+                if(recordSplit.length > LGF.COLUMNS.LGF_POL4.ordinal() && recordSplit[LGF.COLUMNS.LGF_POL4.ordinal()].length() > 0) {
+                   lgf.setLgfPol4(recordSplit[LGF.COLUMNS.LGF_POL4.ordinal()]);
                 }
-                if(recordSplit.length > 6 && recordSplit[6].length() > 0) {
-                    lgf.setLgfPol5(recordSplit[6]);
+                if(recordSplit.length > LGF.COLUMNS.LGF_POL5.ordinal() && recordSplit[LGF.COLUMNS.LGF_POL5.ordinal()].length() > 0) {
+                    lgf.setLgfPol5(recordSplit[LGF.COLUMNS.LGF_POL5.ordinal()]);
                 }
 
                 listLGF.add(lgf);
@@ -1199,22 +1201,22 @@ public class SCOSService {
                 MCF mcf = new MCF();
                 String[] recordSplit = record.split("\t");
 
-                mcf.setMcfIdent(recordSplit[0]);
-                if(recordSplit[1].length() > 0) {
-                    mcf.setMcfDescr(recordSplit[1]);
+                mcf.setMcfIdent(recordSplit[MCF.COLUMNS.MCF_IDENT.ordinal()]);
+                if(recordSplit[MCF.COLUMNS.MCF_DESCR.ordinal()].length() > 0) {
+                    mcf.setMcfDescr(recordSplit[MCF.COLUMNS.MCF_DESCR.ordinal()]);
                 }
-                mcf.setMcfPol1(recordSplit[2]);
-                if(recordSplit.length > 3 && recordSplit[3].length() > 0) {
-                    mcf.setMcfPol2(recordSplit[3]);
+                mcf.setMcfPol1(recordSplit[MCF.COLUMNS.MCF_POL1.ordinal()]);
+                if(recordSplit.length > MCF.COLUMNS.MCF_POL2.ordinal() && recordSplit[MCF.COLUMNS.MCF_POL2.ordinal()].length() > 0) {
+                    mcf.setMcfPol2(recordSplit[MCF.COLUMNS.MCF_POL2.ordinal()]);
                 }
-                if(recordSplit.length > 4 && recordSplit[4].length() > 0) {
-                    mcf.setMcfPol3(recordSplit[4]);
+                if(recordSplit.length > MCF.COLUMNS.MCF_POL3.ordinal() && recordSplit[MCF.COLUMNS.MCF_POL3.ordinal()].length() > 0) {
+                    mcf.setMcfPol3(recordSplit[MCF.COLUMNS.MCF_POL3.ordinal()]);
                 }
-                if(recordSplit.length > 5 && recordSplit[5].length() > 0) {
-                    mcf.setMcfPol4(recordSplit[5]);
+                if(recordSplit.length > MCF.COLUMNS.MCF_POL4.ordinal() && recordSplit[MCF.COLUMNS.MCF_POL4.ordinal()].length() > 0) {
+                    mcf.setMcfPol4(recordSplit[MCF.COLUMNS.MCF_POL4.ordinal()]);
                 }
-                if(recordSplit.length > 6 && recordSplit[6].length() > 0) {
-                    mcf.setMcfPol5(recordSplit[6]);
+                if(recordSplit.length > MCF.COLUMNS.MCF_POL5.ordinal() && recordSplit[MCF.COLUMNS.MCF_POL5.ordinal()].length() > 0) {
+                    mcf.setMcfPol5(recordSplit[MCF.COLUMNS.MCF_POL5.ordinal()]);
                 }
 
                 listMCF.add(mcf);
@@ -1252,13 +1254,13 @@ public class SCOSService {
                 OCF ocf = new OCF();
                 String[] recordSplit = record.split("\t");
 
-                ocf.setOcfName(recordSplit[0]);
-                ocf.setOcfNbchck(Integer.parseInt(recordSplit[1]));
-                if(checkIntegerRange(Integer.parseInt(recordSplit[2]),1,16)) {
-                   ocf.setOcfNbool(Integer.parseInt(recordSplit[2]));
+                ocf.setOcfName(recordSplit[OCF.COLUMNS.OCF_NAME.ordinal()]);
+                ocf.setOcfNbchck(Integer.parseInt(recordSplit[OCF.COLUMNS.OCF_NBCHCK.ordinal()]));
+                if(checkIntegerRange(Integer.parseInt(recordSplit[OCF.COLUMNS.OCF_NBOOl.ordinal()]),1,16)) {
+                   ocf.setOcfNbool(Integer.parseInt(recordSplit[OCF.COLUMNS.OCF_NBOOl.ordinal()]));
                 }
-                ocf.setOcfInter(OCF.OcfInter.valueOf(recordSplit[3]));
-                ocf.setOcfCodin(OCF.OcfCodin.valueOf(recordSplit[4]));
+                ocf.setOcfInter(OCF.OcfInter.valueOf(recordSplit[OCF.COLUMNS.OCF_INTER.ordinal()]));
+                ocf.setOcfCodin(OCF.OcfCodin.valueOf(recordSplit[OCF.COLUMNS.OCF_CODIN.ordinal()]));
 
                 listOCF.add(ocf);
 
@@ -1294,20 +1296,20 @@ public class SCOSService {
                 OCP ocp = new OCP();
                 String[] recordSplit = record.split("\t");
 
-                ocp.setOcpName(recordSplit[0]);
-                ocp.setOcpPos(Integer.parseInt(recordSplit[1]));
-                ocp.setOcpType(OCP.OcpType.valueOf(recordSplit[2]));
-                if(recordSplit.length > 3 && recordSplit[3].length() > 0) {
-                    ocp.setOcpLvalu(recordSplit[3]);
+                ocp.setOcpName(recordSplit[OCP.COLUMNS.OCP_NAME.ordinal()]);
+                ocp.setOcpPos(Integer.parseInt(recordSplit[OCP.COLUMNS.OCP_POS.ordinal()]));
+                ocp.setOcpType(OCP.OcpType.valueOf(recordSplit[OCP.COLUMNS.OCP_TYPE.ordinal()]));
+                if(recordSplit.length > OCP.COLUMNS.OCP_LVALU.ordinal() && recordSplit[OCP.COLUMNS.OCP_LVALU.ordinal()].length() > 0) {
+                    ocp.setOcpLvalu(recordSplit[OCP.COLUMNS.OCP_LVALU.ordinal()]);
                 }
-                if(recordSplit.length > 4 && recordSplit[4].length() > 0) {
-                    ocp.setOcpHvalu(recordSplit[4]);
+                if(recordSplit.length > OCP.COLUMNS.OCP_HVALU.ordinal() && recordSplit[OCP.COLUMNS.OCP_HVALU.ordinal()].length() > 0) {
+                    ocp.setOcpHvalu(recordSplit[OCP.COLUMNS.OCP_HVALU.ordinal()]);
                 }
-                if(recordSplit.length > 5 && recordSplit[5].length() > 0) {
-                    ocp.setOcpRlchk(recordSplit[5]);
+                if(recordSplit.length > OCP.COLUMNS.OCP_RLCHK.ordinal() && recordSplit[OCP.COLUMNS.OCP_RLCHK.ordinal()].length() > 0) {
+                    ocp.setOcpRlchk(recordSplit[OCP.COLUMNS.OCP_RLCHK.ordinal()]);
                 }
-                if(recordSplit.length > 6 && recordSplit[6].length() > 0) {
-                    ocp.setOcpValpar(Integer.parseInt(recordSplit[6]));
+                if(recordSplit.length > OCP.COLUMNS.OCP_VALPAR.ordinal() && recordSplit[OCP.COLUMNS.OCP_VALPAR.ordinal()].length() > 0) {
+                    ocp.setOcpValpar(Integer.parseInt(recordSplit[OCP.COLUMNS.OCP_VALPAR.ordinal()]));
                 }
 
                 listOCP.add(ocp);
@@ -1344,15 +1346,15 @@ public class SCOSService {
                 PAF paf = new PAF();
                 String[] recordSplit = record.split("\t");
 
-                paf.setPAF_NUMBR(recordSplit[0]);
-                if(recordSplit.length > 1 && recordSplit[1].length() > 0) {
-                    paf.setPAF_DESCR(recordSplit[1]);
+                paf.setPAF_NUMBR(recordSplit[PAF.COLUMNS.PAF_NUMBR.ordinal()]);
+                if(recordSplit.length > PAF.COLUMNS.PAF_DESCR.ordinal() && recordSplit[PAF.COLUMNS.PAF_DESCR.ordinal()].length() > 0) {
+                    paf.setPAF_DESCR(recordSplit[PAF.COLUMNS.PAF_DESCR.ordinal()]);
                 }
-                if(recordSplit.length > 2 && recordSplit[2].length() > 0) {
-                    paf.setPAF_RAWFMT(_FMT.valueOf(recordSplit[2]));
+                if(recordSplit.length > PAF.COLUMNS.PAF_RAWFMT.ordinal() && recordSplit[PAF.COLUMNS.PAF_RAWFMT.ordinal()].length() > 0) {
+                    paf.setPAF_RAWFMT(_FMT.valueOf(recordSplit[PAF.COLUMNS.PAF_RAWFMT.ordinal()]));
                 }
-                if(recordSplit.length > 3 && recordSplit[3].length() > 0) {
-                    paf.setPAF_NALIAS(Integer.parseInt(recordSplit[3]));
+                if(recordSplit.length > PAF.COLUMNS.PAF_NALIAS.ordinal() && recordSplit[PAF.COLUMNS.PAF_NALIAS.ordinal()].length() > 0) {
+                    paf.setPAF_NALIAS(Integer.parseInt(recordSplit[PAF.COLUMNS.PAF_NALIAS.ordinal()]));
                 }
 
                 listPAF.add(paf);
@@ -1389,9 +1391,9 @@ public class SCOSService {
                 PAS pas = new PAS();
                 String[] recordSplit = record.split("\t");
 
-                pas.setPasNumbr(recordSplit[0]);
-                pas.setPasAltxt(recordSplit[1]);
-                pas.setPasAlval(recordSplit[2]);
+                pas.setPasNumbr(recordSplit[PAS.COLUMNS.PAS_NUMBR.ordinal()]);
+                pas.setPasAltxt(recordSplit[PAS.COLUMNS.PAS_ALTXT.ordinal()]);
+                pas.setPasAlval(recordSplit[PAS.COLUMNS.PAS_ALVAL.ordinal()]);
 
                 listPAS.add(pas);
 
@@ -1428,19 +1430,19 @@ public class SCOSService {
                 PCDF pcdf = new PCDF();
                 String[] recordSplit = record.split("\t");
 
-                pcdf.setPcdfTcname(recordSplit[0]);
-                if(recordSplit[1].length() > 0) {
-                    pcdf.setPcdfDesc(recordSplit[1]);
+                pcdf.setPcdfTcname(recordSplit[PCDF.COLUMNS.PCDF_TCNAME.ordinal()]);
+                if(recordSplit[PCDF.COLUMNS.PCDF_DESC.ordinal()].length() > 0) {
+                    pcdf.setPcdfDesc(recordSplit[PCDF.COLUMNS.PCDF_DESC.ordinal()]);
                 }
-                pcdf.setPcdfType(PCDF.PcdfType.valueOf(recordSplit[2]));
-                pcdf.setPcdfLen(Integer.parseInt(recordSplit[3]));
-                pcdf.setPcdfBit(Integer.parseInt(recordSplit[4]));
-                if(recordSplit[5].length() > 0) {
-                    pcdf.setPcdfPname(recordSplit[5]);
+                pcdf.setPcdfType(PCDF.PcdfType.valueOf(recordSplit[PCDF.COLUMNS.PCDF_TYPE.ordinal()]));
+                pcdf.setPcdfLen(Integer.parseInt(recordSplit[PCDF.COLUMNS.PCDF_LEN.ordinal()]));
+                pcdf.setPcdfBit(Integer.parseInt(recordSplit[PCDF.COLUMNS.PCDF_BIT.ordinal()]));
+                if(recordSplit[PCDF.COLUMNS.PCDF_PNAME.ordinal()].length() > 0) {
+                    pcdf.setPcdfPname(recordSplit[PCDF.COLUMNS.PCDF_PNAME.ordinal()]);
                 }
-                pcdf.setPcdfValue(recordSplit[6]);
-                if(recordSplit.length > 7 && recordSplit[7].length() > 0) {
-                    pcdf.setPcdfRadix(_RADIX.valueOf(recordSplit[7]));
+                pcdf.setPcdfValue(recordSplit[PCDF.COLUMNS.PCDF_VALUE.ordinal()]);
+                if(recordSplit.length > PCDF.COLUMNS.PCDF_RADIX.ordinal() && recordSplit[PCDF.COLUMNS.PCDF_RADIX.ordinal()].length() > 0) {
+                    pcdf.setPcdfRadix(_RADIX.valueOf(recordSplit[PCDF.COLUMNS.PCDF_RADIX.ordinal()]));
                 }
 
                 listPCDF.add(pcdf);
@@ -1466,32 +1468,104 @@ public class SCOSService {
         }
     }
 
-//    public void createPCFRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
-//        String tableName = "PCF";
-//        BufferedReader reader = new BufferedReader(new FileReader(file));
-//        List<PCF> listPCF = new ArrayList<>();
-//        //Start file
-//        String record = reader.readLine();
-//        while (record != null) {
-//            try {
-//                PCF pcf = new PCF();
-//                String[] recordSplit = record.split("\t");
-//
-//                pcf.setPcfName(recordSplit[0]);
-//                pcf.setPcfDescr(recordSplit[1]);
-////                if(recordSplit.length > 2 && recordSplit[2].length() > 0 && checkBigIntegerRange(Long.parseLong(recordSplit[2]),0,4294967295)) {
-////                    pcf.setPcfPid(Long.parseLong(recordSplit[2]));
-////                }
-//
-//            } catch (Exception e){
-//                e.printStackTrace();
-//            }
-//
-//            record = reader.readLine();
-//        }
-//
-//        reader.close();
-//    }
+    public void createPCFRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "PCF";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<PCF> listPCF = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                PCF pcf = new PCF();
+                String[] recordSplit = record.split("\t");
+
+                pcf.setPcfName(recordSplit[PCF.COLUMNS.PCF_NAME.getHierarchy()]);
+                if(recordSplit[PCF.COLUMNS.PCF_DESCR.getHierarchy()].length() > 0) {
+                    pcf.setPcfDescr(recordSplit[PCF.COLUMNS.PCF_DESCR.getHierarchy()]);
+                }
+                if(recordSplit[PCF.COLUMNS.PCF_PID.getHierarchy()].length() > 0 && checkBigIntegerRange(BigInteger.valueOf(Long.valueOf(recordSplit[PCF.COLUMNS.PCF_PID.getHierarchy()])),BigInteger.ZERO,BigInteger.valueOf(4294967295L))) {
+                    pcf.setPcfPid(BigInteger.valueOf(Long.valueOf(recordSplit[PCF.COLUMNS.PCF_PID.getHierarchy()])));
+                }
+                if(recordSplit[PCF.COLUMNS.PCF_UNIT.getHierarchy()].length() > 0) {
+                    pcf.setPcfUnit(recordSplit[PCF.COLUMNS.PCF_UNIT.getHierarchy()]);
+                }
+                if(checkIntegerRange(Integer.parseInt(recordSplit[PCF.COLUMNS.PCF_PTC.getHierarchy()]),1,13)) {
+                    pcf.setPcfPtc(Integer.parseInt(recordSplit[PCF.COLUMNS.PCF_PTC.getHierarchy()]));
+                }
+                pcf.setPcfPfc(Integer.parseInt(recordSplit[PCF.COLUMNS.PCF_PFC.getHierarchy()]));
+                if(recordSplit[PCF.COLUMNS.PCF_WIDTH.getHierarchy()].length() > 0) {
+                    pcf.setPcfWidth(BigInteger.valueOf(Long.valueOf(recordSplit[PCF.COLUMNS.PCF_WIDTH.getHierarchy()])));
+                }
+                if(recordSplit[PCF.COLUMNS.PCF_VALID.getHierarchy()].length() > 0) {
+                    pcf.setPcfValid(recordSplit[PCF.COLUMNS.PCF_VALID.getHierarchy()]);
+                }
+                if(recordSplit[PCF.COLUMNS.PCF_RELATED.getHierarchy()].length() > 0) {
+                    pcf.setPcfRelated(recordSplit[PCF.COLUMNS.PCF_RELATED.getHierarchy()]);
+                }
+                pcf.setPcfCateg(PCF.PcfCateg.valueOf(recordSplit[PCF.COLUMNS.PCF_CATEG.getHierarchy()]));
+                pcf.setPcfNatur(PCF.PcfNatur.valueOf(recordSplit[PCF.COLUMNS.PCF_NATUR.getHierarchy()]));
+                if(recordSplit.length > PCF.COLUMNS.PCF_CURTX.getHierarchy() && recordSplit[PCF.COLUMNS.PCF_CURTX.getHierarchy()].length() > 0) {
+                    pcf.setPcfCurtx(recordSplit[PCF.COLUMNS.PCF_CURTX.getHierarchy()]);
+                }
+                if(recordSplit.length > PCF.COLUMNS.PCF_INTER.getHierarchy() && recordSplit[PCF.COLUMNS.PCF_INTER.getHierarchy()].length() > 0) {
+                  pcf.setPcfInter(PCF.PcfInter.valueOf(recordSplit[PCF.COLUMNS.PCF_INTER.getHierarchy()]));
+                }
+                if(recordSplit.length > PCF.COLUMNS.PCF_USCON.getHierarchy() && recordSplit[PCF.COLUMNS.PCF_USCON.getHierarchy()].length() > 0) {
+                    pcf.setPcfUscon(_YN.valueOf(recordSplit[PCF.COLUMNS.PCF_USCON.getHierarchy()]));
+                }
+                if(recordSplit.length > PCF.COLUMNS.PCF_DECIM.getHierarchy() && recordSplit[PCF.COLUMNS.PCF_DECIM.getHierarchy()].length() > 0) {
+                    pcf.setPcfDecim(Integer.parseInt(recordSplit[PCF.COLUMNS.PCF_DECIM.getHierarchy()]));
+                }
+                if(recordSplit.length > PCF.COLUMNS.PCF_PARVAL.getHierarchy() && recordSplit[PCF.COLUMNS.PCF_PARVAL.getHierarchy()].length() > 0) {
+                   pcf.setPcfParval(recordSplit[PCF.COLUMNS.PCF_PARVAL.getHierarchy()]);
+                }
+                if(recordSplit.length > PCF.COLUMNS.PCF_SUBSYS.getHierarchy() && recordSplit[PCF.COLUMNS.PCF_SUBSYS.getHierarchy()].length() > 0) {
+                    pcf.setPcfSubsys(recordSplit[PCF.COLUMNS.PCF_SUBSYS.getHierarchy()]);
+                }
+                if(recordSplit.length > PCF.COLUMNS.PCF_VALPAR.getHierarchy() && recordSplit[PCF.COLUMNS.PCF_VALPAR.getHierarchy()].length() > 0) {
+                    pcf.setPcfValpar(Integer.parseInt(recordSplit[PCF.COLUMNS.PCF_VALPAR.getHierarchy()]));
+                }
+                if(recordSplit.length > PCF.COLUMNS.PCF_SPTYPE.getHierarchy() && recordSplit[PCF.COLUMNS.PCF_SPTYPE.getHierarchy()].length() > 0) {
+                    pcf.setPcfSptype(PCF.PcfSptype.valueOf(recordSplit[PCF.COLUMNS.PCF_SPTYPE.getHierarchy()]));
+                }
+                if(recordSplit.length > PCF.COLUMNS.PCF_CORR.getHierarchy() && recordSplit[PCF.COLUMNS.PCF_CORR.getHierarchy()].length() > 0) {
+                    pcf.setPcfCorr(_YN.valueOf(recordSplit[PCF.COLUMNS.PCF_CORR.getHierarchy()]));
+                }
+                if(recordSplit.length > PCF.COLUMNS.PCF_OBTID.getHierarchy() && recordSplit[PCF.COLUMNS.PCF_OBTID.getHierarchy()].length() > 0 && checkLowerBoundary(Integer.parseInt(recordSplit[PCF.COLUMNS.PCF_OBTID.getHierarchy()]),1)) {
+                    pcf.setPcfObtid(Integer.parseInt(recordSplit[PCF.COLUMNS.PCF_OBTID.getHierarchy()]));
+                }
+                if(recordSplit.length > PCF.COLUMNS.PCF_DARC.getHierarchy() && recordSplit[PCF.COLUMNS.PCF_DARC.getHierarchy()].length() > 0 && checkAlphaNumericRange(recordSplit[PCF.COLUMNS.PCF_DARC.getHierarchy()].charAt(0),PCF.arrayPCFDarc)) {
+                   pcf.setPcfDarc(recordSplit[PCF.COLUMNS.PCF_DARC.getHierarchy()].charAt(0));
+                }
+                if(recordSplit.length > PCF.COLUMNS.PCF_ENDIAN.getHierarchy() && recordSplit[PCF.COLUMNS.PCF_ENDIAN.getHierarchy()].length() > 0) {
+                   pcf.setPcfEndian(PCF.PcfEndian.valueOf(recordSplit[PCF.COLUMNS.PCF_ENDIAN.getHierarchy()]));
+                }
+                if(recordSplit.length > PCF.COLUMNS.PCF_DESCR2.getHierarchy() && recordSplit[PCF.COLUMNS.PCF_DESCR2.getHierarchy()].length() > 0) {
+                   pcf.setPcfDescr2(recordSplit[PCF.COLUMNS.PCF_DESCR2.getHierarchy()]);
+                }
+
+                listPCF.add(pcf);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listPCF,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listPCF, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.savePCFRecords(listPCF,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
 
 
     public void createPCPCRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
@@ -1505,10 +1579,10 @@ public class SCOSService {
                 PCPC pcpc = new PCPC();
                 String[] recordSplit = record.split("\t");
 
-                pcpc.setPcpcPname(recordSplit[0]);
-                pcpc.setPcpcDesc(recordSplit[1]);
-                if(recordSplit.length > 2 && recordSplit[2].length() > 0) {
-                    pcpc.setPcpcCode(PCPC.PcpcCode.valueOf(recordSplit[2]));
+                pcpc.setPcpcPname(recordSplit[PCPC.COLUMNS.PCPC_PNAME.ordinal()]);
+                pcpc.setPcpcDesc(recordSplit[PCPC.COLUMNS.PCPC_DESC.ordinal()]);
+                if(recordSplit.length > PCPC.COLUMNS.PCPC_CODE.ordinal() && recordSplit[PCPC.COLUMNS.PCPC_CODE.ordinal()].length() > 0) {
+                    pcpc.setPcpcCode(PCPC.PcpcCode.valueOf(recordSplit[PCPC.COLUMNS.PCPC_CODE.ordinal()]));
                 }
 
                 listPCPC.add(pcpc);
@@ -1535,6 +1609,90 @@ public class SCOSService {
 
     }
 
+    public void createPIDRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "PID";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<PID> listPID = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                PID pid = new PID();
+                String[] recordSplit = record.split("\t");
+
+                if(checkIntegerRange(Integer.parseInt(recordSplit[PID.COLUMNS.PID_TYPE.getHierarchy()]),0,255)) {
+                    pid.setPidType(Integer.parseInt(recordSplit[PID.COLUMNS.PID_TYPE.getHierarchy()]));
+                }
+                if(checkIntegerRange(Integer.parseInt(recordSplit[PID.COLUMNS.PID_STYPE.getHierarchy()]),0,255)) {
+                    pid.setPidStype(Integer.parseInt(recordSplit[PID.COLUMNS.PID_STYPE.getHierarchy()]));
+                }
+                if(checkIntegerRange(Integer.parseInt(recordSplit[PID.COLUMNS.PID_APID.getHierarchy()]),0,65535)) {
+                    pid.setPidApid(Integer.parseInt(recordSplit[PID.COLUMNS.PID_APID.getHierarchy()]));
+                }
+                if(checkBigIntegerRange(BigInteger.valueOf(Long.valueOf(recordSplit[PID.COLUMNS.PID_PI1_VAL.getHierarchy()])),BigInteger.ZERO, BigInteger.valueOf(2147483647))) {
+                    pid.setPidPi1Val(BigInteger.valueOf(Long.valueOf(recordSplit[PID.COLUMNS.PID_PI1_VAL.getHierarchy()])));
+                }
+                if(checkBigIntegerRange(BigInteger.valueOf(Long.valueOf(recordSplit[PID.COLUMNS.PID_PI2_VAL.getHierarchy()])),BigInteger.ZERO, BigInteger.valueOf(2147483647))) {
+                    pid.setPidPi2Val(BigInteger.valueOf(Long.valueOf(recordSplit[PID.COLUMNS.PID_PI2_VAL.getHierarchy()])));
+                }
+                if(checkBigIntegerRange(BigInteger.valueOf(Long.valueOf(recordSplit[PID.COLUMNS.PID_SPID.getHierarchy()])),BigInteger.ONE, BigInteger.valueOf(4294967295L))) {
+                    pid.setPidSpid(BigInteger.valueOf(Long.valueOf(recordSplit[PID.COLUMNS.PID_SPID.getHierarchy()])));
+                }
+                if(recordSplit[PID.COLUMNS.PID_DESCR.getHierarchy()].length() > 0) {
+                    pid.setPidDescr(recordSplit[PID.COLUMNS.PID_DESCR.getHierarchy()]);
+                }
+                if(recordSplit[PID.COLUMNS.PID_UNIT.getHierarchy()].length() > 0) {
+                    pid.setPidUnit(recordSplit[PID.COLUMNS.PID_UNIT.getHierarchy()]);
+                }
+                if(checkBigIntegerRange(BigInteger.valueOf(Long.valueOf(recordSplit[PID.COLUMNS.PID_TPSD.getHierarchy()])),BigInteger.ONE, BigInteger.valueOf(2147483647))) {
+                    pid.setPidTpsd(BigInteger.valueOf(Long.valueOf(recordSplit[PID.COLUMNS.PID_TPSD.getHierarchy()])));
+                }
+                if(checkIntegerRange(Integer.parseInt(recordSplit[PID.COLUMNS.PID_DFHSIZE.getHierarchy()]),0,99)) {
+                    pid.setPidDfhsize(Integer.parseInt(recordSplit[PID.COLUMNS.PID_DFHSIZE.getHierarchy()]));
+                }
+                if(recordSplit.length > PID.COLUMNS.PID_TIME.getHierarchy() && recordSplit[PID.COLUMNS.PID_TIME.getHierarchy()].length() > 0) {
+                    pid.setPidTime(_YN.valueOf(recordSplit[PID.COLUMNS.PID_TIME.getHierarchy()]));
+                }
+                if(recordSplit.length > PID.COLUMNS.PID_INTER.getHierarchy() && recordSplit[PID.COLUMNS.PID_INTER.getHierarchy()].length() > 0) {
+                    pid.setPidInter(BigInteger.valueOf(Long.valueOf(recordSplit[PID.COLUMNS.PID_INTER.getHierarchy()])));
+                }
+                if(recordSplit.length > PID.COLUMNS.PID_VALID.getHierarchy() && recordSplit[PID.COLUMNS.PID_VALID.getHierarchy()].length() > 0) {
+                    pid.setPidValid(_YN.valueOf(recordSplit[PID.COLUMNS.PID_VALID.getHierarchy()]));
+                }
+                if(recordSplit.length > PID.COLUMNS.PID_CHECK.getHierarchy() && recordSplit[PID.COLUMNS.PID_CHECK.getHierarchy()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[PID.COLUMNS.PID_CHECK.getHierarchy()]),0,1)) {
+                    pid.setPidCheck(Integer.parseInt(recordSplit[PID.COLUMNS.PID_CHECK.getHierarchy()]));
+                }
+                if(recordSplit.length > PID.COLUMNS.PID_EVENT.getHierarchy() && recordSplit[PID.COLUMNS.PID_EVENT.getHierarchy()].length() > 0) {
+                    pid.setPidEvent(PID.PidEvent.valueOf(recordSplit[PID.COLUMNS.PID_EVENT.getHierarchy()]));
+                }
+                if(recordSplit.length > PID.COLUMNS.PID_EVID.getHierarchy() && recordSplit[PID.COLUMNS.PID_EVENT.getHierarchy()].length() > 0) {
+                    pid.setPidEvid(recordSplit[PID.COLUMNS.PID_EVENT.getHierarchy()]);
+                }
+
+                listPID.add(pid);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listPID,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listPID, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.savePIDRecords(listPID,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
+
     public void createPICRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
         String tableName = "PIC";
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -1546,18 +1704,18 @@ public class SCOSService {
                 PIC pic = new PIC();
                 String[] recordSplit = record.split("\t");
 
-                if(checkIntegerRange(Integer.parseInt(recordSplit[0]), 0, 255)) {
-                    pic.setPicType(Integer.parseInt(recordSplit[0]));
+                if(checkIntegerRange(Integer.parseInt(recordSplit[PIC.COLUMNS.PIC_TYPE.ordinal()]), 0, 255)) {
+                    pic.setPicType(Integer.parseInt(recordSplit[PIC.COLUMNS.PIC_TYPE.ordinal()]));
                 }
-                if(checkIntegerRange(Integer.parseInt(recordSplit[1]), 0, 255)) {
-                    pic.setPicStype(Integer.parseInt(recordSplit[1]));
+                if(checkIntegerRange(Integer.parseInt(recordSplit[PIC.COLUMNS.PIC_STYPE.ordinal()]), 0, 255)) {
+                    pic.setPicStype(Integer.parseInt(recordSplit[PIC.COLUMNS.PIC_STYPE.ordinal()]));
                 }
-                pic.setPicPi1Off(Integer.parseInt(recordSplit[2]));
-                pic.setPicPi1Wid(Integer.parseInt(recordSplit[3]));
-                pic.setPicPi2Off(Integer.parseInt(recordSplit[4]));
-                pic.setPicPi2Wid(Integer.parseInt(recordSplit[5]));
-                if(recordSplit.length > 6 && recordSplit[6].length() >0) {
-                   pic.setPicApid(Integer.parseInt(recordSplit[6]));
+                pic.setPicPi1Off(Integer.parseInt(recordSplit[PIC.COLUMNS.PIC_PI1_OFF.ordinal()]));
+                pic.setPicPi1Wid(Integer.parseInt(recordSplit[PIC.COLUMNS.PIC_PI1_WID.ordinal()]));
+                pic.setPicPi2Off(Integer.parseInt(recordSplit[PIC.COLUMNS.PIC_PI2_OFF.ordinal()]));
+                pic.setPicPi2Wid(Integer.parseInt(recordSplit[PIC.COLUMNS.PIC_PI2_WID.ordinal()]));
+                if(recordSplit.length > PIC.COLUMNS.PIC_APID.ordinal() && recordSplit[PIC.COLUMNS.PIC_APID.ordinal()].length() >0) {
+                   pic.setPicApid(Integer.parseInt(recordSplit[PIC.COLUMNS.PIC_APID.ordinal()]));
                 }
 
                 listPIC.add(pic);
@@ -1595,27 +1753,27 @@ public class SCOSService {
                 PLF plf = new PLF();
                 String[] recordSplit = record.split("\t");
 
-                plf.setPlfName(recordSplit[0]);
-                if(checkLowerBoundary(Integer.parseInt(recordSplit[1]),0)) {
-                    plf.setPlfSpid(BigInteger.valueOf(Integer.parseInt(recordSplit[1])));
+                plf.setPlfName(recordSplit[PLF.COLUMNS.PLF_NAME.ordinal()]);
+                if(checkLowerBoundary(Integer.parseInt(recordSplit[PLF.COLUMNS.PLF_SPID.ordinal()]),0)) {
+                    plf.setPlfSpid(BigInteger.valueOf(Integer.parseInt(recordSplit[PLF.COLUMNS.PLF_SPID.ordinal()])));
                 }
-                if(checkLowerBoundary(Integer.parseInt(recordSplit[2]),0)) {
-                    plf.setPlfOffby(Integer.parseInt(recordSplit[2]));
+                if(checkLowerBoundary(Integer.parseInt(recordSplit[PLF.COLUMNS.PLF_OFFBY.ordinal()]),0)) {
+                    plf.setPlfOffby(Integer.parseInt(recordSplit[PLF.COLUMNS.PLF_OFFBY.ordinal()]));
                 }
-                if(checkIntegerRange(Integer.parseInt(recordSplit[3]),0,7)) {
-                    plf.setPlfOffbi(Integer.parseInt(recordSplit[3]));
+                if(checkIntegerRange(Integer.parseInt(recordSplit[PLF.COLUMNS.PLF_OFFBI.ordinal()]),0,7)) {
+                    plf.setPlfOffbi(Integer.parseInt(recordSplit[PLF.COLUMNS.PLF_OFFBI.ordinal()]));
                 }
-                if(recordSplit.length > 4 && recordSplit[4].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[4]),1,9999)) {
-                    plf.setPlfNbocc(Integer.parseInt(recordSplit[4]));
+                if(recordSplit.length > PLF.COLUMNS.PLF_NBOCC.ordinal() && recordSplit[PLF.COLUMNS.PLF_NBOCC.ordinal()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[4]),1,9999)) {
+                    plf.setPlfNbocc(Integer.parseInt(recordSplit[PLF.COLUMNS.PLF_NBOCC.ordinal()]));
                 }
-                if(recordSplit.length > 5 && recordSplit[5].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[5]),1,32767)) {
-                    plf.setPlfLgocc(Integer.parseInt(recordSplit[5]));
+                if(recordSplit.length > PLF.COLUMNS.PLF_LGOCC.ordinal() && recordSplit[PLF.COLUMNS.PLF_LGOCC.ordinal()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[5]),1,32767)) {
+                    plf.setPlfLgocc(Integer.parseInt(recordSplit[PLF.COLUMNS.PLF_LGOCC.ordinal()]));
                 }
-                if(recordSplit.length > 6 && recordSplit[6].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[6]),-4080000, 4080000)) {
-                    plf.setPlfTime(BigInteger.valueOf(Integer.parseInt(recordSplit[6])));
+                if(recordSplit.length > PLF.COLUMNS.PLF_TIME.ordinal() && recordSplit[PLF.COLUMNS.PLF_TIME.ordinal()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[6]),-4080000, 4080000)) {
+                    plf.setPlfTime(BigInteger.valueOf(Integer.parseInt(recordSplit[PLF.COLUMNS.PLF_TIME.ordinal()])));
                 }
-                if(recordSplit.length > 7 && recordSplit[7].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[7]),1,4080000)) {
-                    plf.setPlfTdocc(BigInteger.valueOf(Integer.parseInt(recordSplit[7])));
+                if(recordSplit.length > PLF.COLUMNS.PLF_TDOCC.ordinal() && recordSplit[PLF.COLUMNS.PLF_TDOCC.ordinal()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[7]),1,4080000)) {
+                    plf.setPlfTdocc(BigInteger.valueOf(Integer.parseInt(recordSplit[PLF.COLUMNS.PLF_TDOCC.ordinal()])));
                 }
 
                 listPLF.add(plf);
@@ -1653,24 +1811,24 @@ public class SCOSService {
                 PRF prf = new PRF();
                 String[] recordSplit = record.split("\t");
 
-                prf.setPrfNumbr(recordSplit[0]);
-                if(recordSplit.length > 1 && recordSplit[1].length() > 0) {
-                    prf.setPrfDescr(recordSplit[1]);
+                prf.setPrfNumbr(recordSplit[PRF.COLUMNS.PRF_NUMBR.ordinal()]);
+                if(recordSplit.length > PRF.COLUMNS.PRF_DESCR.ordinal() && recordSplit[PRF.COLUMNS.PRF_DESCR.ordinal()].length() > 0) {
+                    prf.setPrfDescr(recordSplit[PRF.COLUMNS.PRF_DESCR.ordinal()]);
                 }
-                if(recordSplit.length > 2 && recordSplit[2].length() > 0) {
-                    prf.setPrfInter(PRF.PrfInter.valueOf(recordSplit[2]));
+                if(recordSplit.length > PRF.COLUMNS.PRF_INTER.ordinal() && recordSplit[PRF.COLUMNS.PRF_INTER.ordinal()].length() > 0) {
+                    prf.setPrfInter(PRF.PrfInter.valueOf(recordSplit[PRF.COLUMNS.PRF_INTER.ordinal()]));
                 }
-                if(recordSplit.length > 3 && recordSplit[3].length() > 0) {
-                    prf.setPrfDspfmt(PRF.PrfDspfmt.valueOf(recordSplit[3]));
+                if(recordSplit.length > PRF.COLUMNS.PRF_DSPFMT.ordinal() && recordSplit[PRF.COLUMNS.PRF_DSPFMT.ordinal()].length() > 0) {
+                    prf.setPrfDspfmt(PRF.PrfDspfmt.valueOf(recordSplit[PRF.COLUMNS.PRF_DSPFMT.ordinal()]));
                 }
-                if(recordSplit.length > 4 && recordSplit[4].length() > 0) {
-                    prf.setPrfRadix(_RADIX.valueOf(recordSplit[4]));
+                if(recordSplit.length > PRF.COLUMNS.PRF_RADIX.ordinal() && recordSplit[PRF.COLUMNS.PRF_RADIX.ordinal()].length() > 0) {
+                    prf.setPrfRadix(_RADIX.valueOf(recordSplit[PRF.COLUMNS.PRF_RADIX.ordinal()]));
                 }
-                if(recordSplit.length > 5 && recordSplit[5].length() > 0) {
-                    prf.setPrfNrange(Integer.parseInt(recordSplit[5]));
+                if(recordSplit.length > PRF.COLUMNS.PRF_NRANGE.ordinal() && recordSplit[PRF.COLUMNS.PRF_NRANGE.ordinal()].length() > 0) {
+                    prf.setPrfNrange(Integer.parseInt(recordSplit[PRF.COLUMNS.PRF_NRANGE.ordinal()]));
                 }
-                if(recordSplit.length > 6 && recordSplit[6].length() > 0) {
-                    prf.setPrfUnit(recordSplit[6]);
+                if(recordSplit.length > PRF.COLUMNS.PRF_UNIT.ordinal() && recordSplit[PRF.COLUMNS.PRF_UNIT.ordinal()].length() > 0) {
+                    prf.setPrfUnit(recordSplit[PRF.COLUMNS.PRF_UNIT.ordinal()]);
                 }
 
                 listPRF.add(prf);
@@ -1707,10 +1865,10 @@ public class SCOSService {
                 PRV prv = new PRV();
                 String[] recordSplit = record.split("\t");
 
-                prv.setPrvNumbr(recordSplit[0]);
-                prv.setPrvMinval(recordSplit[1]);
-                if(recordSplit.length > 2 && recordSplit[2].length() > 0) {
-                    prv.setPrvMaxval(recordSplit[2]);
+                prv.setPrvNumbr(recordSplit[PRV.COLUMNS.PRV_NUMBR.ordinal()]);
+                prv.setPrvMinval(recordSplit[PRV.COLUMNS.PRV_MINVAL.ordinal()]);
+                if(recordSplit.length > PRV.COLUMNS.PRV_MAXVAL.ordinal() && recordSplit[PRV.COLUMNS.PRV_MAXVAL.ordinal()].length() > 0) {
+                    prv.setPrvMaxval(recordSplit[PRV.COLUMNS.PRV_MAXVAL.ordinal()]);
                 }
 
                 listPRV.add(prv);
@@ -1747,12 +1905,12 @@ public class SCOSService {
                PTV ptv = new PTV();
                String[] recordSplit = record.split("\t");
 
-               ptv.setPtvCname(recordSplit[0]);
-               ptv.setPtvParnam(recordSplit[1]);
-               if(recordSplit[2].length() > 0) {
-                   ptv.setPtvInter(PTV.PtvInter.valueOf(recordSplit[2]));
+               ptv.setPtvCname(recordSplit[PTV.COLUMNS.PTV_CNAME.ordinal()]);
+               ptv.setPtvParnam(recordSplit[PTV.COLUMNS.PTV_PARNAM.ordinal()]);
+               if(recordSplit[PTV.COLUMNS.PTV_INTER.ordinal()].length() > 0) {
+                   ptv.setPtvInter(PTV.PtvInter.valueOf(recordSplit[PTV.COLUMNS.PTV_INTER.ordinal()]));
                }
-               ptv.setPtvVal(recordSplit[3]);
+               ptv.setPtvVal(recordSplit[PTV.COLUMNS.PTV_VAL.ordinal()]);
 
                listPTV.add(ptv);
 
@@ -1788,25 +1946,25 @@ public class SCOSService {
                 SPC spc = new SPC();
                 String[] recordSplit = record.split("\t");
 
-                spc.setSpcNumbe(recordSplit[0]);
-                if(checkLowerBoundary(Integer.parseInt(recordSplit[1]),0)) {
-                    spc.setSpcPos(Integer.parseInt(recordSplit[1]));
+                spc.setSpcNumbe(recordSplit[SPC.COLUMNS.SPC_NUMBE.ordinal()]);
+                if(checkLowerBoundary(Integer.parseInt(recordSplit[SPC.COLUMNS.SPC_POS.ordinal()]),0)) {
+                    spc.setSpcPos(Integer.parseInt(recordSplit[SPC.COLUMNS.SPC_POS.ordinal()]));
                 }
-                spc.setSpcName(recordSplit[2]);
-                if(recordSplit[3].length() > 0 && checkAlphaNumericRange(recordSplit[3].charAt(0), SPC.arraySPCUpdt)) {
-                    spc.setSpcUpdt(recordSplit[3].charAt(0));
+                spc.setSpcName(recordSplit[SPC.COLUMNS.SPC_NAME.ordinal()]);
+                if(recordSplit[SPC.COLUMNS.SPC_UPDT.ordinal()].length() > 0 && checkAlphaNumericRange(recordSplit[SPC.COLUMNS.SPC_UPDT.ordinal()].charAt(0), SPC.arraySPCUpdt)) {
+                    spc.setSpcUpdt(recordSplit[SPC.COLUMNS.SPC_UPDT.ordinal()].charAt(0));
                 }
-                if(recordSplit[4].length() > 0 && checkAlphaNumericRange(recordSplit[4].charAt(0), SPC.arraySPCMode)) {
-                    spc.setSpcMode(recordSplit[4].charAt(0));
+                if(recordSplit[SPC.COLUMNS.SPC_MODE.ordinal()].length() > 0 && checkAlphaNumericRange(recordSplit[SPC.COLUMNS.SPC_MODE.ordinal()].charAt(0), SPC.arraySPCMode)) {
+                    spc.setSpcMode(recordSplit[SPC.COLUMNS.SPC_MODE.ordinal()].charAt(0));
                 }
-                if(recordSplit[5].length() > 0) {
-                    spc.setSpcForm(SPC.SpcForm.valueOf(recordSplit[5]));
+                if(recordSplit[SPC.COLUMNS.SPC_FORM.ordinal()].length() > 0) {
+                    spc.setSpcForm(SPC.SpcForm.valueOf(recordSplit[SPC.COLUMNS.SPC_FORM.ordinal()]));
                 }
-                if(recordSplit[6].length() > 0 && checkAlphaNumericRange(recordSplit[6].charAt(0), SPC.arraySPCBack)) {
-                    spc.setSpcBack(recordSplit[6].charAt(0));
+                if(recordSplit[SPC.COLUMNS.SPC_BACK.ordinal()].length() > 0 && checkAlphaNumericRange(recordSplit[SPC.COLUMNS.SPC_BACK.ordinal()].charAt(0), SPC.arraySPCBack)) {
+                    spc.setSpcBack(recordSplit[SPC.COLUMNS.SPC_BACK.ordinal()].charAt(0));
                 }
-                if(checkAlphaNumericRange(recordSplit[7].charAt(0), SPC.arraySPCFore)) {
-                    spc.setSpcFore(recordSplit[7].charAt(0));
+                if(checkAlphaNumericRange(recordSplit[SPC.COLUMNS.SPC_FORE.ordinal()].charAt(0), SPC.arraySPCFore)) {
+                    spc.setSpcFore(recordSplit[SPC.COLUMNS.SPC_FORE.ordinal()].charAt(0));
                 }
 
                 listSPC.add(spc);
@@ -1843,15 +2001,15 @@ public class SCOSService {
                   SPF spf = new SPF();
                   String[] recordSplit = record.split("\t");
 
-                  spf.setSpfNumbe(recordSplit[0]);
-                  if(recordSplit[1].length() > 0) {
-                      spf.setSpfHead(recordSplit[1]);
+                  spf.setSpfNumbe(recordSplit[SPF.COLUMNS.SPF_NUMBE.ordinal()]);
+                  if(recordSplit[SPF.COLUMNS.SPF_HEAD.ordinal()].length() > 0) {
+                      spf.setSpfHead(recordSplit[SPF.COLUMNS.SPF_HEAD.ordinal()]);
                   }
-                  if(checkIntegerRange(Integer.parseInt(recordSplit[2]),1,5)) {
-                    spf.setSpfNpar(Integer.parseInt(recordSplit[2]));
+                  if(checkIntegerRange(Integer.parseInt(recordSplit[SPF.COLUMNS.SPF_NPAR.ordinal()]),1,5)) {
+                    spf.setSpfNpar(Integer.parseInt(recordSplit[SPF.COLUMNS.SPF_NPAR.ordinal()]));
                   }
-                  if(recordSplit.length > 3 && recordSplit[3].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[3]),1,99)) {
-                    spf.setSpfUpun(Integer.parseInt(recordSplit[3]));
+                  if(recordSplit.length > SPF.COLUMNS.SPF_UPUN.ordinal() && recordSplit[SPF.COLUMNS.SPF_UPUN.ordinal()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[3]),1,99)) {
+                    spf.setSpfUpun(Integer.parseInt(recordSplit[SPF.COLUMNS.SPF_UPUN.ordinal()]));
                   }
 
                   listSPF.add(spf);
@@ -1888,9 +2046,9 @@ public class SCOSService {
                 TCP tcp = new TCP();
                 String[] recordSplit = record.split("\t");
 
-                tcp.setTcpId(recordSplit[0]);
-                if(recordSplit.length > 1 && recordSplit[1].length() > 0) {
-                    tcp.setTcpDesc(recordSplit[1]);
+                tcp.setTcpId(recordSplit[TCP.COLUMNS.TCP_ID.ordinal()]);
+                if(recordSplit.length > TCP.COLUMNS.TCP_DESC.ordinal() && recordSplit[TCP.COLUMNS.TCP_DESC.ordinal()].length() > 0) {
+                    tcp.setTcpDesc(recordSplit[TCP.COLUMNS.TCP_DESC.ordinal()]);
                 }
 
                 listTCP.add(tcp);
@@ -1927,12 +2085,12 @@ public class SCOSService {
                 TPCF tpcf = new TPCF();
                 String[] recordSplit = record.split("\t");
 
-                tpcf.setTpcfSpid(BigInteger.valueOf(Integer.parseInt(recordSplit[0])));
-                if(recordSplit.length > 1 && recordSplit[1].length() > 0) {
-                    tpcf.setTpcfName(recordSplit[1]);
+                tpcf.setTpcfSpid(BigInteger.valueOf(Integer.parseInt(recordSplit[TPCF.COLUMNS.TPCF_SPID.ordinal()])));
+                if(recordSplit.length > TPCF.COLUMNS.TPCF_NAME.ordinal() && recordSplit[TPCF.COLUMNS.TPCF_NAME.ordinal()].length() > 0) {
+                    tpcf.setTpcfName(recordSplit[TPCF.COLUMNS.TPCF_NAME.ordinal()]);
                 }
-                if(recordSplit.length > 2 && recordSplit[2].length() > 0) {
-                    tpcf.setTpcfSize(BigInteger.valueOf(Integer.parseInt(recordSplit[2])));
+                if(recordSplit.length > TPCF.COLUMNS.TPCF_SIZE.ordinal() && recordSplit[TPCF.COLUMNS.TPCF_SIZE.ordinal()].length() > 0) {
+                    tpcf.setTpcfSize(BigInteger.valueOf(Integer.parseInt(recordSplit[TPCF.COLUMNS.TPCF_SIZE.ordinal()])));
                 }
 
                 listTPCF.add(tpcf);
@@ -1969,13 +2127,13 @@ public class SCOSService {
                 TXF txf = new TXF();
                 String[] recordSplit = record.split("\t");
 
-                txf.setTxfNumbr(recordSplit[0]);
-                if(recordSplit[1].length() > 0) {
-                    txf.setTxfDescr(recordSplit[1]);
+                txf.setTxfNumbr(recordSplit[TXF.COLUMNS.TXF_NUMBR.ordinal()]);
+                if(recordSplit[TXF.COLUMNS.TXF_DESCR.ordinal()].length() > 0) {
+                    txf.setTxfDescr(recordSplit[TXF.COLUMNS.TXF_DESCR.ordinal()]);
                 }
-                txf.setTxfRawfmt(_FMT.valueOf(recordSplit[2]));
-                if(recordSplit.length > 3 && recordSplit[3].length() > 0) {
-                    txf.setTxfNalias(Integer.parseInt(recordSplit[3]));
+                txf.setTxfRawfmt(_FMT.valueOf(recordSplit[TXF.COLUMNS.TXF_RAWFMT.ordinal()]));
+                if(recordSplit.length > TXF.COLUMNS.TXF_NALIAS.ordinal() && recordSplit[TXF.COLUMNS.TXF_NALIAS.ordinal()].length() > 0) {
+                    txf.setTxfNalias(Integer.parseInt(recordSplit[TXF.COLUMNS.TXF_NALIAS.ordinal()]));
                 }
 
                 listTXF.add(txf);
@@ -2012,10 +2170,10 @@ public class SCOSService {
                 TXP txp = new TXP();
                 String[] recordSplit = record.split("\t");
 
-                txp.setTxpNumbr(recordSplit[0]);
-                txp.setTxpFrom(recordSplit[1]);
-                txp.setTxpTo(recordSplit[2]);
-                txp.setTxpAltxt(recordSplit[3]);
+                txp.setTxpNumbr(recordSplit[TXP.COLUMNS.TXP_NUMBR.ordinal()]);
+                txp.setTxpFrom(recordSplit[TXP.COLUMNS.TXP_FROM.ordinal()]);
+                txp.setTxpTo(recordSplit[TXP.COLUMNS.TXP_TO.ordinal()]);
+                txp.setTxpAltxt(recordSplit[TXP.COLUMNS.TXP_ALTXT.ordinal()]);
 
                 listTXP.add(txp);
 
@@ -2051,18 +2209,18 @@ public class SCOSService {
                 VDF vdf = new VDF();
                 String[] recordSplit = record.split("\t");
 
-                vdf.setVdfName(recordSplit[0]);
-                if(recordSplit.length > 1 && recordSplit[1].length() > 0) {
-                    vdf.setVdfComment(recordSplit[1]);
+                vdf.setVdfName(recordSplit[VDF.COLUMNS.VDF_NAME.ordinal()]);
+                if(recordSplit.length > VDF.COLUMNS.VDF_COMMENT.ordinal() && recordSplit[VDF.COLUMNS.VDF_COMMENT.ordinal()].length() > 0) {
+                    vdf.setVdfComment(recordSplit[VDF.COLUMNS.VDF_COMMENT.ordinal()]);
                 }
-                if(recordSplit.length > 2 && recordSplit[2].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[2]),0,65535)) {
-                    vdf.setVdfDomainid(Integer.parseInt(recordSplit[2]));
+                if(recordSplit.length > VDF.COLUMNS.VDF_DOMAINID.ordinal() && recordSplit[VDF.COLUMNS.VDF_DOMAINID.ordinal()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[2]),0,65535)) {
+                    vdf.setVdfDomainid(Integer.parseInt(recordSplit[VDF.COLUMNS.VDF_DOMAINID.ordinal()]));
                 }
-                if(recordSplit.length > 3 && recordSplit[3].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[3]),0,65535)) {
-                    vdf.setVdfRelease(Integer.parseInt(recordSplit[3]));
+                if(recordSplit.length > VDF.COLUMNS.VDF_RELEASE.ordinal() && recordSplit[VDF.COLUMNS.VDF_RELEASE.ordinal()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[3]),0,65535)) {
+                    vdf.setVdfRelease(Integer.parseInt(recordSplit[VDF.COLUMNS.VDF_RELEASE.ordinal()]));
                 }
-                if(recordSplit.length > 4 && recordSplit[4].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[4]),0,65535)) {
-                    vdf.setVdfIssue(Integer.parseInt(recordSplit[4]));
+                if(recordSplit.length > VDF.COLUMNS.VDF_ISSUE.ordinal() && recordSplit[VDF.COLUMNS.VDF_ISSUE.ordinal()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[4]),0,65535)) {
+                    vdf.setVdfIssue(Integer.parseInt(recordSplit[VDF.COLUMNS.VDF_ISSUE.ordinal()]));
                 }
 
                 listVDF.add(vdf);
@@ -2099,41 +2257,41 @@ public class SCOSService {
                 VPD vpd = new VPD();
                 String[] recordSplit = record.split("\t");
 
-                vpd.setVpdTpsd(BigInteger.valueOf(Integer.parseInt(recordSplit[0])));
-                vpd.setVpdPos(Integer.parseInt(recordSplit[1]));
-                vpd.setVpdName(recordSplit[2]);
-                if(recordSplit[3].length() > 0) {
-                    vpd.setVpdGrpsize(Integer.parseInt(recordSplit[3]));
+                vpd.setVpdTpsd(BigInteger.valueOf(Integer.parseInt(recordSplit[VPD.COLUMNS.VPD_TPSD.getHierarchy()])));
+                vpd.setVpdPos(Integer.parseInt(recordSplit[VPD.COLUMNS.VPD_POS.getHierarchy()]));
+                vpd.setVpdName(recordSplit[VPD.COLUMNS.VPD_NAME.getHierarchy()]);
+                if(recordSplit[VPD.COLUMNS.VPD_GRPSIZE.getHierarchy()].length() > 0) {
+                    vpd.setVpdGrpsize(Integer.parseInt(recordSplit[VPD.COLUMNS.VPD_GRPSIZE.getHierarchy()]));
                 }
-                if(recordSplit[4].length() > 0 && checkLowerBoundary(Integer.parseInt(recordSplit[4]),-1)) {
-                    vpd.setVpdFixrep(Integer.parseInt(recordSplit[4]));
+                if(recordSplit[VPD.COLUMNS.VPD_FIXREP.getHierarchy()].length() > 0 && checkLowerBoundary(Integer.parseInt(recordSplit[VPD.COLUMNS.VPD_FIXREP.getHierarchy()]),-1)) {
+                    vpd.setVpdFixrep(Integer.parseInt(recordSplit[VPD.COLUMNS.VPD_FIXREP.getHierarchy()]));
                 }
-                if(recordSplit[5].length() > 0) {
-                    vpd.setVpdChoice(_YN.valueOf(recordSplit[5]));
+                if(recordSplit[VPD.COLUMNS.VPD_CHOICE.getHierarchy()].length() > 0) {
+                    vpd.setVpdChoice(_YN.valueOf(recordSplit[VPD.COLUMNS.VPD_CHOICE.getHierarchy()]));
                 }
-                if(recordSplit[6].length() > 0) {
-                    vpd.setVpdPidref(_YN.valueOf(recordSplit[6]));
+                if(recordSplit[VPD.COLUMNS.VPD_PIDREF.getHierarchy()].length() > 0) {
+                    vpd.setVpdPidref(_YN.valueOf(recordSplit[VPD.COLUMNS.VPD_PIDREF.getHierarchy()]));
                 }
-                if(recordSplit[7].length() > 0) {
-                    vpd.setVpdDisdesc(recordSplit[7]);
+                if(recordSplit[VPD.COLUMNS.VPD_DISDESC.getHierarchy()].length() > 0) {
+                    vpd.setVpdDisdesc(recordSplit[VPD.COLUMNS.VPD_DISDESC.getHierarchy()]);
                 }
-                if(checkLowerBoundary(Integer.parseInt(recordSplit[8]),0)) {
-                    vpd.setVpdWidth(Integer.parseInt(recordSplit[8]));
+                if(checkLowerBoundary(Integer.parseInt(recordSplit[VPD.COLUMNS.VPD_WIDTH.getHierarchy()]),0)) {
+                    vpd.setVpdWidth(Integer.parseInt(recordSplit[VPD.COLUMNS.VPD_WIDTH.getHierarchy()]));
                 }
-                if(recordSplit.length > 9 && recordSplit[9].length() > 0) {
-                    vpd.setVpdJustify(VPD.VpdJustify.valueOf(recordSplit[9]));
+                if(recordSplit.length > VPD.COLUMNS.VPD_JUSTIFY.getHierarchy() && recordSplit[VPD.COLUMNS.VPD_JUSTIFY.getHierarchy()].length() > 0) {
+                    vpd.setVpdJustify(VPD.VpdJustify.valueOf(recordSplit[VPD.COLUMNS.VPD_JUSTIFY.getHierarchy()]));
                 }
-                if(recordSplit.length > 10 && recordSplit[10].length() > 0) {
-                    vpd.setVpdNewline(_YN.valueOf(recordSplit[10]));
+                if(recordSplit.length > VPD.COLUMNS.VPD_NEWLINE.getHierarchy() && recordSplit[VPD.COLUMNS.VPD_NEWLINE.getHierarchy()].length() > 0) {
+                    vpd.setVpdNewline(_YN.valueOf(recordSplit[VPD.COLUMNS.VPD_NEWLINE.getHierarchy()]));
                 }
-                if(recordSplit.length > 11 && recordSplit[11].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[11]),0,2)) {
-                    vpd.setVpdDchar(Integer.parseInt(recordSplit[11]));
+                if(recordSplit.length > VPD.COLUMNS.VPD_DCHAR.getHierarchy() && recordSplit[VPD.COLUMNS.VPD_DCHAR.getHierarchy()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[VPD.COLUMNS.VPD_DCHAR.getHierarchy()]),0,2)) {
+                    vpd.setVpdDchar(Integer.parseInt(recordSplit[VPD.COLUMNS.VPD_DCHAR.getHierarchy()]));
                 }
-                if(recordSplit.length > 12 && recordSplit[12].length() > 0) {
-                    vpd.setVpdForm(VPD.VpdForm.valueOf(recordSplit[12]));
+                if(recordSplit.length > VPD.COLUMNS.VPD_FORM.getHierarchy() && recordSplit[VPD.COLUMNS.VPD_FORM.getHierarchy()].length() > 0) {
+                    vpd.setVpdForm(VPD.VpdForm.valueOf(recordSplit[VPD.COLUMNS.VPD_FORM.getHierarchy()]));
                 }
-                if(recordSplit.length > 13 && recordSplit[13].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[13]),-32768,32767)) {
-                    vpd.setVpdOffset(BigInteger.valueOf(Integer.parseInt(recordSplit[13])));
+                if(recordSplit.length > VPD.COLUMNS.VPD_OFFSET.getHierarchy() && recordSplit[VPD.COLUMNS.VPD_OFFSET.getHierarchy()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[VPD.COLUMNS.VPD_OFFSET.getHierarchy()]),-32768,32767)) {
+                    vpd.setVpdOffset(BigInteger.valueOf(Integer.parseInt(recordSplit[VPD.COLUMNS.VPD_OFFSET.getHierarchy()])));
                 }
 
                 listVPD.add(vpd);
@@ -2169,13 +2327,15 @@ public class SCOSService {
             }
     }
 
-//    public boolean checkBigIntegerRange(long n, long min, long max) throws Exception {
-//        if(( min <= n) && (n <= max)) {
-//            return true;
-//        } else {
-//            throw new Exception("Value " + n + " out of range.");
-//        }
-//    }
+    public boolean checkBigIntegerRange(BigInteger n, BigInteger min, BigInteger max) throws Exception {
+        int minValue = n.compareTo(min);
+        int maxValue = n.compareTo(max);
+        if((minValue == 0) || (minValue == 1) || (maxValue == 0) || (maxValue == -1)) {
+            return true;
+        } else {
+            throw new Exception("Value " + n + " out of range.");
+        }
+    }
 
     public boolean checkLowerBoundary(int n, int min) throws Exception {
         if( n >= min ) {

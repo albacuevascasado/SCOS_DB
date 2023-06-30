@@ -18,6 +18,14 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"CUR\"")
 public class CUR implements Serializable {
 
+    public enum COLUMNS {
+        CUR_PNAME,
+        CUR_POS,
+        CUR_RLCHK,
+        CUR_VALPAR,
+        CUR_SELECT
+    }
+
     @Id
     @Column(name = "\"CUR_PNAME\"", nullable = false)
     private String curPname;

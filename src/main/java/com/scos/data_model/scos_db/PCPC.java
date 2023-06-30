@@ -13,6 +13,12 @@ import javax.persistence.*;
 @Table(schema = "scos_schema", name = "\"PCPC\"")
 public class PCPC {
 
+    public enum COLUMNS {
+        PCPC_PNAME,
+        PCPC_DESC,
+        PCPC_CODE
+    }
+
     @Id
     @Column(name = "\"PCPC_PNAME\"", nullable = false)
     private String pcpcPname;

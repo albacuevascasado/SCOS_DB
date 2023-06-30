@@ -16,6 +16,16 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"CCA\"")
 public class CCA {
 
+    public enum COLUMNS {
+        CCA_NUMBR,
+        CCA_DESCR,
+        CCA_ENGFMT,
+        CCA_RAWFMT,
+        CCA_RADIX,
+        CCA_UNIT,
+        CCA_NCURVE
+    }
+
     @Id
     @Column(name = "\"CCA_NUMBR\"", nullable = false)
     private String ccaNumbr;

@@ -15,6 +15,13 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"TXF\"")
 public class TXF {
 
+    public enum COLUMNS {
+        TXF_NUMBR,
+        TXF_DESCR,
+        TXF_RAWFMT,
+        TXF_NALIAS
+    }
+
     @Id
     @Column(name = "\"TXF_NUMBR\"", nullable = false)
     private String txfNumbr;

@@ -17,6 +17,29 @@ import java.io.Serializable;
 @Table(schema = "scos_schema", name = "\"CAP\"")
 public class CAP implements Serializable {
 
+//    public enum COLUMNS {
+//        CAP_NUMBR (1),
+//        CAP_XVALS (2),
+//        CAP_YVALS (3);
+//
+//        //internal state
+//        private int hierarchy;
+//        //constructor
+//        private COLUMNS(final int hierarchy) {
+//            this.hierarchy = hierarchy;
+//        }
+//        //method to get value
+//        public int getHierarchy() {
+//            return hierarchy;
+//        }
+//    }
+
+    public enum COLUMNS {
+        CAP_NUMBR,
+        CAP_XVALS,
+        CAP_YVALS
+    }
+
     @Id
     @Column(name = "\"CAP_NUMBR\"", nullable = false)
     private String caPNumbr;

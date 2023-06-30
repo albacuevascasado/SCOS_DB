@@ -15,6 +15,17 @@ import java.math.BigInteger;
 @Table(schema = "scos_schema", name = "\"SPC\"")
 public class SPC implements Serializable {
 
+    public enum COLUMNS {
+        SPC_NUMBE,
+        SPC_POS,
+        SPC_NAME,
+        SPC_UPDT,
+        SPC_MODE,
+        SPC_FORM,
+        SPC_BACK,
+        SPC_FORE
+    }
+
     @Id
     @Column(name = "\"SPC_NUMBE\"", nullable = false)
     private String spcNumbe;
