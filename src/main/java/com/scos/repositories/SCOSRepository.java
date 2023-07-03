@@ -1,5 +1,6 @@
 package com.scos.repositories;
 
+import com.scos.FlightPlanCreation;
 import com.scos.JpaEntityManagerFactory;
 import com.scos.data_model.mps_db.ODBData;
 import com.scos.data_model.mps_db.ODBFiles;
@@ -14,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.metamodel.EntityType;
+import javax.xml.bind.JAXBException;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -175,6 +177,7 @@ public class SCOSRepository {
             //CAP RECORD
             int i = 0;
             for(CAP capRecord: capRecords) {
+                //FlightPlanCreation.objectToXML(capRecord);
                 if(i > 0 && i % (JpaEntityManagerFactory.BATCH_SIZE) == 0) {
                     entityManager.flush();
                     entityManager.clear();
@@ -434,7 +437,7 @@ public class SCOSRepository {
                     entityManager.flush();
                     entityManager.clear();
                 }
-                entityManager.persist(cpcRecords);
+                entityManager.persist(cpcRecord);
                 i++;
             }
             //SCOS TABLE -> scostables | odbData UPDATED

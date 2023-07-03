@@ -16,32 +16,22 @@ import java.math.BigInteger;
 public class CSF {
 
     public enum COLUMNS {
-        CSF_NAME (0),
-        CSF_DESC (1),
-        CSF_DESC2 (2),
-        CSF_IFTT (3),
-        CSF_NFPARS (4),
-        CSF_ELEMS (5),
-        CSF_CRITICAL (6),
-        CSF_PLAN (7),
-        CSF_EXEC (8),
-        CSF_SUBSYS (9),
-        CSF_GENTIME (10),
-        CSF_DOCNAME (11),
-        CSF_ISSUE (12),
-        CSF_DATE (13),
-        CSF_DEFSET (14),
-        CSF_SUBSCHEDID (15);
-
-        private int hierarchy;
-
-        private COLUMNS (final int hierarchy) {
-            this.hierarchy = hierarchy;
-        }
-
-        public int getHierarchy() {
-            return getHierarchy();
-        }
+        CSF_NAME,
+        CSF_DESC,
+        CSF_DESC2,
+        CSF_IFTT,
+        CSF_NFPARS,
+        CSF_ELEMS,
+        CSF_CRITICAL,
+        CSF_PLAN,
+        CSF_EXEC,
+        CSF_SUBSYS,
+        CSF_GENTIME,
+        CSF_DOCNAME,
+        CSF_ISSUE,
+        CSF_DATE,
+        CSF_DEFSET,
+        CSF_SUBSCHEDID
     }
 
     @Id

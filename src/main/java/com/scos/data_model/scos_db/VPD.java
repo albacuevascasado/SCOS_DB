@@ -17,30 +17,20 @@ import java.math.BigInteger;
 public class VPD implements Serializable {
 
     public enum COLUMNS {
-        VPD_TPSD (0),
-        VPD_POS (1),
-        VPD_NAME (2),
-        VPD_GRPSIZE (3),
-        VPD_FIXREP (4),
-        VPD_CHOICE (5),
-        VPD_PIDREF (6),
-        VPD_DISDESC (7),
-        VPD_WIDTH (8),
-        VPD_JUSTIFY (9),
-        VPD_NEWLINE (10),
-        VPD_DCHAR (11),
-        VPD_FORM (12),
-        VPD_OFFSET (13);
-
-        private int hierarchy;
-
-        private COLUMNS (final int hierarchy) {
-            this.hierarchy = hierarchy;
-        }
-
-        public int getHierarchy() {
-            return hierarchy;
-        }
+        VPD_TPSD,
+        VPD_POS,
+        VPD_NAME,
+        VPD_GRPSIZE,
+        VPD_FIXREP,
+        VPD_CHOICE,
+        VPD_PIDREF,
+        VPD_DISDESC,
+        VPD_WIDTH,
+        VPD_JUSTIFY,
+        VPD_NEWLINE,
+        VPD_DCHAR,
+        VPD_FORM,
+        VPD_OFFSET
 
     }
 

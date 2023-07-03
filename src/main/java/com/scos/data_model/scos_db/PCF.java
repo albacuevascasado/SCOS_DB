@@ -16,40 +16,30 @@ import java.math.BigInteger;
 public class PCF {
 
     public enum COLUMNS {
-        PCF_NAME (0),
-        PCF_DESCR (1),
-        PCF_PID (2),
-        PCF_UNIT (3),
-        PCF_PTC (4),
-        PCF_PFC (5),
-        PCF_WIDTH (6),
-        PCF_VALID (7),
-        PCF_RELATED (8),
-        PCF_CATEG (9),
-        PCF_NATUR (10),
-        PCF_CURTX (11),
-        PCF_INTER (12),
-        PCF_USCON (13),
-        PCF_DECIM (14),
-        PCF_PARVAL (15),
-        PCF_SUBSYS (16),
-        PCF_VALPAR (17),
-        PCF_SPTYPE (18),
-        PCF_CORR (19),
-        PCF_OBTID (20),
-        PCF_DARC (21),
-        PCF_ENDIAN (22),
-        PCF_DESCR2 (23);
-
-        private int hierarchy;
-
-        private COLUMNS (final int hierarchy) {
-            this.hierarchy = hierarchy;
-        }
-
-        public int getHierarchy() {
-            return hierarchy;
-        }
+        PCF_NAME,
+        PCF_DESCR,
+        PCF_PID,
+        PCF_UNIT,
+        PCF_PTC,
+        PCF_PFC,
+        PCF_WIDTH,
+        PCF_VALID,
+        PCF_RELATED,
+        PCF_CATEG,
+        PCF_NATUR,
+        PCF_CURTX,
+        PCF_INTER,
+        PCF_USCON,
+        PCF_DECIM,
+        PCF_PARVAL,
+        PCF_SUBSYS,
+        PCF_VALPAR,
+        PCF_SPTYPE,
+        PCF_CORR,
+        PCF_OBTID,
+        PCF_DARC,
+        PCF_ENDIAN,
+        PCF_DESCR2
 
     }
 

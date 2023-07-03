@@ -1,13 +1,15 @@
 package com.scos.data_model.scos_db;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 @Data
@@ -16,23 +18,6 @@ import java.io.Serializable;
 @Entity
 @Table(schema = "scos_schema", name = "\"CAP\"")
 public class CAP implements Serializable {
-
-//    public enum COLUMNS {
-//        CAP_NUMBR (1),
-//        CAP_XVALS (2),
-//        CAP_YVALS (3);
-//
-//        //internal state
-//        private int hierarchy;
-//        //constructor
-//        private COLUMNS(final int hierarchy) {
-//            this.hierarchy = hierarchy;
-//        }
-//        //method to get value
-//        public int getHierarchy() {
-//            return hierarchy;
-//        }
-//    }
 
     public enum COLUMNS {
         CAP_NUMBR,

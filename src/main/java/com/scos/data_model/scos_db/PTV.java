@@ -5,13 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(schema = "scos_schema", name = "\"PTV\"")
-public class PTV {
+public class PTV implements Serializable {
 
     public enum COLUMNS {
         PTV_CNAME,
