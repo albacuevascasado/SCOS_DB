@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="FlightPlan">
+        <xs:complexType>
+            <xs:annotation>
+                <xs:documentation>sequence=specific order | all:any order</xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+                <xs:element  ref="Header" minOccurs="1" maxOccurs="1" />
+                <xs:element  ref="Tasks" minOccurs="1" maxOccurs="1" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Header">
+        <xs:complexType>
+            <xs:annotation>
+                <xs:documentation>minOccurs and maxOccurs = 1 is redundant but in this way, it is easier to see that these elements are ONE TIME</xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+                <xs:element name="id" type="xs:integer" minOccurs="1" maxOccurs="1" />
+                <xs:element name="startTime" type="xs:dateTime" minOccurs="1" maxOccurs="1" />
+                <xs:element name="endTime" type="xs:dateTime" minOccurs="1" maxOccurs="1" />
+                <xs:element name="schedulingId" type="xs:unsignedLong" minOccurs="1" maxOccurs="1" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Tasks">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Task" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Task">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Telecommand" minOccurs="1" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Telecommand">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Field" minOccurs="1" maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Field">
+        <xs:complexType>
+            <xs:group ref="InfoDetails" minOccurs="1" maxOccurs="1" />
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:group name="InfoDetails">
+        <xs:sequence>
+            <xs:element name="Value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="Type" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="Units" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+
+</xs:schema>

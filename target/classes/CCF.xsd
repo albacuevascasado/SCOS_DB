@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" elementFormDefault="qualified">
+    <xs:element name="CCF">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ccfCname" type="xs:string"/>
+                <xs:element name="ccfDescr" type="xs:string"/>
+                <xs:element name="ccfDescr2" type="xs:string" minOccurs="0"/>
+                <xs:element name="ccfCtype" type="CcfCtype" minOccurs="0"/>
+                <xs:element name="ccfCritical" type="_YN" minOccurs="0"/>
+                <xs:element name="ccfPktid" type="xs:string"/>
+                <xs:element name="ccfType" minOccurs="0">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                            <xs:minInclusive value="0"/>
+                            <xs:maxInclusive value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="ccfStype" minOccurs="0">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                            <xs:minInclusive value="0"/>
+                            <xs:maxInclusive value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="ccfApid" minOccurs="0">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                            <xs:minInclusive value="0"/>
+                            <xs:maxInclusive value="65535"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="ccfNpars" type="xs:int" minOccurs="0"/>
+                <xs:element name="ccfPlan" type="CcfPlan" minOccurs="0"/>
+                <xs:element name="ccfExec" type="_YN" minOccurs="0"/>
+                <xs:element name="ccfIlscope" type="CcfScope" minOccurs="0"/>
+                <xs:element name="ccfIlstage" type="CcfStage" minOccurs="0"/>
+                <xs:element name="ccfSubsys" minOccurs="0">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                            <xs:minInclusive value="1"/>
+                            <xs:maxInclusive value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="ccfHipri" type="_YN" minOccurs="0"/>
+                <xs:element name="ccfMapid" minOccurs="0">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                            <xs:minInclusive value="0"/>
+                            <xs:maxInclusive value="63"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="ccfDefset" type="xs:string" minOccurs="0"/>
+                <xs:element name="ccfRapid" minOccurs="0">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                            <xs:minInclusive value="1"/>
+                            <xs:maxInclusive value="65535"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="ccfAck" minOccurs="0">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                            <xs:minInclusive value="0"/>
+                            <xs:maxInclusive value="15"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="ccfSubschedid" minOccurs="0">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                            <xs:minInclusive value="1"/>
+                            <xs:maxInclusive value="65535"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="CcfCtype" >
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="R" />
+            <xs:enumeration value="F" />
+            <xs:enumeration value="S" />
+            <xs:enumeration value="T" />
+            <xs:enumeration value="N" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="_YN" >
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Y" />
+            <xs:enumeration value="N" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CcfPlan" >
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="A" />
+            <xs:enumeration value="F" />
+            <xs:enumeration value="S" />
+            <xs:enumeration value="N" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CcfScope" >
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="G" />
+            <xs:enumeration value="L" />
+            <xs:enumeration value="S" />
+            <xs:enumeration value="B" />
+            <xs:enumeration value="F" />
+            <xs:enumeration value="T" />
+            <xs:enumeration value="N" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CcfStage" >
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="R" />
+            <xs:enumeration value="U" />
+            <xs:enumeration value="O" />
+            <xs:enumeration value="A" />
+            <xs:enumeration value="C" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

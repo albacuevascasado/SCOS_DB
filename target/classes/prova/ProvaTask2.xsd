@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="FlightPlan">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element  ref="Header" minOccurs="1" maxOccurs="1" />
+                <xs:element  ref="Tasks" minOccurs="1" maxOccurs="1" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Header">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="missionId" type="xs:integer" minOccurs="1" maxOccurs="1" />
+                <xs:element name="startTime" type="xs:integer" minOccurs="1" maxOccurs="1" />
+                <xs:element name="endTime" type="xs:integer" minOccurs="1" maxOccurs="1" />
+                <xs:element name="schedulingId" type="xs:unsignedLong" minOccurs="1" maxOccurs="1" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Tasks">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="BaseHeader" type="BaseHeaderType" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="Task" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Task">
+        <xs:complexType>
+            <xs:group ref="Elements" maxOccurs="unbounded" />
+            <xs:attribute name="TaskId" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Sequence">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="SequenceHeader" type="SequenceHeaderType" minOccurs="1" maxOccurs="1" />
+                <xs:element name="SequenceParameter" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="id" minOccurs="1" maxOccurs="1" >
+                                <xs:complexType>
+                                    <xs:group ref="ParamDetails" minOccurs="1" maxOccurs="1"/>
+                                    <xs:attribute name="name" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="type" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:group ref="ParamDetails" minOccurs="1" maxOccurs="1"/>
+                                    <xs:attribute name="name" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="repType" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:group ref="ParamDetails" minOccurs="1" maxOccurs="1"/>
+                                    <xs:attribute name="name" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="value" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:group ref="ParamDetails" minOccurs="1" maxOccurs="1"/>
+                                    <xs:attribute name="name" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Command">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="CommandHeader" type="CommandHeaderType" minOccurs="1" maxOccurs="1" />
+                <xs:element name="CommandParameter" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="id" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:group ref="ParamDetails" minOccurs="1" maxOccurs="1"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="formPos" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:group ref="ParamDetails" minOccurs="1" maxOccurs="1"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="type" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:group ref="ParamDetails" minOccurs="1" maxOccurs="1"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="editable" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:group ref="ParamDetails" minOccurs="1" maxOccurs="1"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="repType" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:group ref="ParamDetails" minOccurs="1" maxOccurs="1"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="value" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:group ref="ParamDetails" minOccurs="1" maxOccurs="1"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="dynamic" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:group ref="ParamDetails" minOccurs="1" maxOccurs="1"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="BaseHeaderType">
+        <xs:sequence>
+            <xs:element name="category" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="source" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="genTime" type="xs:integer" minOccurs="1" maxOccurs="1" />
+            <xs:element name="relType" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="version" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="startTime" type="xs:integer" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SequenceHeaderType">
+        <xs:sequence>
+            <xs:element name="seqType" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="id" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="pars" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="cmds" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="startTime" type="xs:long" minOccurs="1" maxOccurs="1" />
+            <xs:element name="startTime2" type="xs:long" minOccurs="1" maxOccurs="1" />
+            <xs:element name="subsystem" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="source" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="tcRequestId" type="xs:integer" minOccurs="1" maxOccurs="1" />
+            <xs:element name="subSchedId" type="xs:integer" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CommandHeaderType">
+        <xs:sequence>
+            <xs:element name="cmdType" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="id" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="manDispatch" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="release" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="relTime" type="xs:long" minOccurs="1" maxOccurs="1" />
+            <xs:element name="relTime2" type="xs:long" minOccurs="1" maxOccurs="1" />
+            <xs:element name="group" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="block" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="interlock" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="ilStage" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="staticPtv" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="dynamicPtv" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="cev" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="pars" type="xs:integer" minOccurs="1" maxOccurs="1" />
+            <xs:element name="timeTagged" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="planned" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="execTime" type="xs:long" minOccurs="1" maxOccurs="1" />
+            <xs:element name="execTime2" type="xs:long" minOccurs="1" maxOccurs="1" />
+            <xs:element name="parent" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="startTime" type="xs:long" minOccurs="1" maxOccurs="1" />
+            <xs:element name="subsystem" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="source" type="xs:int" minOccurs="1" maxOccurs="1" />
+            <xs:element name="earliest" type="xs:long" minOccurs="1" maxOccurs="1" />
+            <xs:element name="latest" type="xs:long" minOccurs="1" maxOccurs="1" />
+            <xs:element name="tcRequestId" type="xs:integer" minOccurs="1" maxOccurs="1" />
+            <xs:element name="subSchedId" type="xs:integer" minOccurs="1" maxOccurs="1" />
+            <xs:element name="ackFlags" type="xs:int" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:group name="Elements">
+        <xs:choice>
+            <xs:element ref="Sequence" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="Command" minOccurs="0" maxOccurs="unbounded" />
+        </xs:choice>
+    </xs:group>
+
+    <xs:group name="ParamDetails">
+        <xs:sequence>
+            <xs:element name="Value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="Type" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="Units" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+
+</xs:schema>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="FlightPlan">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Header" minOccurs="1" maxOccurs="1" />
+                <xs:element ref="Tasks" minOccurs="1" maxOccurs="1" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Header">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="missionId" type="xs:integer" minOccurs="1" maxOccurs="1" />
+                <xs:element name="startTime" type="xs:dateTime" minOccurs="1" maxOccurs="1" />
+                <xs:element name="endTime" type="xs:dateTime" minOccurs="1" maxOccurs="1" />
+                <xs:element name="schedulingId" type="xs:unsignedLong" minOccurs="1" maxOccurs="1" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Tasks">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="BaseHeader" type="GenericRecord" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="Task" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="NoTask" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Task">
+        <xs:complexType>
+            <xs:group ref="Elements" minOccurs="1" maxOccurs="unbounded" />
+            <xs:attribute name="TaskId" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:group name="Elements">
+        <xs:choice>
+            <xs:element ref="Sequence" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="Command" minOccurs="0" maxOccurs="unbounded" />
+        </xs:choice>
+    </xs:group>
+
+    <xs:element name="Sequence">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="SequenceHeader" type="GenericRecord" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="SequenceParameter" type="GenericRecord" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Command">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="CommandHeader" type="GenericRecord" minOccurs="1" maxOccurs="1" />
+                <xs:element name="CommandParameter" type="GenericRecord" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="GenericRecord">
+        <xs:sequence>
+            <xs:element ref="Field" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="Field">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="Type" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="Units" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="name" use="required" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
