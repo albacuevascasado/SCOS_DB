@@ -25,7 +25,7 @@ public class CVE implements Serializable {
 
     @Id
     @Column(name = "\"CVE_CVSID\"", nullable = false)
-    private int cveCvsid;
+    private Integer cveCvsid;
 
     @Id
     @Column(name = "\"CVE_PARNAM\"", nullable = false)

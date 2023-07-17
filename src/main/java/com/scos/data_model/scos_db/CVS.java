@@ -27,7 +27,7 @@ public class CVS {
 
     @Id
     @Column(name = "\"CVS_ID\"", nullable = false)
-    private int cvsId;
+    private Integer cvsId;
 
     @Column(name = "\"CVS_TYPE\"", nullable = false)
     private char cvsType;
@@ -37,16 +37,16 @@ public class CVS {
     private CvsSource cvsSource;
 
     @Column(name = "\"CVS_START\"", nullable = false)
-    private int cvsStart;
+    private Integer cvsStart;
 
     @Column(name = "\"CVS_INTERVAL\"", nullable = false)
-    private int cvsInterval;
+    private Integer cvsInterval;
 
     @Column(name = "\"CVS_SPID\"")
     private BigInteger cvsSpid;
 
     @Column(name = "\"CVS_UNCERTAINTY\"")
-    private int cvsUncertainty = -1;
+    private Integer cvsUncertainty = -1;
 
     public static final int MAX_COLUMN = 7;
 

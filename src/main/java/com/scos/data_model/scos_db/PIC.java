@@ -30,27 +30,27 @@ public class PIC implements Serializable {
 
     @Id
     @Column(name = "\"PIC_TYPE\"", nullable = false)
-    private int picType;
+    private Integer picType;
 
     @Id
     @Column(name = "\"PIC_STYPE\"", nullable = false)
-    private int picStype;
+    private Integer picStype;
 
     @Column(name = "\"PIC_PI1_OFF\"", nullable = false)
-    private int picPi1Off;
+    private Integer picPi1Off;
 
     @Column(name = "\"PIC_PI1_WID\"", nullable = false)
-    private int picPi1Wid;
+    private Integer picPi1Wid;
 
     @Column(name = "\"PIC_PI2_OFF\"", nullable = false)
-    private int picPi2Off;
+    private Integer picPi2Off;
 
     @Column(name = "\"PIC_PI2_WID\"", nullable = false)
-    private int picPi2Wid;
+    private Integer picPi2Wid;
 
     @Id
     @Column(name = "\"PIC_APID\"")
-    private int picApid = 99999;
+    private Integer picApid = 99999;
 
     public static final int MAX_COLUMN = 7;
 

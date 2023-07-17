@@ -34,10 +34,10 @@ public class DPC implements Serializable {
 
     @Id
     @Column(name = "\"DPC_FLDN\"", nullable = false)
-    private int dpcFldn;
+    private Integer dpcFldn;
 
     @Column(name = "\"DPC_COMM\"")
-    private int dpcComm = 0;
+    private Integer dpcComm = 0;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"DPC_MODE\"")

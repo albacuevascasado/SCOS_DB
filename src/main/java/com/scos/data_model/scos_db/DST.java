@@ -24,7 +24,7 @@ public class DST {
 
     @Id
     @Column(name = "\"DST_APID\"", nullable = false)
-    private int dstApid;
+    private Integer dstApid;
 
     @Column(name = "\"DST_ROUTE\"", nullable = false)
     private String dstRoute;

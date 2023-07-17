@@ -32,15 +32,15 @@ public class VDF implements Serializable {
     private String vdfComment;
 
     @Column(name = "\"VDF_DOMAINID\"")
-    private int vdfDomainid;
+    private Integer vdfDomainid;
 
     @Id
     @Column(name = "\"VDF_RELEASE\"")
-    private int vdfRelease = 0;
+    private Integer vdfRelease = 0;
 
     @Id
     @Column(name = "\"VDF_ISSUE\"")
-    private int vdfIssue = 0;
+    private Integer vdfIssue = 0;
 
     public static final int MAX_COLUMN = 5;
 

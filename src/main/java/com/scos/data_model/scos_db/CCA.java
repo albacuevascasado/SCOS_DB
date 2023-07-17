@@ -49,7 +49,7 @@ public class CCA {
     private String ccaUnit;
 
     @Column(name = "\"CCA_NCURVE\"")
-    private int ccaNcurve;
+    private Integer ccaNcurve;
 
     public static final int MAX_COLUMN = 7;
 

@@ -38,16 +38,16 @@ public class PLF implements Serializable {
     private BigInteger plfSpid;
 
     @Column(name = "\"PLF_OFFBY\"", nullable = false)
-    private int plfOffby;
+    private Integer plfOffby;
 
     @Column(name = "\"PLF_OFFBI\"", nullable = false)
-    private int plfOffbi;
+    private Integer plfOffbi;
 
     @Column(name = "\"PLF_NBOCC\"")
-    private int plfNbocc = 1 ;
+    private Integer plfNbocc = 1 ;
 
     @Column(name = "\"PLF_LGOCC\"")
-    private int plfLgocc = 0;
+    private Integer plfLgocc = 0;
 
     @Column(name = "\"PLF_TIME\"")
     private BigInteger plfTime = BigInteger.ZERO;

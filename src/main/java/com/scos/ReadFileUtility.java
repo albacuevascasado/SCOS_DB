@@ -72,7 +72,6 @@ public class ReadFileUtility {
                 String[] fileName = file.getName().split(".dat"); //IMPORTANTE per il nome della tabella
 
                 try {
-
                     SCOSRepository scosRepository = this.applicationContext.getBean(SCOSRepository.class);
                     boolean tableExistsInDB = scosRepository.getSCOSEntities(fileName[0].toUpperCase());
                     System.out.println("Table exists in DB? " + tableExistsInDB);
@@ -80,8 +79,6 @@ public class ReadFileUtility {
                     if (tableExistsInDB) {
                         callRepository(fileName[0].toUpperCase(), file, scosdb, odbFiles);
                     }
-
-
                 } catch (ClassNotFoundException | IllegalAccessException |
                         InstantiationException | InvocationTargetException e) {
                     e.printStackTrace();

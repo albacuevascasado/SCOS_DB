@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlightPlan>
+    <Header>
+        <id>0</id>
+        <startTime>1234567</startTime>
+        <endTime>89012345</endTime>
+        <schedulingId>0</schedulingId>
+    </Header>
+    <Tasks>
+        <Task id="Task_0001">
+            <Telecommand name="CRDM0001">
+                <Field name="FieldA">
+                    <Value>1</Value>
+                    <Type>int</Type>
+                    <Units>g</Units>
+                </Field>
+                <Field name="FieldB">
+                    <Value>asd</Value>
+                    <Type>String</Type>
+                </Field>
+            </Telecommand>
+            <Telecommand name="TC_0002">
+                <Field name="FieldF">
+                    <Value>qwert</Value>
+                    <Type>String</Type>
+                </Field>
+                <Field name="FieldG">
+                    <Value>99</Value>
+                    <Type>int</Type>
+                    <Units>m</Units>
+                </Field>
+            </Telecommand>
+            <Telecommand name="TC_0001">
+                <Field name="FieldA">
+                    <Value>1</Value>
+                    <Type>int</Type>
+                    <Units>g</Units>
+                </Field>
+                <Field name="FieldB">
+                    <Value>asd</Value>
+                    <Type>String</Type>
+                </Field>
+            </Telecommand>
+        </Task>
+        <Task id="Task_0002">
+            <Telecommand name="TC_0001">
+                <Field name="FieldA">
+                    <Value>1</Value>
+                    <Type>int</Type>
+                    <Units>g</Units>
+                </Field>
+                <Field name="FieldH">
+                    <Value>0.5</Value>
+                    <Type>decimal</Type>
+                    <Units>mm</Units>
+                </Field>
+            </Telecommand>
+            <Telecommand name="TC_0023">
+                <Field name="FieldZ">
+                    <Value>false</Value>
+                    <Type>boolean</Type>
+                </Field>
+                <Field name="FieldP">
+                    <Value>234</Value>
+                    <Type>int</Type>
+                    <Units>g</Units>
+                </Field>
+            </Telecommand>
+        </Task>
+    </Tasks>
+</FlightPlan>

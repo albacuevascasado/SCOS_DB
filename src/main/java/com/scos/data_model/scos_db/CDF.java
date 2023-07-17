@@ -39,15 +39,15 @@ public class CDF implements Serializable {
     private String cdfDescr;
 
     @Column(name = "\"CDF_ELLEN\"", nullable = false)
-    private int cdfEllen;
+    private Integer cdfEllen;
 
     @Id
     @Column(name = "\"CDF_BIT\"", nullable = false)
-    private int cdfBit;
+    private Integer cdfBit;
 
     @Id
     @Column(name = "\"CDF_GRPSIZE\"", nullable = false)
-    private int cdfGrpsize = 0;
+    private Integer cdfGrpsize = 0;
 
     @Column(name = "\"CDF_PNAME\"")
     private String cdfPname;

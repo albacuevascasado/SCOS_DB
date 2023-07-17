@@ -76,7 +76,7 @@ public class CPC {
     private double cpcPtc;
 
     @Column(name = "\"CPC_PFC\"", nullable = false)
-    private int cpcPfc;
+    private Integer cpcPfc;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CPC_DISPFMT\"")
@@ -114,7 +114,7 @@ public class CPC {
     private _YN cpcCorr = _YN.Y;
 
     @Column(name = "\"CPC_OBTID\"")
-    private int cpcObtid;
+    private Integer cpcObtid;
 
     @Column(name = "\"CPC_DESCR2\"")
     private String cpcDescr2;

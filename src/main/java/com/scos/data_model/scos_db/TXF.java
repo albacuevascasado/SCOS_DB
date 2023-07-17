@@ -34,7 +34,7 @@ public class TXF {
     private _FMT txfRawfmt;
 
     @Column(name = "\"TXF_NALIAS\"")
-    private int txfNalias;
+    private Integer txfNalias;
 
     public static final int MAX_COLUMN = 4;
 

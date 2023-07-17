@@ -512,17 +512,17 @@ public class SCOSService {
                 if(recordSplit.length > CPC.COLUMNS.CPC_OBTID.ordinal() && recordSplit[CPC.COLUMNS.CPC_OBTID.ordinal()].length() > 0) {
                     cpc.setCpcObtid(Integer.parseInt(recordSplit[CPC.COLUMNS.CPC_OBTID.ordinal()]));
                 }
+//                if(recordSplit.length > CPC.COLUMNS.CPC_ENDIAN.getHierarchy() && recordSplit[CPC.COLUMNS.CPC_ENDIAN.getHierarchy()].length() > 0) {
+//                    cpc.setCpcEndian(CPC.CpcEndian.valueOf(recordSplit[CPC.COLUMNS.CPC_ENDIAN.getHierarchy()]));
+//                }
+                    if(recordSplit.length > CPC.COLUMNS.CPC_ENDIAN.ordinal() && recordSplit[CPC.COLUMNS.CPC_ENDIAN.ordinal()].length() > 0) {
+                        cpc.setCpcEndian(CPC.CpcEndian.valueOf(recordSplit[CPC.COLUMNS.CPC_ENDIAN.ordinal()]));
+                    }
 //                if(recordSplit.length > CPC.COLUMNS.CPC_DESCR2.getHierarchy() && recordSplit[CPC.COLUMNS.CPC_DESCR2.getHierarchy()].length() > 0) {
 //                    cpc.setCpcDescr2(recordSplit[CPC.COLUMNS.CPC_DESCR2.getHierarchy()]);
 //                }
                 if(recordSplit.length > CPC.COLUMNS.CPC_DESCR2.ordinal() && recordSplit[CPC.COLUMNS.CPC_DESCR2.ordinal()].length() > 0) {
                     cpc.setCpcDescr2(recordSplit[CPC.COLUMNS.CPC_DESCR2.ordinal()]);
-                }
-//                if(recordSplit.length > CPC.COLUMNS.CPC_ENDIAN.getHierarchy() && recordSplit[CPC.COLUMNS.CPC_ENDIAN.getHierarchy()].length() > 0) {
-//                    cpc.setCpcEndian(CPC.CpcEndian.valueOf(recordSplit[CPC.COLUMNS.CPC_ENDIAN.getHierarchy()]));
-//                }
-                if(recordSplit.length > CPC.COLUMNS.CPC_ENDIAN.ordinal() && recordSplit[CPC.COLUMNS.CPC_ENDIAN.ordinal()].length() > 0) {
-                    cpc.setCpcEndian(CPC.CpcEndian.valueOf(recordSplit[CPC.COLUMNS.CPC_ENDIAN.ordinal()]));
                 }
 
                 listCPC.add(cpc);

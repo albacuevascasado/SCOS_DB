@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            attributeFormDefault="qualified"
+            elementFormDefault="qualified" >
+
+    <xs:complexType name="oemType">
+        <xs:sequence>
+            <xs:element name="header" type="xs:string"/>
+            <xs:element name="body"   type="xs:integer"/>
+        </xs:sequence>
+        <xs:attribute name="id"        use="required" fixed="CCSDS_OEM_VERS"/>
+        <xs:attribute name="version"   use="required" fixed="2.0"/>
+    </xs:complexType>
+
+</xs:schema>

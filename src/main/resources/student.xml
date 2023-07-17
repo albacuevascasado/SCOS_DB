@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<student>
+    <id>1</id>
+    <firstName>Hola</firstName>
+    <lastname>Adios</lastname>
+</student>

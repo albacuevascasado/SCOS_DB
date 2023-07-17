@@ -32,7 +32,7 @@ public class SPC implements Serializable {
 
     @Id
     @Column(name = "\"SPC_POS\"", nullable = false)
-    private int spcPos;
+    private Integer spcPos;
 
     @Column(name = "\"SPC_NAME\"", nullable = false)
     private String spcName;

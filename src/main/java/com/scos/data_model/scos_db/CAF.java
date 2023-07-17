@@ -49,7 +49,7 @@ public class CAF {
     private String cafUnit;
 
     @Column(name = "\"CAF_NCURVE\"")
-    private int cafNcurve;
+    private Integer cafNcurve;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CAF_INTER\"")

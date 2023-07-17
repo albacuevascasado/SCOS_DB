@@ -38,15 +38,15 @@ public class PID implements Serializable {
 
     @Id
     @Column(name = "\"PID_TYPE\"", nullable = false)
-    private int pidType;
+    private Integer pidType;
 
     @Id
     @Column(name = "\"PID_STYPE\"", nullable = false)
-    private int pidStype;
+    private Integer pidStype;
 
     @Id
     @Column(name = "\"PID_APID\"", nullable = false)
-    private int pidApid;
+    private Integer pidApid;
 
     @Id
     @Column(name = "\"PID_PI1_VAL\"")
@@ -70,7 +70,7 @@ public class PID implements Serializable {
     private BigInteger pidTpsd = BigInteger.valueOf(-1);
 
     @Column(name = "\"PID_DFHSIZE\"", nullable = false)
-    private int pidDfhsize;
+    private Integer pidDfhsize;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"PID_TIME\"")
@@ -84,7 +84,7 @@ public class PID implements Serializable {
     private _YN pidValid = _YN.Y;
 
     @Column(name = "\"PID_CHECK\"")
-    private int pidCheck = Integer.valueOf(0);
+    private Integer pidCheck = Integer.valueOf(0);
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"PID_EVENT\"")

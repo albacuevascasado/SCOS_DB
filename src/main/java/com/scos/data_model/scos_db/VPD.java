@@ -40,16 +40,16 @@ public class VPD implements Serializable {
 
     @Id
     @Column(name = "\"VPD_POS\"", nullable = false)
-    private int vpdPos;
+    private Integer vpdPos;
 
     @Column(name = "\"VPD_NAME\"", nullable = false)
     private String vpdName;
 
     @Column(name = "\"VPD_GRPSIZE\"")
-    private int vpdGrpsize = 0;
+    private Integer vpdGrpsize = 0;
 
     @Column(name = "\"VPD_FIXREP\"")
-    private int vpdFixrep = 0;
+    private Integer vpdFixrep = 0;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"VPD_CHOICE\"")
@@ -63,7 +63,7 @@ public class VPD implements Serializable {
     private String vpdDisdesc;
 
     @Column(name = "\"VPD_WIDTH\"", nullable = false)
-    private int vpdWidth;
+    private Integer vpdWidth;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"VPD_JUSTIFY\"")
@@ -74,7 +74,7 @@ public class VPD implements Serializable {
     private _YN vpdNewline = _YN.N;
 
     @Column(name = "\"VPD_DCHAR\"")
-    private int vpdDchar = 0;
+    private Integer vpdDchar = 0;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"VPD_FORM\"")

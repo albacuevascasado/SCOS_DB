@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="capFlightPlan">
+        <xs:complexType>
+            <xs:all>
+                <xs:element type="xs:string" name="caPNumbr" minOccurs="1" maxOccurs="1"/>
+                <xs:element type="xs:string" name="capXvals" minOccurs="1" maxOccurs="1"/>
+                <xs:element type="xs:string" name="capYvals" minOccurs="1" maxOccurs="1"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

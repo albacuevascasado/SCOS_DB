@@ -34,7 +34,7 @@ public class PAF {
     private _FMT PAF_RAWFMT = _FMT.U;
 
     @Column(name = "\"PAF_NALIAS\"")
-    private int PAF_NALIAS;
+    private Integer PAF_NALIAS;
 
     public static final int MAX_COLUMN = 4;
 

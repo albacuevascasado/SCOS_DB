@@ -69,4 +69,46 @@
 <!--        </dependency>-->
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <!-- XSD -> Java Class -->
+                    <execution>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+<!--                                <schemaDirectory>${basedir}/src/main/resources</schemaDirectory> &lt;!&ndash; directory with files.xsd &ndash;&gt;-->
+                                <source>src/main/resources/prova/ProvaTask3.xsd</source>  <!-- one file.xsd -->
+                            </sources>
+                            <outputDirectory>${basedir}/src/main/java</outputDirectory> <!-- directory where the generated XML are saved -->
+                            <packageName>com.scos.XSDToJava3</packageName>
+                            <clearOutputDir>false</clearOutputDir>  <!--Prevent the output directory from being erased -->
+                        </configuration>
+                    </execution>
+                    <!-- Java Class -> XSD -->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>schemagen</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <sources>-->
+<!--                                <source>${basedir}/src/main/java/com/scos/data_model/Student.java</source>-->
+<!--                            </sources>-->
+<!--                            <generateEpisode>false</generateEpisode> &lt;!&ndash; useless &ndash;&gt;-->
+<!--                            <workDirectory>${basedir}/src/main/java/com/scos/JavaToXSD</workDirectory> &lt;!&ndash; output directory &ndash;&gt;-->
+<!--                            <clearOutputDir>false</clearOutputDir>  &lt;!&ndash; Prevent the output directory from being erased &ndash;&gt;-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+                </executions>
+
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

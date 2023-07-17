@@ -57,10 +57,10 @@ public class PCF {
     private String pcfUnit;
 
     @Column(name = "\"PCF_PTC\"", nullable = false)
-    private int pcfPtc;
+    private Integer pcfPtc;
 
     @Column(name = "\"PCF_PFC\"", nullable = false)
-    private int pcfPfc;
+    private Integer pcfPfc;
 
     @Column(name = "\"PCF_WIDTH\"")
     private BigInteger pcfWidth;
@@ -91,7 +91,7 @@ public class PCF {
     private _YN pcfUscon = _YN.N;
 
     @Column(name = "\"PCF_DECIM\"")
-    private int pcfDecim;
+    private Integer pcfDecim;
 
     @Column(name = "\"PCF_PARVAL\"")
     private String pcfParval;
@@ -100,7 +100,7 @@ public class PCF {
     private String pcfSubsys;
 
     @Column(name = "\"PCF_VALPAR\"")
-    private int pcfValpar = 1;
+    private Integer pcfValpar = 1;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"PCF_SPTYPE\"")
@@ -111,7 +111,7 @@ public class PCF {
     private _YN pcfCorr = _YN.Y;
 
     @Column(name = "\"PCF_OBTID\"")
-    private int pcfObtid;
+    private Integer pcfObtid;
 
     @Column(name = "\"PCF_DARC\"")
     private char pcfDarc = '0';

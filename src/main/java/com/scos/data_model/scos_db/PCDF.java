@@ -38,11 +38,11 @@ public class PCDF implements Serializable {
     private PcdfType pcdfType;
 
     @Column(name = "\"PCDF_LEN\"", nullable = false)
-    private int pcdfLen;
+    private Integer pcdfLen;
 
     @Id
     @Column(name = "\"PCDF_BIT\"", nullable = false)
-    private int pcdfBit;
+    private Integer pcdfBit;
 
     @Column(name = "\"PCDF_PNAME\"")
     private String pcdfPname;

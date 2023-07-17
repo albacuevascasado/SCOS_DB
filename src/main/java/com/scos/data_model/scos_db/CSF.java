@@ -49,10 +49,10 @@ public class CSF {
     private CsfIftt csfIftt = CsfIftt.N;
 
     @Column(name = "\"CSF_NFPARS\"")
-    private int csfNfpars;
+    private Integer csfNfpars;
 
     @Column(name = "\"CSF_ELEMS\"")
-    private int csfElems;
+    private Integer csfElems;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CSF_CRITICAL\"")
@@ -67,7 +67,7 @@ public class CSF {
     private _YN csfExec = _YN.Y;
 
     @Column(name = "\"CSF_SUBSYS\"")
-    private int csfSubsys;
+    private Integer csfSubsys;
 
     @Column(name = "\"CSF_GENTIME\"")
     private String csfGentime;
@@ -85,7 +85,7 @@ public class CSF {
     private String csfDefset;
 
     @Column(name = "\"CSF_SUBSCHEDID\"")
-    private int csfSubschedid;
+    private Integer csfSubschedid;
 
     public static final int MAX_COLUMN = 16;
 

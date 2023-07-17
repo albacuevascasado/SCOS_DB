@@ -53,31 +53,31 @@ public class GPF {
     private _YN gpfHcopy = _YN.N;
 
     @Column(name = "\"GPF_DAYS\"", nullable = false)
-    private int gpfDays;
+    private Integer gpfDays;
 
     @Column(name = "\"GPF_HOURS\"", nullable = false)
-    private int gpfHours;
+    private Integer gpfHours;
 
     @Column(name = "\"GPF_MINUT\"", nullable = false)
-    private int gpfMinut;
+    private Integer gpfMinut;
 
     @Column(name = "\"GPF_AXCLR\"", nullable = false)
     private char gpfAxclr;
 
     @Column(name = "\"GPF_XTICK\"", nullable = false)
-    private int gpfXtic;
+    private Integer gpfXtic;
 
     @Column(name = "\"GPF_YTICK\"", nullable = false)
-    private int gpfYtic;
+    private Integer gpfYtic;
 
     @Column(name = "\"GPF_XGRID\"", nullable = false)
-    private int gpfXgrid;
+    private Integer gpfXgrid;
 
     @Column(name = "\"GPF_YGRID\"", nullable = false)
-    private int gpfYgrid;
+    private Integer gpfYgrid;
 
     @Column(name = "\"GPF_UPUN\"")
-    private int gpfUpun;
+    private Integer gpfUpun;
 
     public static final int MAX_COLUMN = 14;
 

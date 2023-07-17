@@ -1,6 +1,5 @@
 package com.scos.repositories;
 
-import com.scos.FlightPlanCreation;
 import com.scos.JpaEntityManagerFactory;
 import com.scos.data_model.mps_db.ODBData;
 import com.scos.data_model.mps_db.ODBFiles;

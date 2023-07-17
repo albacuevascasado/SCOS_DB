@@ -45,7 +45,7 @@ public class PRF {
     private _RADIX prfRadix = _RADIX.D;
 
     @Column(name = "\"PRF_NRANGE\"")
-    private int prfNrange;
+    private Integer prfNrange;
 
     @Column(name = "\"PRF_UNIT\"")
     private String prfUnit;

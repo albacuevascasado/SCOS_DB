@@ -31,7 +31,7 @@ public class CVP implements Serializable {
 
     @Id
     @Column(name = "\"CVP_CVSID\"", nullable = false)
-    private int cvpCvsid;
+    private Integer cvpCvsid;
 
     public static final int MAX_COLUMN = 3;
 

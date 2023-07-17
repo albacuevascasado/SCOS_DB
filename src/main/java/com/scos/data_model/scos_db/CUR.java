@@ -32,13 +32,13 @@ public class CUR implements Serializable {
 
     @Id
     @Column(name = "\"CUR_POS\"", nullable = false)
-    private int curPos;
+    private Integer curPos;
 
     @Column(name = "\"CUR_RLCHK\"", nullable = false)
     private String curRlchk;
 
     @Column(name = "\"CUR_VALPAR\"", nullable = false)
-    private int curValpar;
+    private Integer curValpar;
 
     @Column(name = "\"CUR_SELECT\"", nullable = false)
     private String curSelect;

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" elementFormDefault="qualified">
+    <xs:element name="CDF">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="cdfCname" type="xs:string"/>
+                <xs:element name="cdfEltype" type="CdfType"/>
+                <xs:element name="cdfDescr" type="xs:string" minOccurs="0"/>
+                <xs:element name="cdfEllen" type="xs:int"/>
+                <xs:element name="cdfBit" type="xs:int"/>
+                <xs:element name="cdfGrpsize" type="xs:int"/>
+                <xs:element name="cdfPname" type="xs:string" minOccurs="0"/>
+                <xs:element name="cdfInter" type="CdfInter" minOccurs="0"/>
+                <xs:element name="cdfValue" type="xs:string" minOccurs="0"/>
+                <xs:element name="cdfTmid" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="CdfType" >
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="A" />
+            <xs:enumeration value="F" />
+            <xs:enumeration value="E" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CdfInter" >
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="R" />
+            <xs:enumeration value="E" />
+            <xs:enumeration value="D" />
+            <xs:enumeration value="T" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

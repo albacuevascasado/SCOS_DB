@@ -26,10 +26,10 @@ public class OCF {
     private String ocfName;
 
     @Column(name = "\"OCF_NBCHCK\"", nullable = false)
-    private int ocfNbchck;
+    private Integer ocfNbchck;
 
     @Column(name = "\"OCF_NBOOl\"", nullable = false)
-    private int ocfNbool;
+    private Integer ocfNbool;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"OCF_INTER\"", nullable = false)

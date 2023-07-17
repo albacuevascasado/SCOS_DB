@@ -61,17 +61,18 @@ public class CCF {
     private String ccfPktid;
 
     @Column(name = "\"CCF_TYPE\"")
-    private int ccfType;
+    private Integer ccfType;
 
     @Column(name = "\"CCF_STYPE\"")
-    private int ccfStype;
+    private Integer ccfStype;
 
     @Column(name = "\"CCF_APID\"")
-    private int ccfApid;
+    private Integer ccfApid;
 
     @Column(name = "\"CCF_NPARS\"")
-    private int ccfNpars;
+    private Integer ccfNpars;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "\"CCF_PLAN\"")
     private CcfPlan ccfPlan = CcfPlan.N;
 
@@ -88,26 +89,26 @@ public class CCF {
     private CcfStage ccfIlstage = CcfStage.C;
 
     @Column(name = "\"CCF_SUBSYS\"")
-    private int ccfSubsys;
+    private Integer ccfSubsys;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CCF_HIPRI\"")
     private _YN ccfHipri = _YN.N;
 
     @Column(name = "\"CCF_MAPID\"")
-    private int ccfMapid;
+    private Integer ccfMapid;
 
     @Column(name = "\"CCF_DEFSET\"")
     private String ccfDefset;
 
     @Column(name = "\"CCF_RAPID\"")
-    private int ccfRapid;
+    private Integer ccfRapid;
 
     @Column(name = "\"CCF_ACK\"")
-    private int ccfAck;
+    private Integer ccfAck;
 
     @Column(name = "\"CCF_SUBSCHEDID\"")
-    private int ccfSubschedid;
+    private Integer ccfSubschedid;
 
     public static final int MAX_COLUMN = 21;
 

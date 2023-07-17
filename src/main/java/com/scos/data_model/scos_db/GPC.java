@@ -35,7 +35,7 @@ public class GPC implements Serializable {
 
     @Id
     @Column(name = "\"GPC_POS\"", nullable = false)
-    private int gpcPos;
+    private Integer gpcPos;
 
     @Column(name = "\"GPC_WHERE\"", nullable = false)
     private char gpcWhere;
@@ -63,7 +63,7 @@ public class GPC implements Serializable {
     private char gpcLine = '0';
 
     @Column(name = "\"GPC_DOMAIN\"")
-    private int gpcDomain;
+    private Integer gpcDomain;
 
     public static final int MAX_COLUMN = 11;
 

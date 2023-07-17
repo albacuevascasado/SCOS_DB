@@ -33,10 +33,10 @@ public class SPF {
     private String spfHead;
 
     @Column(name = "\"SPF_NPAR\"", nullable = false)
-    private int spfNpar;
+    private Integer spfNpar;
 
     @Column(name = "\"SPF_UPUN\"")
-    private int spfUpun;
+    private Integer spfUpun;
 
     public static final int MAX_COLUMN = 4;
 
