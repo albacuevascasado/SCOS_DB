@@ -18,7 +18,10 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.*;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class FlightPlanCreation {
 
@@ -38,7 +41,7 @@ public class FlightPlanCreation {
         Tasks tasks = new Tasks();
         //TASK
         Task task = new Task();
-        task.setTaskId(taskId); //INPUT -> change from long to string
+        task.setTaskId(taskId); //INPUT
 
         //Start file
         String row = reader.readLine();
@@ -110,8 +113,14 @@ public class FlightPlanCreation {
         flightPlan.setHeader(header);
         flightPlan.setTasks(tasks);
 
+        //File name
+        LocalDateTime nowDate = LocalDateTime.now();
+        /** PROBLEM!! using two points in file name */
+        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("YYYY_D_HH.mm.ss"); //D = day of year
+        String formattedDate = nowDate.format(formatDate);
+        String fileName = "FPLAN_" + formattedDate;
         //create XML
-        createXML(flightPlan, "src/main/resources/FlightPlan/auto.xml");
+        createXML(flightPlan, "src/main/resources/FlightPlan/" + fileName + ".xml");
 
     }
 
@@ -139,8 +148,6 @@ public class FlightPlanCreation {
         mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         mar.marshal(flightPlan, new File(xmlPath));
     }
-
-
 
     public BaseHeader createBaseHeader(String[] baseHeaderRow) {
         //BASEHEADER

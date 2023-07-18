@@ -8,6 +8,8 @@ import org.xml.sax.SAXException;
 import javax.xml.bind.JAXBException;
 import javax.xml.datatype.DatatypeConfigurationException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Main {
 
@@ -34,5 +36,13 @@ public class Main {
 //        FlightPlanCreation.flightPlanCreateXML();
         FlightPlanCreation flightPlanCreation = new FlightPlanCreation();
         flightPlanCreation.createFlightPlanXML("src/main/resources/FlightPlan/MissionPlan.ssf", 23665, 7582, "AAR987");
+
+//        LocalDateTime myDateObj = LocalDateTime.now();
+//        System.out.println("Before formatting: " + myDateObj);
+//        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("YYYY_D_HH:mm:ss");
+//
+//        String formattedDate = myDateObj.format(myFormatObj);
+//        System.out.println("After formatting: " + formattedDate);
+
     }
 }
