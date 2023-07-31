@@ -41,6 +41,7 @@
         <!-- REPOSITORIES -->
         <bean id="scosRepository" class="com.scos.repositories.SCOSRepository" />
 <!--        <bean id="mpsRepository"  class="com.scos.repositories.MPSRepository" />-->
+        <bean id="missionPlanRepoitory" class="com.scos.repositories.MissionPlanRepository" />
 
         <!-- SERVICE -->
         <bean id="scosService" class="com.scos.services.SCOSService">
@@ -49,5 +50,8 @@
 <!--        <bean id="mpsService"  class="com.scos.services.MPSService">-->
 <!--                <property name="mpsRepository"  ref="mpsRepository" />-->
 <!--        </bean>-->
+        <bean id="missionPlanService" class="com.scos.services.MissionPlanService" >
+                <property name="missionplanRepository" ref="missionPlanRepoitory" />
+        </bean>
 
 </beans>

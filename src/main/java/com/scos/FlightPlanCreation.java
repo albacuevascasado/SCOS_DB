@@ -1,7 +1,6 @@
 package com.scos;
 
 import com.scos.XSDToJava3.*;
-import com.scos.data_model.Student;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
@@ -25,8 +24,8 @@ import java.util.Date;
 
 public class FlightPlanCreation {
 
-    public void createFlightPlanXML (String missionPlanFile, long missionId, long schedulingId, String taskId) throws IOException, DatatypeConfigurationException, JAXBException {
-        BufferedReader reader = new BufferedReader(new FileReader(missionPlanFile));
+    public void createFlightPlanXML (String flightPlanFile, long missionId, long schedulingId, String taskId) throws IOException, DatatypeConfigurationException, JAXBException {
+        BufferedReader reader = new BufferedReader(new FileReader(flightPlanFile));
 
         FlightPlan flightPlan = new FlightPlan();
         //HEADER
@@ -57,10 +56,11 @@ public class FlightPlanCreation {
 
                     sequence.setSequenceHeader(sequenceHeaderXML);
                     /** after a header could be a parameter or another seq/comm header */
-                    boolean seqParam = checkSequencePARS(rowSplit[2]);
+                    //boolean seqParam = checkSequencePARS(rowSplit[2]);
+                    Integer seqParam = Integer.valueOf(rowSplit[2]);
 
-                   if(seqParam) {
-                       for(int i=0; i<Integer.valueOf(rowSplit[2]); i++ ) {
+                   if(seqParam > 0) {
+                       for(int i=0; i<seqParam; i++ ) {
                            row = reader.readLine();
                            rowNo++;
                            String[] rowSplitParam = row.split("\\|");
@@ -76,10 +76,11 @@ public class FlightPlanCreation {
 
                     command.setCommandHeader(commandHeaderXML);
                     /** after a header could be a parameter or another seq/comm header */
-                    boolean commParam = checkCommandPARS(rowSplit[13]);
+                    //boolean commParam = checkCommandPARS(rowSplit[13]);
+                    Integer commParam = Integer.valueOf(rowSplit[13]);
 
-                    if(commParam) {
-                        for(int i=0; i<Integer.valueOf(rowSplit[13]); i++) {
+                    if(commParam > 0) {
+                        for(int i=0; i<commParam; i++) {
                             row = reader.readLine();
                             rowNo++;
                             String[] rowSplitParam = row.split("\\|");
@@ -97,7 +98,6 @@ public class FlightPlanCreation {
 
             rowNo++;
             row = reader.readLine();
-
         }
 
         reader.close();
@@ -124,23 +124,23 @@ public class FlightPlanCreation {
 
     }
 
-    public boolean checkSequencePARS(String seqPARS) {
-        boolean seqPars = false;
-        if(Integer.valueOf(seqPARS) > 0) {
-            seqPars = true;
-            return seqPars;
-        }
-        return seqPars;
-    }
+//    public boolean checkSequencePARS(String seqPARS) {
+//        boolean seqPars = false;
+//        if(Integer.valueOf(seqPARS) > 0) {
+//            seqPars = true;
+//            return seqPars;
+//        }
+//        return seqPars;
+//    }
 
-    public boolean checkCommandPARS(String commPARS) {
-        boolean commPars = false;
-        if(Integer.valueOf(commPARS) > 0) {
-            commPars = true;
-            return commPars;
-        }
-        return commPars;
-    }
+//    public boolean checkCommandPARS(String commPARS) {
+//        boolean commPars = false;
+//        if(Integer.valueOf(commPARS) > 0) {
+//            commPars = true;
+//            return commPars;
+//        }
+//        return commPars;
+//    }
 
     public void createXML(FlightPlan flightPlan, String xmlPath) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(FlightPlan.class);
@@ -166,7 +166,7 @@ public class FlightPlanCreation {
         baseHeader.getField().add(baseHeaderSource);
         //GEN TIME
         BaseHeader.Field baseHeaderGenTime = new BaseHeader.Field();
-        baseHeaderGenTime.setName("GEN TIME");
+        baseHeaderGenTime.setName("GEN_TIME");
         baseHeaderGenTime.setValue(baseHeaderRow[2]);
         baseHeaderGenTime.setType("number");
         baseHeaderGenTime.setUnits("seconds");
@@ -185,7 +185,7 @@ public class FlightPlanCreation {
         baseHeader.getField().add(baseHeaderFieldVersion);
         //START TIME
         BaseHeader.Field baseHeaderFieldStartTime = new BaseHeader.Field();
-        baseHeaderFieldStartTime.setName("START TIME");
+        baseHeaderFieldStartTime.setName("START_TIME");
         baseHeaderFieldStartTime.setValue(baseHeaderRow[5]);
         baseHeaderFieldStartTime.setType("number");
         baseHeaderFieldStartTime.setUnits("seconds");

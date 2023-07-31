@@ -17,7 +17,7 @@ public class ReadFileUtility {
 
     public ReadFileUtility(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
-        System.out.println("Application Context: " + applicationContext );
+        System.out.println("Application Context from Read File: " + applicationContext);
     }
 
     /** String filePrueba if we inject direcltly a folder without the need of unzip */
@@ -117,4 +117,5 @@ public class ReadFileUtility {
         method.invoke(scosService, args);
 
     }
+
 }

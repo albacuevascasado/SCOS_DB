@@ -8,6 +8,7 @@ import org.xml.sax.SAXException;
 import javax.xml.bind.JAXBException;
 import javax.xml.datatype.DatatypeConfigurationException;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -33,16 +34,15 @@ public class Main {
         //JAXB Java Class to XML
 //        FlightPlanCreation.objectToXML();
 //        FlightPlanCreation.isValid();
-//        FlightPlanCreation.flightPlanCreateXML();
-        FlightPlanCreation flightPlanCreation = new FlightPlanCreation();
-        flightPlanCreation.createFlightPlanXML("src/main/resources/FlightPlan/MissionPlan.ssf", 23665, 7582, "AAR987");
 
-//        LocalDateTime myDateObj = LocalDateTime.now();
-//        System.out.println("Before formatting: " + myDateObj);
-//        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("YYYY_D_HH:mm:ss");
-//
-//        String formattedDate = myDateObj.format(myFormatObj);
-//        System.out.println("After formatting: " + formattedDate);
+        //FlightPlan
+        FlightPlanCreation flightPlanCreation = new FlightPlanCreation();
+        flightPlanCreation.createFlightPlanXML("src/main/resources/FlightPlan/MPLAN_2023_209_17.51.29.ssf", 23665, 7582, "AAR987");
+
+        //MissionPlan
+//        MissionPlanCreation missionPlanCreation = new MissionPlanCreation(applicationContext);
+//        missionPlanCreation.readMissionPlan("src/main/resources/FlightPlan/MissionPlan.ssf");
+//        missionPlanCreation.createMissionPlanSSF(BigInteger.valueOf(123L),"AAAA");
 
     }
 }

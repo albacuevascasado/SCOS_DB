@@ -25,7 +25,7 @@ public class SCOSRepository {
     private EntityManager entityManager;
 
     @Autowired
-    @Qualifier("SCOSentityManager")
+//    @Qualifier("SCOSentityManager")
     private JpaEntityManagerFactory scosEmf;
 
     public boolean getSCOSEntities(String tableName) {

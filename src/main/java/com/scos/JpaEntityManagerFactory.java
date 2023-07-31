@@ -1,7 +1,6 @@
 package com.scos;
 
-import com.scos.data_model.mps_db.ODBData;
-import com.scos.data_model.mps_db.ODBFiles;
+import com.scos.data_model.mps_db.*;
 import com.scos.data_model.scos_db.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -75,7 +74,13 @@ public class JpaEntityManagerFactory {
             SCOSDB.class,
             SCOSTABLES.class,
             ODBFiles.class,
-            ODBData.class
+            ODBData.class,
+            TaskScheduled.class,
+            BaseHeader.class,
+            CommandHeader.class,
+            CommandParameter.class,
+            SequenceHeader.class,
+            SequenceParameter.class
     };
 
 
@@ -115,6 +120,7 @@ public class JpaEntityManagerFactory {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
         properties.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
+        /** REQUIRED to create tables */
 //        properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.jdbc.batch_size", BATCH_SIZE);
         /** batch all insert statements of the same entity type together */
