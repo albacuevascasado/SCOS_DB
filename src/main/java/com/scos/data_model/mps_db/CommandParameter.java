@@ -14,6 +14,32 @@ import java.io.Serializable;
 @Table(schema = "mps_schema" , name = "\"T_COMMAND_PARAMETER\"")
 public class CommandParameter implements Serializable {
 
+    public enum COLUMNS {
+        ID ("char",null),
+        FORMPOS ("number",null),
+        TYPE ("number",null),
+        EDITABLE ("number",null),
+        REPTYPE ("number",null),
+        VALUE ("char",null),
+        DYNAMIC ("number",null);
+
+        private String type;
+        private String units;
+
+        COLUMNS(final String type, final String units) {
+            this.type = type;
+            this.units = units;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public String getUnits() {
+            return units;
+        }
+    }
+
 //    @Id
 //    @Column(name = "\"TASK_NAME\"", nullable = false)
 //    private String taskName;

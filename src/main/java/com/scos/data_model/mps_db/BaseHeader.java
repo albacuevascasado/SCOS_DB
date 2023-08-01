@@ -14,27 +14,41 @@ import java.math.BigInteger;
 @Entity
 @Table(schema = "mps_schema" , name = "\"T_BASE_HEADER\"")
 public class BaseHeader implements Serializable {
+    //values = [CATEGORY,SOURCE,GEN_TIME,RELTYPE,VERSION,START_TIME]
+    public enum COLUMNS {
+        CATEGORY ("number", null),
+        SOURCE ("char", null),
+        GEN_TIME ("number", "seconds"),
+        RELTYPE ("number", null),
+        VERSION ("char",null),
+        START_TIME ("number", "seconds");
 
-//    public enum COLUMNS (String[] baseHeader) {
-//        CATEGORY ( baseHeader[0], "number", null),
-//        SOURCE (, "char", null),
-//        GEN_TIME (, "number", "seconds"),
-//        RELTYPE (, "number", null),
-//        VERSION (, "char",null),
-//        START_TIME (, "number", "seconds");
-//
-//        private String name;
 //        private String value;
-//        private String type;
-//        private String units;
-//
-//        COLUMNS(final String value, final String type, final String units) {
-//            this.value = value;
-//            this.type = type;
-//            this.units = units;
+        private String type;
+        private String units;
+
+        COLUMNS(final String type, final String units) {
+            this.type = type;
+            this.units = units;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public String getUnits() {
+            return units;
+        }
+
+//        public String setValue(final String value) {
+//           return this.value = value;
 //        }
-//
-//    }
+
+//        public String getValue() {
+//            return value;
+//        }
+
+    }
 
     //@Id -> MISSION_ID from T_SYS_MISSION
 

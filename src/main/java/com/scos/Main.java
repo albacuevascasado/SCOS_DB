@@ -1,5 +1,6 @@
 package com.scos;
 
+import com.scos.data_model.mps_db.BaseHeader;
 import com.scos.services.SCOSService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

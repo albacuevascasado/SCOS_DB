@@ -15,6 +15,52 @@ import java.math.BigInteger;
 @Table(schema = "mps_schema" , name = "\"T_COMMAND_HEADER\"")
 public class CommandHeader implements Serializable {
 
+    public enum COLUMNS {
+        CMDTYPE ("char",null),
+        ID ("char",null),
+        MAN_DISPATCH ("number",null),
+        RELEASE ("number",null),
+        RELTIME ("number","seconds"),
+        RELTIME2 ("number","microseconds"),
+        GROUP ("number",null),
+        BLOCK ("number",null),
+        INTERLOCK ("number",null),
+        ILSTAGE ("char",null),
+        STATIC_PTV ("number",null),
+        DYNAMIC_PTV ("number",null),
+        CEV ("number",null),
+        PARS ("number",null),
+        TIME_TAGGED ("number",null),
+        PLANNED ("number",null),
+        EXEC_TIME ("number","seconds"),
+        EXEC_TIME2 ("number","microseconds"),
+        PARENT ("char",null),
+        STARTTIME ("number",null),
+        SUBSYSTEM ("number",null),
+        SOURCE ("number",null),
+        EARLIEST ("number",null),
+        LATEST ("number",null),
+        TC_REQUEST_ID ("number",null),
+        SUB_SCHED_ID ("number",null),
+        ACK_FLAGS ("number",null);
+
+        private String type;
+        private String units;
+
+        COLUMNS(final String type, final String units) {
+            this.type = type;
+            this.units = units;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public String getUnits() {
+            return units;
+        }
+    }
+
 //    @Id
 //    @ManyToOne(optional = false)
 //    @JoinColumn(name = "\"TASK_NAME\"", referencedColumnName = "\"TASK_NAME\"", nullable = false)

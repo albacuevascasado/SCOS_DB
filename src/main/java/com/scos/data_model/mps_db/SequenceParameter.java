@@ -14,6 +14,29 @@ import java.io.Serializable;
 @Table(schema = "mps_schema" , name = "\"T_SEQUENCE_PARAMETER\"")
 public class SequenceParameter implements Serializable {
 
+    public enum COLUMNS {
+        ID ("char",null),
+        TYPE ("number",null),
+        REPTYPE ("number",null),
+        VALUE ("char",null);
+
+        private String type;
+        private String units;
+
+        COLUMNS(final String type, final String units) {
+            this.type = type;
+            this.units = units;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public String getUnits() {
+            return units;
+        }
+    }
+
     @Id
     @Column(name = "\"SEQUENCE_ID\"", nullable = false)
     private String sequenceId;
