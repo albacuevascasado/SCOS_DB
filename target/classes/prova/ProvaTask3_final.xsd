@@ -73,10 +73,10 @@
                             <xs:restriction base="xs:string">
                                 <xs:enumeration value="CATEGORY" />
                                 <xs:enumeration value="SOURCE"/>
-                                <xs:enumeration value="GEN_TIME"/>
+                                <xs:enumeration value="GEN TIME"/>
                                 <xs:enumeration value="RELTYPE"/>
                                 <xs:enumeration value="VERSION"/>
-                                <xs:enumeration value="START_TIME"/>
+                                <xs:enumeration value="START TIME"/>
                             </xs:restriction>
                         </xs:simpleType>
                     </xs:attribute>
@@ -98,7 +98,7 @@
                     <xs:attribute name="name" use="required">
                         <xs:simpleType>
                             <xs:restriction base="xs:string">
-                                <xs:enumeration value="SEQ_TYPE" />
+                                <xs:enumeration value="SEQ TYPE" />
                                 <xs:enumeration value="ID"/>
                                 <xs:enumeration value="PARS"/>
                                 <xs:enumeration value="CMDS"/>
@@ -106,8 +106,8 @@
                                 <xs:enumeration value="STARTTIME2"/>
                                 <xs:enumeration value="SUBSYSTEM"/>
                                 <xs:enumeration value="SOURCE"/>
-                                <xs:enumeration value="TC_REQUEST_ID"/>
-                                <xs:enumeration value="SUB_SCHED_ID"/>
+                                <xs:enumeration value="TC REQUEST ID"/>
+                                <xs:enumeration value="SUB-SCHED ID"/>
                             </xs:restriction>
                         </xs:simpleType>
                     </xs:attribute>
@@ -156,7 +156,7 @@
                             <xs:restriction base="xs:string">
                                 <xs:enumeration value="CMDTYPE" />
                                 <xs:enumeration value="ID"/>
-                                <xs:enumeration value="MAN_DISPATCH"/>
+                                <xs:enumeration value="MAN DISPATCH"/>
                                 <xs:enumeration value="RELEASE"/>
                                 <xs:enumeration value="RELTIME"/>
                                 <xs:enumeration value="RELTIME2"/>
@@ -164,23 +164,23 @@
                                 <xs:enumeration value="BLOCK"/>
                                 <xs:enumeration value="INTERLOCK"/>
                                 <xs:enumeration value="ILSTAGE"/>
-                                <xs:enumeration value="STATIC_PTV"/>
-                                <xs:enumeration value="DYNAMIC_PTV"/>
+                                <xs:enumeration value="STATIC PTV"/>
+                                <xs:enumeration value="DYNAMIC PTV"/>
                                 <xs:enumeration value="CEV"/>
                                 <xs:enumeration value="PARS"/>
-                                <xs:enumeration value="TIME_TAGGED"/>
+                                <xs:enumeration value="TIME TAGGED"/>
                                 <xs:enumeration value="PLANNED"/>
-                                <xs:enumeration value="EXEC_TIME"/>
-                                <xs:enumeration value="EXEC_TIME2"/>
+                                <xs:enumeration value="EXEC TIME"/>
+                                <xs:enumeration value="EXEC TIME2"/>
                                 <xs:enumeration value="PARENT"/>
                                 <xs:enumeration value="STARTTIME"/>
                                 <xs:enumeration value="SUBSYSTEM"/>
                                 <xs:enumeration value="SOURCE"/>
                                 <xs:enumeration value="EARLIEST"/>
                                 <xs:enumeration value="LATEST"/>
-                                <xs:enumeration value="TC_REQUEST_ID"/>
-                                <xs:enumeration value="SUB_SCHED_ID"/>
-                                <xs:enumeration value="ACK_FLAGS"/>
+                                <xs:enumeration value="TC REQUEST ID"/>
+                                <xs:enumeration value="SUB-SCHED ID"/>
+                                <xs:enumeration value="ACK-FLAGS"/>
                             </xs:restriction>
                         </xs:simpleType>
                     </xs:attribute>
