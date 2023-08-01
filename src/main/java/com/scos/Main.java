@@ -1,6 +1,6 @@
 package com.scos;
 
-import com.scos.data_model.mps_db.BaseHeader;
+import com.scos.data_model.mps_db.SysBaseHeader;
 import com.scos.services.SCOSService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -37,13 +37,13 @@ public class Main {
 //        FlightPlanCreation.isValid();
 
         //FlightPlan
-        FlightPlanCreation flightPlanCreation = new FlightPlanCreation();
-        flightPlanCreation.createFlightPlanXML("src/main/resources/FlightPlan/MPLAN_2023_209_17.51.29.ssf", 23665, 7582, "AAR987");
+//        FlightPlanCreation flightPlanCreation = new FlightPlanCreation();
+//        flightPlanCreation.createFlightPlanXML("src/main/resources/FlightPlan/MPLAN_2023_209_17.51.29.ssf", 23665, 7582, "AAR987");
 
         //MissionPlan
-//        MissionPlanCreation missionPlanCreation = new MissionPlanCreation(applicationContext);
+        MissionPlanCreation missionPlanCreation = new MissionPlanCreation(applicationContext);
 //        missionPlanCreation.readMissionPlan("src/main/resources/FlightPlan/MissionPlan.ssf");
-//        missionPlanCreation.createMissionPlanSSF(BigInteger.valueOf(123L),"AAAA");
+        missionPlanCreation.createMissionPlanSSF(BigInteger.valueOf(123L),"AAAA");
 
     }
 }

@@ -54,13 +54,13 @@ public class MissionPlanRepository {
         return taskscheduledDB;
     }
 
-    public void saveBaseHeaderRecord(BaseHeader baseHeader) {
+    public void saveBaseHeaderRecord(SysBaseHeader sysBaseHeader) {
         entityManager = scosEmf.getEntityManager();
         EntityTransaction transaction = null;
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            entityManager.persist(baseHeader);
+            entityManager.persist(sysBaseHeader);
 
             transaction.commit();
 
@@ -74,13 +74,13 @@ public class MissionPlanRepository {
         }
     }
 
-    public List<BaseHeader> baseHeaderRecord(BigInteger schedulingId) {
+    public List<SysBaseHeader> baseHeaderRecord(BigInteger schedulingId) {
         entityManager = scosEmf.getEntityManager();
         /** Transaction is used to modify data(create, update or delete) in the DB  */
-        List<BaseHeader> baseheaderDB = null;
+        List<SysBaseHeader> baseheaderDB = null;
         try {
             //ALWAYS ONE RECORD
-            baseheaderDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_BASE_HEADER\" WHERE \"SCHEDULING_ID\" = :scheduling_id", BaseHeader.class)
+            baseheaderDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_SYS_BASE_HEADER\" WHERE \"SCHEDULING_ID\" = :scheduling_id", SysBaseHeader.class)
                             .setParameter("scheduling_id", schedulingId)
                             .setMaxResults(1)
                             .getResultList();
@@ -94,13 +94,13 @@ public class MissionPlanRepository {
         return baseheaderDB;
     }
 
-    public void saveSequenceHeaderRecord(SequenceHeader sequenceHeader) {
+    public void saveSequenceHeaderRecord(SysSequenceHeader sysSequenceHeader) {
         entityManager = scosEmf.getEntityManager();
         EntityTransaction transaction = null;
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            entityManager.persist(sequenceHeader);
+            entityManager.persist(sysSequenceHeader);
 
             transaction.commit();
 
@@ -114,11 +114,11 @@ public class MissionPlanRepository {
         }
     }
 
-    public List<SequenceHeader> sequenceHeaderRecords(String taskName) {
+    public List<SysSequenceHeader> sequenceHeaderRecords(String taskName) {
         entityManager = scosEmf.getEntityManager();
-        List<SequenceHeader> seqheaderDB = null;
+        List<SysSequenceHeader> seqheaderDB = null;
         try {
-            seqheaderDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_SEQUENCE_HEADER\" WHERE \"TASK_NAME\" = :task_name", SequenceHeader.class)
+            seqheaderDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_SYS_SEQUENCE_HEADER\" WHERE \"TASK_NAME\" = :task_name", SysSequenceHeader.class)
                     .setParameter("task_name", taskName)
                     .getResultList();
 
@@ -131,13 +131,13 @@ public class MissionPlanRepository {
         return seqheaderDB;
     }
 
-    public void saveSequenceParameterRecord(SequenceParameter sequenceParameter) {
+    public void saveSequenceParameterRecord(SysSequenceParameter sysSequenceParameter) {
         entityManager = scosEmf.getEntityManager();
         EntityTransaction transaction = null;
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            entityManager.persist(sequenceParameter);
+            entityManager.persist(sysSequenceParameter);
 
             transaction.commit();
 
@@ -151,11 +151,11 @@ public class MissionPlanRepository {
         }
     }
 
-    public List<SequenceParameter> sequenceParameterRecords(String seqId) {
+    public List<SysSequenceParameter> sequenceParameterRecords(String seqId) {
         entityManager = scosEmf.getEntityManager();
-        List<SequenceParameter> seqparamDB = null;
+        List<SysSequenceParameter> seqparamDB = null;
         try {
-            seqparamDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_SEQUENCE_PARAMETER\" WHERE \"SEQUENCE_ID\" = :seq_id", SequenceParameter.class)
+            seqparamDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_SYS_SEQUENCE_PARAMETER\" WHERE \"SEQUENCE_ID\" = :seq_id", SysSequenceParameter.class)
                     .setParameter("seq_id", seqId)
                     .getResultList();
 
@@ -168,13 +168,13 @@ public class MissionPlanRepository {
         return seqparamDB;
     }
 
-    public void saveCommandHeaderRecord(CommandHeader commandHeader) {
+    public void saveCommandHeaderRecord(SysCommandHeader sysCommandHeader) {
         entityManager = scosEmf.getEntityManager();
         EntityTransaction transaction = null;
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            entityManager.persist(commandHeader);
+            entityManager.persist(sysCommandHeader);
 
             transaction.commit();
 
@@ -188,11 +188,11 @@ public class MissionPlanRepository {
         }
     }
 
-    public List<CommandHeader> commandHeaderRecords(String taskName) {
+    public List<SysCommandHeader> commandHeaderRecords(String taskName) {
         entityManager = scosEmf.getEntityManager();
-        List<CommandHeader> commheaderDB = null;
+        List<SysCommandHeader> commheaderDB = null;
         try {
-            commheaderDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_COMMAND_HEADER\" WHERE \"TASK_NAME\" = :task_name", CommandHeader.class)
+            commheaderDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_SYS_COMMAND_HEADER\" WHERE \"TASK_NAME\" = :task_name ORDER BY \"COMMAND_ID\" DESC", SysCommandHeader.class)
                     .setParameter("task_name", taskName)
                     .getResultList();
 
@@ -205,13 +205,13 @@ public class MissionPlanRepository {
         return commheaderDB;
     }
 
-    public void saveCommandParamenterRecord(CommandParameter commandParameter) {
+    public void saveCommandParamenterRecord(SysCommandParameter sysCommandParameter) {
         entityManager = scosEmf.getEntityManager();
         EntityTransaction transaction = null;
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            entityManager.persist(commandParameter);
+            entityManager.persist(sysCommandParameter);
 
             transaction.commit();
 
@@ -225,11 +225,11 @@ public class MissionPlanRepository {
         }
     }
 
-    public List<CommandParameter> commandParameterRecords(String commId) {
+    public List<SysCommandParameter> commandParameterRecords(String commId) {
         entityManager = scosEmf.getEntityManager();
-        List<CommandParameter> commparamDB = null;
+        List<SysCommandParameter> commparamDB = null;
         try {
-            commparamDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_COMMAND_PARAMETER\" WHERE \"COMMAND_ID\" = :comm_id", CommandParameter.class)
+            commparamDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_SYS_COMMAND_PARAMETER\" WHERE \"COMMAND_ID\" = :comm_id", SysCommandParameter.class)
                     .setParameter("comm_id", commId)
                     .getResultList();
 

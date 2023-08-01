@@ -12,27 +12,33 @@ import java.math.BigInteger;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(schema = "mps_schema" , name = "\"T_SEQUENCE_HEADER\"")
-public class SequenceHeader implements Serializable {
+@Table(schema = "mps_schema" , name = "\"T_SYS_SEQUENCE_HEADER\"")
+public class SysSequenceHeader implements Serializable {
 
     public enum COLUMNS {
-        SEQ_TYPE ("char",null),
-        ID ("char",null),
-        PARS ("number",null),
-        CMDS ("number",null),
-        STARTTIME ("number","seconds"),
-        STARTIME2 ("number","microseconds"),
-        SUBSYSTEM ("number",null),
-        SOURCE ("number",null),
-        TC_REQUEST_ID ("number",null),
-        SUB_SCHED_ID("number",null);
+        SEQ_TYPE ("SEQ TYPE","char",null),
+        ID ("ID","char",null),
+        PARS ("PARS","number",null),
+        CMDS ("CMDS","number",null),
+        STARTTIME ("STARTTIME","number","seconds"),
+        STARTIME2 ("STARTTIME2","number","microseconds"),
+        SUBSYSTEM ("SUBSYSTEM","number",null),
+        SOURCE ("SOURCE","number",null),
+        TC_REQUEST_ID ("TC REQUEST ID","number",null),
+        SUB_SCHED_ID("SUB-SCHED ID","number",null);
 
+        private String name;
         private String type;
         private String units;
 
-        COLUMNS(final String type, final String units) {
+        COLUMNS(final String name, final String type, final String units) {
+            this.name = name;
             this.type = type;
             this.units = units;
+        }
+
+        public String getName() {
+            return name;
         }
 
         public String getType() {

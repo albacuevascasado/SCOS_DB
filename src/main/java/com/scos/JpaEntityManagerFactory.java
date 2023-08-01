@@ -2,7 +2,6 @@ package com.scos;
 
 import com.scos.data_model.mps_db.*;
 import com.scos.data_model.scos_db.*;
-import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl;
 import org.hibernate.jpa.boot.internal.PersistenceUnitInfoDescriptor;
@@ -76,11 +75,11 @@ public class JpaEntityManagerFactory {
             ODBFiles.class,
             ODBData.class,
             TaskScheduled.class,
-            BaseHeader.class,
-            CommandHeader.class,
-            CommandParameter.class,
-            SequenceHeader.class,
-            SequenceParameter.class
+            SysBaseHeader.class,
+            SysCommandHeader.class,
+            SysCommandParameter.class,
+            SysSequenceHeader.class,
+            SysSequenceParameter.class
     };
 
 

@@ -12,24 +12,30 @@ import java.math.BigInteger;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(schema = "mps_schema" , name = "\"T_BASE_HEADER\"")
-public class BaseHeader implements Serializable {
+@Table(schema = "mps_schema" , name = "\"T_SYS_BASE_HEADER\"")
+public class SysBaseHeader implements Serializable {
     //values = [CATEGORY,SOURCE,GEN_TIME,RELTYPE,VERSION,START_TIME]
     public enum COLUMNS {
-        CATEGORY ("number", null),
-        SOURCE ("char", null),
-        GEN_TIME ("number", "seconds"),
-        RELTYPE ("number", null),
-        VERSION ("char",null),
-        START_TIME ("number", "seconds");
+        CATEGORY ("CATEGORY","number", null),
+        SOURCE ("SOURCE","char", null),
+        GEN_TIME ("GEN TIME","number", "seconds"),
+        RELTYPE ("RELTYPE","number", null),
+        VERSION ("VERSION","char",null),
+        START_TIME ("START TIME","number", "seconds");
 
 //        private String value;
+        private String name;
         private String type;
         private String units;
 
-        COLUMNS(final String type, final String units) {
+        COLUMNS(final String name, final String type, final String units) {
+            this.name = name;
             this.type = type;
             this.units = units;
+        }
+
+        public String getName() {
+            return name;
         }
 
         public String getType() {

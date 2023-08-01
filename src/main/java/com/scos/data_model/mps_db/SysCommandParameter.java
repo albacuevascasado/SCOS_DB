@@ -11,24 +11,30 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(schema = "mps_schema" , name = "\"T_COMMAND_PARAMETER\"")
-public class CommandParameter implements Serializable {
+@Table(schema = "mps_schema" , name = "\"T_SYS_COMMAND_PARAMETER\"")
+public class SysCommandParameter implements Serializable {
 
     public enum COLUMNS {
-        ID ("char",null),
-        FORMPOS ("number",null),
-        TYPE ("number",null),
-        EDITABLE ("number",null),
-        REPTYPE ("number",null),
-        VALUE ("char",null),
-        DYNAMIC ("number",null);
+        ID ("ID","char",null),
+        FORMPOS ("FORMPOS","number",null),
+        TYPE ("TYPE","number",null),
+        EDITABLE ("EDITABLE","number",null),
+        REPTYPE ("REPTYPE","number",null),
+        VALUE ("VALUE","char",null),
+        DYNAMIC ("DYNAMIC","number",null);
 
+        private String name;
         private String type;
         private String units;
 
-        COLUMNS(final String type, final String units) {
+        COLUMNS(final String name, final String type, final String units) {
+            this.name = name;
             this.type = type;
             this.units = units;
+        }
+
+        public String getName() {
+            return name;
         }
 
         public String getType() {

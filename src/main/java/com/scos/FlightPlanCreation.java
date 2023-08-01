@@ -1,6 +1,7 @@
 package com.scos;
 
 import com.scos.XSDToJava3.*;
+import com.scos.data_model.mps_db.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
@@ -17,10 +18,8 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.*;
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class FlightPlanCreation {
 
@@ -153,13 +152,13 @@ public class FlightPlanCreation {
         //BASEHEADER
         BaseHeader baseHeader = new BaseHeader();
 
-        for(int i = 0; i< com.scos.data_model.mps_db.BaseHeader.COLUMNS.values().length; i++) {
+        for(int i = 0; i< SysBaseHeader.COLUMNS.values().length; i++) {
             BaseHeader.Field baseHeaderField = new BaseHeader.Field();
-            baseHeaderField.setName(String.valueOf(com.scos.data_model.mps_db.BaseHeader.COLUMNS.values()[i])); //CATEGORY|SOURCE|GEN_TIME|RELTYPE|VERSION|START_TIME
+            baseHeaderField.setName(String.valueOf(SysBaseHeader.COLUMNS.values()[i].getName())); //CATEGORY|SOURCE|GEN_TIME|RELTYPE|VERSION|START_TIME
             baseHeaderField.setValue(baseHeaderRow[i]);
-            baseHeaderField.setType(String.valueOf(com.scos.data_model.mps_db.BaseHeader.COLUMNS.values()[i].getType()));
-            if(com.scos.data_model.mps_db.BaseHeader.COLUMNS.values()[i].getUnits() != null) {
-                baseHeaderField.setUnits(String.valueOf(com.scos.data_model.mps_db.BaseHeader.COLUMNS.values()[i].getUnits()));
+            baseHeaderField.setType(String.valueOf(SysBaseHeader.COLUMNS.values()[i].getType()));
+            if(SysBaseHeader.COLUMNS.values()[i].getUnits() != null) {
+                baseHeaderField.setUnits(String.valueOf(SysBaseHeader.COLUMNS.values()[i].getUnits()));
             }
             baseHeader.getField().add(baseHeaderField);
         }
@@ -214,11 +213,11 @@ public class FlightPlanCreation {
             //optional fields commandHeaderRow[i].length() > 0
             if(commandHeaderRow[i].length() > 0) {
                 CommandHeader.Field commandHeaderField = new CommandHeader.Field();
-                commandHeaderField.setName(String.valueOf(com.scos.data_model.mps_db.CommandHeader.COLUMNS.values()[i]));
+                commandHeaderField.setName(String.valueOf(SysCommandHeader.COLUMNS.values()[i].getName()));
                 commandHeaderField.setValue(commandHeaderRow[i]);
-                commandHeaderField.setType(String.valueOf(com.scos.data_model.mps_db.CommandHeader.COLUMNS.values()[i].getType()));
-                if(com.scos.data_model.mps_db.CommandHeader.COLUMNS.values()[i].getUnits() != null) {
-                    commandHeaderField.setUnits(String.valueOf(com.scos.data_model.mps_db.CommandHeader.COLUMNS.values()[i].getUnits()));
+                commandHeaderField.setType(String.valueOf(SysCommandHeader.COLUMNS.values()[i].getType()));
+                if(SysCommandHeader.COLUMNS.values()[i].getUnits() != null) {
+                    commandHeaderField.setUnits(String.valueOf(SysCommandHeader.COLUMNS.values()[i].getUnits()));
                 }
                 commandHeader.getField().add(commandHeaderField);
             }
@@ -423,11 +422,11 @@ public class FlightPlanCreation {
             //optional fields commandParameterRow[i].length() > 0
             if(commandParameterRow[i].length() > 0) {
                 CommandParameter.Field commandParameterField = new CommandParameter.Field();
-                commandParameterField.setName(String.valueOf(com.scos.data_model.mps_db.CommandParameter.COLUMNS.values()[i]));
+                commandParameterField.setName(String.valueOf(SysCommandParameter.COLUMNS.values()[i].getName()));
                 commandParameterField.setValue(commandParameterRow[i]);
-                commandParameterField.setType(String.valueOf(com.scos.data_model.mps_db.CommandParameter.COLUMNS.values()[i].getType()));
-                if(com.scos.data_model.mps_db.CommandParameter.COLUMNS.values()[i].getUnits() != null) {
-                    commandParameterField.setUnits(String.valueOf(com.scos.data_model.mps_db.CommandHeader.COLUMNS.values()[i].getUnits()));
+                commandParameterField.setType(String.valueOf(SysCommandParameter.COLUMNS.values()[i].getType()));
+                if(SysCommandParameter.COLUMNS.values()[i].getUnits() != null) {
+                    commandParameterField.setUnits(String.valueOf(SysCommandParameter.COLUMNS.values()[i].getUnits()));
                 }
                 commandParameter.getField().add(commandParameterField);
             }
@@ -490,15 +489,15 @@ public class FlightPlanCreation {
         //SEQUENCE HEADER
         SequenceHeader sequenceHeader = new SequenceHeader();
 
-        for(int i=0; i < com.scos.data_model.mps_db.SequenceHeader.COLUMNS.values().length; i++) {
+        for(int i = 0; i < SysSequenceHeader.COLUMNS.values().length; i++) {
             //optional fields sequenceHeaderRow[i].length() > 0
             if(sequenceHeaderRow[i].length() > 0) {
                 SequenceHeader.Field sequenceHeaderField = new SequenceHeader.Field();
-                sequenceHeaderField.setName(String.valueOf(com.scos.data_model.mps_db.SequenceHeader.COLUMNS.values()[i]));
+                sequenceHeaderField.setName(String.valueOf(SysSequenceHeader.COLUMNS.values()[i].getName()));
                 sequenceHeaderField.setValue(sequenceHeaderRow[i]);
-                sequenceHeaderField.setType(String.valueOf(com.scos.data_model.mps_db.SequenceHeader.COLUMNS.values()[i].getType()));
-                if(com.scos.data_model.mps_db.SequenceHeader.COLUMNS.values()[i].getUnits() != null) {
-                    sequenceHeaderField.setUnits(String.valueOf(com.scos.data_model.mps_db.SequenceHeader.COLUMNS.values()[i].getUnits()));
+                sequenceHeaderField.setType(String.valueOf(SysSequenceHeader.COLUMNS.values()[i].getType()));
+                if(SysSequenceHeader.COLUMNS.values()[i].getUnits() != null) {
+                    sequenceHeaderField.setUnits(String.valueOf(SysSequenceHeader.COLUMNS.values()[i].getUnits()));
                 }
                 sequenceHeader.getField().add(sequenceHeaderField);
             }
@@ -580,13 +579,13 @@ public class FlightPlanCreation {
         //SEQUENCE PARAMETER
         SequenceParameter sequenceParameter = new SequenceParameter();
 
-        for(int i=0;i < com.scos.data_model.mps_db.SequenceParameter.COLUMNS.values().length; i++) {
+        for(int i = 0; i < SysSequenceParameter.COLUMNS.values().length; i++) {
             SequenceParameter.Field sequenceParameterField = new SequenceParameter.Field();
-            sequenceParameterField.setName(String.valueOf(com.scos.data_model.mps_db.SequenceParameter.COLUMNS.values()[i])); //CATEGORY|SOURCE|GEN_TIME|RELTYPE|VERSION|START_TIME
+            sequenceParameterField.setName(String.valueOf(SysSequenceParameter.COLUMNS.values()[i].getName()));
             sequenceParameterField.setValue(sequenceParameterRow[i]);
-            sequenceParameterField.setType(String.valueOf(com.scos.data_model.mps_db.SequenceParameter.COLUMNS.values()[i].getType()));
-            if(com.scos.data_model.mps_db.SequenceParameter.COLUMNS.values()[i].getUnits() != null) {
-                sequenceParameterField.setUnits(String.valueOf(com.scos.data_model.mps_db.SequenceParameter.COLUMNS.values()[i].getUnits()));
+            sequenceParameterField.setType(String.valueOf(SysSequenceParameter.COLUMNS.values()[i].getType()));
+            if(SysSequenceParameter.COLUMNS.values()[i].getUnits() != null) {
+                sequenceParameterField.setUnits(String.valueOf(SysSequenceParameter.COLUMNS.values()[i].getUnits()));
             }
             sequenceParameter.getField().add(sequenceParameterField);
         }

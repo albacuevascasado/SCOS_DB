@@ -36,27 +36,27 @@ public class MissionPlanService {
     }
 
     public void createBaseHeaderRecord(String[] baseheaderRow) {
-        BaseHeader baseHeader = new BaseHeader();
+        SysBaseHeader sysBaseHeader = new SysBaseHeader();
         //ADDED NOT IN THE RECORD FROM FILE
-        baseHeader.setTaskName("AAAA");
-        baseHeader.setSchedulingId(BigInteger.valueOf(123L));
+        sysBaseHeader.setTaskName("AAAA");
+        sysBaseHeader.setSchedulingId(BigInteger.valueOf(123L));
 
-        baseHeader.setCategory(Integer.valueOf(baseheaderRow[0]));
-        baseHeader.setSource(baseheaderRow[1]);
-        baseHeader.setGenTime(BigInteger.valueOf(Integer.valueOf(baseheaderRow[2])));
-        baseHeader.setRelType(Integer.valueOf(baseheaderRow[3]));
-        baseHeader.setVersion(baseheaderRow[4]);
-        baseHeader.setStartTime(BigInteger.valueOf(Integer.valueOf(baseheaderRow[5])));
+        sysBaseHeader.setCategory(Integer.valueOf(baseheaderRow[0]));
+        sysBaseHeader.setSource(baseheaderRow[1]);
+        sysBaseHeader.setGenTime(BigInteger.valueOf(Integer.valueOf(baseheaderRow[2])));
+        sysBaseHeader.setRelType(Integer.valueOf(baseheaderRow[3]));
+        sysBaseHeader.setVersion(baseheaderRow[4]);
+        sysBaseHeader.setStartTime(BigInteger.valueOf(Integer.valueOf(baseheaderRow[5])));
 
         if(missionplanRepository != null) {
-            missionplanRepository.saveBaseHeaderRecord(baseHeader);
+            missionplanRepository.saveBaseHeaderRecord(sysBaseHeader);
         } else {
             System.out.println("missionplanRepository has not been injected");
         }
     }
 
     public String baseHeaderLine(BigInteger schedulingId) {
-        List<BaseHeader> baseheaderFromDB = missionplanRepository.baseHeaderRecord(schedulingId);
+        List<SysBaseHeader> baseheaderFromDB = missionplanRepository.baseHeaderRecord(schedulingId);
         String baseHeader = baseheaderFromDB.get(0).getCategory() + pipe
                 + baseheaderFromDB.get(0).getSource() + pipe
                 + baseheaderFromDB.get(0).getGenTime() + pipe
@@ -69,31 +69,31 @@ public class MissionPlanService {
     }
 
     public void createSequenceHeaderRecord(String[] sequenceheaderRow) {
-        SequenceHeader sequenceHeader = new SequenceHeader();
+        SysSequenceHeader sysSequenceHeader = new SysSequenceHeader();
         //ADDED NOT IN THE FILE RECORD
-        sequenceHeader.setTaskName("AAAA");
+        sysSequenceHeader.setTaskName("AAAA");
 
-        sequenceHeader.setSequenceId(sequenceheaderRow[1]);
-        sequenceHeader.setPars(Integer.valueOf(sequenceheaderRow[2]));
-        sequenceHeader.setCmds(Integer.valueOf(sequenceheaderRow[3]));
-        sequenceHeader.setStartTime(BigInteger.valueOf(Integer.valueOf(sequenceheaderRow[4])));
-        sequenceHeader.setStartTime2(BigInteger.valueOf(Integer.valueOf(sequenceheaderRow[5])));
+        sysSequenceHeader.setSequenceId(sequenceheaderRow[1]);
+        sysSequenceHeader.setPars(Integer.valueOf(sequenceheaderRow[2]));
+        sysSequenceHeader.setCmds(Integer.valueOf(sequenceheaderRow[3]));
+        sysSequenceHeader.setStartTime(BigInteger.valueOf(Integer.valueOf(sequenceheaderRow[4])));
+        sysSequenceHeader.setStartTime2(BigInteger.valueOf(Integer.valueOf(sequenceheaderRow[5])));
 
-        sequenceHeader.setSubsystem(sequenceheaderRow[6].length() > 0?  Integer.valueOf(sequenceheaderRow[6]): null);
-        sequenceHeader.setSource(sequenceheaderRow[7].length() > 0? Integer.valueOf(sequenceheaderRow[7]): null);
-        sequenceHeader.setTcRequestId(sequenceheaderRow[8].length() > 0? Integer.valueOf(sequenceheaderRow[8]): null);
+        sysSequenceHeader.setSubsystem(sequenceheaderRow[6].length() > 0?  Integer.valueOf(sequenceheaderRow[6]): null);
+        sysSequenceHeader.setSource(sequenceheaderRow[7].length() > 0? Integer.valueOf(sequenceheaderRow[7]): null);
+        sysSequenceHeader.setTcRequestId(sequenceheaderRow[8].length() > 0? Integer.valueOf(sequenceheaderRow[8]): null);
 
-        sequenceHeader.setSubSchedId(BigInteger.valueOf(Integer.valueOf(sequenceheaderRow[9])));
+        sysSequenceHeader.setSubSchedId(BigInteger.valueOf(Integer.valueOf(sequenceheaderRow[9])));
 
         if(missionplanRepository != null) {
-            missionplanRepository.saveSequenceHeaderRecord(sequenceHeader);
+            missionplanRepository.saveSequenceHeaderRecord(sysSequenceHeader);
         } else {
             System.out.println("missionplanRepository has not been injected");
         }
     }
 
     public List<String> sequenceHeaderLine(String taskName) {
-        List<SequenceHeader> seqheaderFromDB = missionplanRepository.sequenceHeaderRecords(taskName);
+        List<SysSequenceHeader> seqheaderFromDB = missionplanRepository.sequenceHeaderRecords(taskName);
         List<String> sequenceFile = new ArrayList<>();
         for(int i=0; i<seqheaderFromDB.size(); i++) {
             String sequenceHeader = seqheaderFromDB.get(i).getSeqType() + pipe
@@ -128,24 +128,24 @@ public class MissionPlanService {
     }
 
     public void createSequenceParameterRecord(String[] sequenceparameterRow) {
-        SequenceParameter sequenceParameter = new SequenceParameter();
+        SysSequenceParameter sysSequenceParameter = new SysSequenceParameter();
         //ADDED NOT IN THE FILE RECORD
-        sequenceParameter.setSequenceId("SEQUENCE");
+        sysSequenceParameter.setSequenceId("SEQUENCE");
 
-        sequenceParameter.setParameterId(sequenceparameterRow[0]);
-        sequenceParameter.setType(Integer.valueOf(sequenceparameterRow[1]));
-        sequenceParameter.setRepType(Integer.valueOf(sequenceparameterRow[2]));
-        sequenceParameter.setValue(sequenceparameterRow[3]);
+        sysSequenceParameter.setParameterId(sequenceparameterRow[0]);
+        sysSequenceParameter.setType(Integer.valueOf(sequenceparameterRow[1]));
+        sysSequenceParameter.setRepType(Integer.valueOf(sequenceparameterRow[2]));
+        sysSequenceParameter.setValue(sequenceparameterRow[3]);
 
         if(missionplanRepository != null) {
-            missionplanRepository.saveSequenceParameterRecord(sequenceParameter);
+            missionplanRepository.saveSequenceParameterRecord(sysSequenceParameter);
         } else {
             System.out.println("missionplanRepository has not been injected");
         }
     }
 
     public List<String> sequenceParameterLines(String sequenceId) {
-        List<SequenceParameter> seqparamFromDB = missionplanRepository.sequenceParameterRecords(sequenceId);
+        List<SysSequenceParameter> seqparamFromDB = missionplanRepository.sequenceParameterRecords(sequenceId);
         List<String> seqparamFile = new ArrayList<>();
         for(int i=0; i<seqparamFromDB.size(); i++) {
             String sequenceParam = seqparamFromDB.get(i).getParameterId() + pipe
@@ -159,47 +159,47 @@ public class MissionPlanService {
     }
 
     public void createCommandHeaderRecord(String[] commandheaderRow) {
-        CommandHeader commandHeader = new CommandHeader();
+        SysCommandHeader sysCommandHeader = new SysCommandHeader();
         //ADDED NOT IN THE FILE RECORD
-        commandHeader.setTaskName("AAAA");
+        sysCommandHeader.setTaskName("AAAA");
 
-        commandHeader.setCmdType(CommandHeader.Cmdtype.valueOf(commandheaderRow[0]));
-        commandHeader.setCommandId(commandheaderRow[1]);
-        commandHeader.setManDispatch(Integer.valueOf(commandheaderRow[2]));
-        commandHeader.setRelease(Integer.valueOf(commandheaderRow[3]));
-        commandHeader.setRelTime(BigInteger.valueOf(Integer.valueOf(commandheaderRow[4])));
-        commandHeader.setRelTime2(BigInteger.valueOf(Integer.valueOf(commandheaderRow[5])));
-        commandHeader.setGroup(Integer.valueOf(commandheaderRow[6]));
-        commandHeader.setBlock(Integer.valueOf(commandheaderRow[7]));
-        commandHeader.setInterlock(Integer.valueOf(commandheaderRow[8]));
-        commandHeader.setIlStage(commandheaderRow[9].length() > 0? commandheaderRow[9]:null);
-        commandHeader.setStaticPTV(Integer.valueOf(commandheaderRow[10]));
-        commandHeader.setDynamicPTV(Integer.valueOf(commandheaderRow[11]));
-        commandHeader.setCev(Integer.valueOf(commandheaderRow[12]));
-        commandHeader.setPars(BigInteger.valueOf(Integer.valueOf(commandheaderRow[13])));
-        commandHeader.setTimeTagged(Integer.valueOf(commandheaderRow[14]));
-        commandHeader.setPlanned(Integer.valueOf(commandheaderRow[15]));
-        commandHeader.setExecTime(BigInteger.valueOf(Integer.valueOf(commandheaderRow[16])));
-        commandHeader.setExecTime2(BigInteger.valueOf(Integer.valueOf(commandheaderRow[17])));
-        commandHeader.setParent(commandheaderRow[18].length() > 0? commandheaderRow[18]:null);
-        commandHeader.setStartTime(commandheaderRow[19].length() > 0? BigInteger.valueOf(Integer.valueOf(commandheaderRow[19])):null);
-        commandHeader.setSubSystem(commandheaderRow[20].length() > 0? BigInteger.valueOf(Integer.valueOf(commandheaderRow[20])):null);
-        commandHeader.setSource(commandheaderRow[21].length() > 0? Integer.valueOf(commandheaderRow[21]):null);
-        commandHeader.setEarliest(commandheaderRow[22].length() > 0? BigInteger.valueOf(Integer.valueOf(commandheaderRow[22])):null);
-        commandHeader.setLatest(commandheaderRow[23].length() > 0? BigInteger.valueOf(Integer.valueOf(commandheaderRow[23])):null);
-        commandHeader.setTcRequestId(commandheaderRow[24].length() > 0? Integer.valueOf(commandheaderRow[24]):null);
-        commandHeader.setSubSchedId(BigInteger.valueOf(Integer.valueOf(commandheaderRow[25])));
-        commandHeader.setAckFlags(commandheaderRow.length > 26? Integer.valueOf(commandheaderRow[26]):null);
+        sysCommandHeader.setCmdType(SysCommandHeader.Cmdtype.valueOf(commandheaderRow[0]));
+        sysCommandHeader.setCommandId(commandheaderRow[1]);
+        sysCommandHeader.setManDispatch(Integer.valueOf(commandheaderRow[2]));
+        sysCommandHeader.setRelease(Integer.valueOf(commandheaderRow[3]));
+        sysCommandHeader.setRelTime(BigInteger.valueOf(Integer.valueOf(commandheaderRow[4])));
+        sysCommandHeader.setRelTime2(BigInteger.valueOf(Integer.valueOf(commandheaderRow[5])));
+        sysCommandHeader.setGroup(Integer.valueOf(commandheaderRow[6]));
+        sysCommandHeader.setBlock(Integer.valueOf(commandheaderRow[7]));
+        sysCommandHeader.setInterlock(Integer.valueOf(commandheaderRow[8]));
+        sysCommandHeader.setIlStage(commandheaderRow[9].length() > 0? commandheaderRow[9]:null);
+        sysCommandHeader.setStaticPTV(Integer.valueOf(commandheaderRow[10]));
+        sysCommandHeader.setDynamicPTV(Integer.valueOf(commandheaderRow[11]));
+        sysCommandHeader.setCev(Integer.valueOf(commandheaderRow[12]));
+        sysCommandHeader.setPars(BigInteger.valueOf(Integer.valueOf(commandheaderRow[13])));
+        sysCommandHeader.setTimeTagged(Integer.valueOf(commandheaderRow[14]));
+        sysCommandHeader.setPlanned(Integer.valueOf(commandheaderRow[15]));
+        sysCommandHeader.setExecTime(BigInteger.valueOf(Integer.valueOf(commandheaderRow[16])));
+        sysCommandHeader.setExecTime2(BigInteger.valueOf(Integer.valueOf(commandheaderRow[17])));
+        sysCommandHeader.setParent(commandheaderRow[18].length() > 0? commandheaderRow[18]:null);
+        sysCommandHeader.setStartTime(commandheaderRow[19].length() > 0? BigInteger.valueOf(Integer.valueOf(commandheaderRow[19])):null);
+        sysCommandHeader.setSubSystem(commandheaderRow[20].length() > 0? BigInteger.valueOf(Integer.valueOf(commandheaderRow[20])):null);
+        sysCommandHeader.setSource(commandheaderRow[21].length() > 0? Integer.valueOf(commandheaderRow[21]):null);
+        sysCommandHeader.setEarliest(commandheaderRow[22].length() > 0? BigInteger.valueOf(Integer.valueOf(commandheaderRow[22])):null);
+        sysCommandHeader.setLatest(commandheaderRow[23].length() > 0? BigInteger.valueOf(Integer.valueOf(commandheaderRow[23])):null);
+        sysCommandHeader.setTcRequestId(commandheaderRow[24].length() > 0? Integer.valueOf(commandheaderRow[24]):null);
+        sysCommandHeader.setSubSchedId(BigInteger.valueOf(Integer.valueOf(commandheaderRow[25])));
+        sysCommandHeader.setAckFlags(commandheaderRow.length > 26? Integer.valueOf(commandheaderRow[26]):null);
 
         if(missionplanRepository != null) {
-            missionplanRepository.saveCommandHeaderRecord(commandHeader);
+            missionplanRepository.saveCommandHeaderRecord(sysCommandHeader);
         } else {
             System.out.println("missionplanRepository has not been injected");
         }
     }
 
     public List<String> commandHeaderLine(String taskName) {
-        List<CommandHeader> commheaderFromDB = missionplanRepository.commandHeaderRecords(taskName);
+        List<SysCommandHeader> commheaderFromDB = missionplanRepository.commandHeaderRecords(taskName);
         List<String> commandFile = new ArrayList<>();
         /** i<commheaderFromDb.size() do the check when there is not a header */
         for(int i=0; i<commheaderFromDB.size(); i++) {
@@ -242,27 +242,27 @@ public class MissionPlanService {
     }
 
     public void createCommandParameterRecord(String[] commandparameterRow) {
-        CommandParameter commandParameter = new CommandParameter();
+        SysCommandParameter sysCommandParameter = new SysCommandParameter();
         //ADDED NOT IN THE FILE RECORD
-        commandParameter.setCommandId("HUA50201");
+        sysCommandParameter.setCommandId("HUA50201");
 
-        commandParameter.setParameterId(commandparameterRow[0]);
-        commandParameter.setFormpos(Integer.valueOf(commandparameterRow[1]));
-        commandParameter.setType(Integer.valueOf(commandparameterRow[2]));
-        commandParameter.setEditable(Integer.valueOf(commandparameterRow[3]));
-        commandParameter.setRepType(Integer.valueOf(commandparameterRow[4]));
-        commandParameter.setValue(commandparameterRow[5]);
-        commandParameter.setDynamic(Integer.valueOf(commandparameterRow[6]));
+        sysCommandParameter.setParameterId(commandparameterRow[0]);
+        sysCommandParameter.setFormpos(Integer.valueOf(commandparameterRow[1]));
+        sysCommandParameter.setType(Integer.valueOf(commandparameterRow[2]));
+        sysCommandParameter.setEditable(Integer.valueOf(commandparameterRow[3]));
+        sysCommandParameter.setRepType(Integer.valueOf(commandparameterRow[4]));
+        sysCommandParameter.setValue(commandparameterRow[5]);
+        sysCommandParameter.setDynamic(Integer.valueOf(commandparameterRow[6]));
 
         if(missionplanRepository != null) {
-            missionplanRepository.saveCommandParamenterRecord(commandParameter);
+            missionplanRepository.saveCommandParamenterRecord(sysCommandParameter);
         } else {
             System.out.println("missionplanRepository has not been injected");
         }
     }
 
     public List<String> commandParameterLines(String commandId) {
-        List<CommandParameter> commparamFromDB = missionplanRepository.commandParameterRecords(commandId);
+        List<SysCommandParameter> commparamFromDB = missionplanRepository.commandParameterRecords(commandId);
         List<String> commparamFile = new ArrayList<>();
         if(commparamFromDB.size() != 0) {
             for(int i=0; i<commparamFromDB.size(); i++) {

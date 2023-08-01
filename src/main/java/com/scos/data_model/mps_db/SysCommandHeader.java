@@ -12,44 +12,50 @@ import java.math.BigInteger;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(schema = "mps_schema" , name = "\"T_COMMAND_HEADER\"")
-public class CommandHeader implements Serializable {
+@Table(schema = "mps_schema" , name = "\"T_SYS_COMMAND_HEADER\"")
+public class SysCommandHeader implements Serializable {
 
     public enum COLUMNS {
-        CMDTYPE ("char",null),
-        ID ("char",null),
-        MAN_DISPATCH ("number",null),
-        RELEASE ("number",null),
-        RELTIME ("number","seconds"),
-        RELTIME2 ("number","microseconds"),
-        GROUP ("number",null),
-        BLOCK ("number",null),
-        INTERLOCK ("number",null),
-        ILSTAGE ("char",null),
-        STATIC_PTV ("number",null),
-        DYNAMIC_PTV ("number",null),
-        CEV ("number",null),
-        PARS ("number",null),
-        TIME_TAGGED ("number",null),
-        PLANNED ("number",null),
-        EXEC_TIME ("number","seconds"),
-        EXEC_TIME2 ("number","microseconds"),
-        PARENT ("char",null),
-        STARTTIME ("number",null),
-        SUBSYSTEM ("number",null),
-        SOURCE ("number",null),
-        EARLIEST ("number",null),
-        LATEST ("number",null),
-        TC_REQUEST_ID ("number",null),
-        SUB_SCHED_ID ("number",null),
-        ACK_FLAGS ("number",null);
+        CMDTYPE ("CMDTYPE","char",null),
+        ID ("ID","char",null),
+        MAN_DISPATCH ("MAN DISPATCH","number",null),
+        RELEASE ("RELEASE","number",null),
+        RELTIME ("RELTIME","number","seconds"),
+        RELTIME2 ("RELTIME2","number","microseconds"),
+        GROUP ("GROUP","number",null),
+        BLOCK ("BLOCK","number",null),
+        INTERLOCK ("INTERLOCK","number",null),
+        ILSTAGE ("ILSTAGE","char",null),
+        STATIC_PTV ("STATIC PTV","number",null),
+        DYNAMIC_PTV ("DYNAMIC PTV","number",null),
+        CEV ("CEV","number",null),
+        PARS ("PARS","number",null),
+        TIME_TAGGED ("TIME TAGGED","number",null),
+        PLANNED ("PLANNED","number",null),
+        EXEC_TIME ("EXEC TIME","number","seconds"),
+        EXEC_TIME2 ("EXEC TIME2","number","microseconds"),
+        PARENT ("PARENT","char",null),
+        STARTTIME ("STARTTIME","number",null),
+        SUBSYSTEM ("SUBSYSTEM","number",null),
+        SOURCE ("SOURCE","number",null),
+        EARLIEST ("EARLIEST","number",null),
+        LATEST ("LATEST","number",null),
+        TC_REQUEST_ID ("TC REQUEST ID","number",null),
+        SUB_SCHED_ID ("SUB-SCHED ID","number",null),
+        ACK_FLAGS ("ACK-FLAGS","number",null);
 
+        private String name;
         private String type;
         private String units;
 
-        COLUMNS(final String type, final String units) {
+        COLUMNS(final String name, final String type, final String units) {
+            this.name = name;
             this.type = type;
             this.units = units;
+        }
+
+        public String getName() {
+            return name;
         }
 
         public String getType() {
