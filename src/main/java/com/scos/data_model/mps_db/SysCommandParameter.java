@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigInteger;
 
 @Data
 @NoArgsConstructor
@@ -46,27 +47,15 @@ public class SysCommandParameter implements Serializable {
         }
     }
 
-//    @Id
-//    @Column(name = "\"TASK_NAME\"", nullable = false)
-//    private String taskName;
-//
-//    @Id
-//    @ManyToOne(optional = false)
-//    @JoinColumn(name = "\"COMMAND_ID\"", referencedColumnName = "\"COMMAND_ID\"", nullable = false)
-//    private CommandHeader commandHeader;
-
-//    //part of the composite primary key + unique field to identify parameter
-//    @Id
-//    @Column(name = "\"COMMAND_PROGRESSIVE_ID\"", nullable = false)
-//    private String commandProgressiveId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "\"S_COMMAND_PARAMETER_PROGRESSIVE_ID\"")
+    @SequenceGenerator(schema = "mps_schema",name = "\"S_COMMAND_PARAMETER_PROGRESSIVE_ID\"", sequenceName = "\"S_COMMAND_PARAMETER_PROGRESSIVE_ID\"", allocationSize = 1)
+    @Id
+    @Column(name = "\"COMMAND_PARAMETER_PROGRESSIVE_ID\"", nullable = false)
+    private BigInteger commandParameterProgressiveId;
 
     @Id
-    @Column(name = "\"COMMAND_ID\"", nullable = false)
-    private String commandId;
-
-    @Id
-    @Column(name = "\"PARAMETER_ID\"", nullable = false)
-    private String parameterId;
+    @Column(name = "\"COMMAND_PARAMETER_ID\"", nullable = false)
+    private String commandParameterId;
 
     @Column(name = "\"FORMPOS\"", nullable = false)
     private Integer formpos;
@@ -85,5 +74,19 @@ public class SysCommandParameter implements Serializable {
 
     @Column(name = "\"DYNAMIC\"")
     private Integer dynamic;
+
+    @ManyToOne(optional = false)
+    @JoinColumns(
+            foreignKey = @ForeignKey(name = "\"T_SYS_COMMAND_PARAMETER_COMMAND_ID_COMMAND_PROGRESSIVE_ID_fkey\""),
+            value = {
+                @JoinColumn(name = "\"COMMAND_PROGRESSIVE_ID\"", referencedColumnName = "\"COMMAND_PROGRESSIVE_ID\"", nullable = false),
+                @JoinColumn(name = "\"COMMAND_ID\"", referencedColumnName = "\"COMMAND_ID\"", nullable = false)
+    })
+    private SysCommandHeader sysCommandHeader;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(foreignKey = @ForeignKey(name = "\"T_SYS_COMMAND_PARAMETER_TASK_NAME_fkey\""),
+                name = "\"TASK_NAME\"", referencedColumnName = "\"TASK_NAME\"", nullable = false)
+    private SysTaskScheduled sysTaskScheduled;
 
 }

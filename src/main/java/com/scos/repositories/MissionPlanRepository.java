@@ -17,13 +17,13 @@ public class MissionPlanRepository {
     @Autowired
     private JpaEntityManagerFactory scosEmf;
 
-    public void saveTaskScheduledRecord(TaskScheduled taskScheduled) {
+    public void saveTaskScheduledRecord(SysTaskScheduled sysTaskScheduled) {
         entityManager = scosEmf.getEntityManager();
         EntityTransaction transaction = null;
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            entityManager.persist(taskScheduled);
+            entityManager.persist(sysTaskScheduled);
 
             transaction.commit();
 
@@ -37,22 +37,22 @@ public class MissionPlanRepository {
         }
     }
 
-    public List<TaskScheduled> taskScheduledRecord(BigInteger schedulingId) {
-        entityManager = scosEmf.getEntityManager();
-        List<TaskScheduled> taskscheduledDB = null;
-        try {
-            taskscheduledDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_SYS_TASK_SCHEDULED\" WHERE \"SCHEDULING_ID\" = :scheduling_id", TaskScheduled.class)
-                                .setParameter("scheduling_id", schedulingId)
-                                .setMaxResults(1)
-                                .getResultList();
-        } catch (HibernateException hibernateException) {
-            hibernateException.printStackTrace();
-        } finally {
-            entityManager.close();
-        }
-        System.out.println("Task Scheduled DB: " + taskscheduledDB);
-        return taskscheduledDB;
-    }
+//    public List<SysTaskScheduled> taskScheduledRecord(BigInteger schedulingId) {
+//        entityManager = scosEmf.getEntityManager();
+//        List<SysTaskScheduled> taskscheduledDB = null;
+//        try {
+//            taskscheduledDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_SYS_TASK_SCHEDULED\" WHERE \"SCHEDULING_ID\" = :scheduling_id", SysTaskScheduled.class)
+//                                .setParameter("scheduling_id", schedulingId)
+//                                .setMaxResults(1)
+//                                .getResultList();
+//        } catch (HibernateException hibernateException) {
+//            hibernateException.printStackTrace();
+//        } finally {
+//            entityManager.close();
+//        }
+//        System.out.println("Task Scheduled DB: " + taskscheduledDB);
+//        return taskscheduledDB;
+//    }
 
     public void saveBaseHeaderRecord(SysBaseHeader sysBaseHeader) {
         entityManager = scosEmf.getEntityManager();
@@ -74,14 +74,14 @@ public class MissionPlanRepository {
         }
     }
 
-    public List<SysBaseHeader> baseHeaderRecord(BigInteger schedulingId) {
+    public List<SysBaseHeader> baseHeaderRecord(String taskName) {
         entityManager = scosEmf.getEntityManager();
         /** Transaction is used to modify data(create, update or delete) in the DB  */
         List<SysBaseHeader> baseheaderDB = null;
         try {
             //ALWAYS ONE RECORD
-            baseheaderDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_SYS_BASE_HEADER\" WHERE \"SCHEDULING_ID\" = :scheduling_id", SysBaseHeader.class)
-                            .setParameter("scheduling_id", schedulingId)
+            baseheaderDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_SYS_BASE_HEADER\" WHERE \"TASK_NAME\" = :task_name", SysBaseHeader.class)
+                            .setParameter("task_name", taskName)
                             .setMaxResults(1)
                             .getResultList();
 
@@ -151,12 +151,14 @@ public class MissionPlanRepository {
         }
     }
 
-    public List<SysSequenceParameter> sequenceParameterRecords(String seqId) {
+    public List<SysSequenceParameter> sequenceParameterRecords(String taskName, String seqId, BigInteger startTime) {
         entityManager = scosEmf.getEntityManager();
         List<SysSequenceParameter> seqparamDB = null;
         try {
-            seqparamDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_SYS_SEQUENCE_PARAMETER\" WHERE \"SEQUENCE_ID\" = :seq_id", SysSequenceParameter.class)
+            seqparamDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_SYS_SEQUENCE_PARAMETER\" WHERE \"TASK_NAME\" = :task_name AND \"SEQUENCE_ID\" = :seq_id AND \"STARTTIME\" = start_time " , SysSequenceParameter.class)
+                    .setParameter("task_name", taskName)
                     .setParameter("seq_id", seqId)
+                    .setParameter("start_time", startTime)
                     .getResultList();
 
         } catch (HibernateException hibernateException) {
@@ -225,12 +227,14 @@ public class MissionPlanRepository {
         }
     }
 
-    public List<SysCommandParameter> commandParameterRecords(String commId) {
+    public List<SysCommandParameter> commandParameterRecords(String taskName, String commId, BigInteger commdProgressiveId) {
         entityManager = scosEmf.getEntityManager();
         List<SysCommandParameter> commparamDB = null;
         try {
-            commparamDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_SYS_COMMAND_PARAMETER\" WHERE \"COMMAND_ID\" = :comm_id", SysCommandParameter.class)
+            commparamDB = entityManager.createNativeQuery("SELECT * FROM mps_schema.\"T_SYS_COMMAND_PARAMETER\" WHERE \"TASK_NAME\" = :task_name AND \"COMMAND_ID\" = :comm_id AND \"COMMAND_PROGRESSIVE_ID\" = :commd_prog_id ", SysCommandParameter.class)
+                    .setParameter("task_name", taskName)
                     .setParameter("comm_id", commId)
+                    .setParameter("commd_prog_id", commdProgressiveId)
                     .getResultList();
 
         } catch (HibernateException hibernateException) {

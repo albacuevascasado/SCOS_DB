@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigInteger;
 
 @Data
 @NoArgsConstructor
@@ -43,27 +44,15 @@ public class SysSequenceParameter implements Serializable {
         }
     }
 
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "\"S_SEQUENCE_PARAMETER_PROGRESSIVE_ID\"")
+    @SequenceGenerator(schema = "mps_schema", name = "\"S_SEQUENCE_PARAMETER_PROGRESSIVE_ID\"", sequenceName = "\"S_SEQUENCE_PARAMETER_PROGRESSIVE_ID\"", allocationSize = 1)
     @Id
-    @Column(name = "\"SEQUENCE_ID\"", nullable = false)
-    private String sequenceId;
+    @Column(name = "\"SEQUENCE_PARAMETER_PROGRESSIVE_ID\"", nullable = false)
+    private BigInteger sequenceParameterProgressiveId;
 
     @Id
-    @Column(name = "\"PARAMETER_ID\"", nullable = false)
-    private String parameterId;
-
-//    @Id
-//    @Column(name = "\"TASK_NAME\"", nullable = false)
-//    private String taskName;
-//
-//    @Id
-//    @ManyToOne(optional = false)
-//    @JoinColumn(name = "\"SEQUENCE_ID\"", referencedColumnName = "\"SEQUENCE_ID\"", nullable = false)
-//    private SequenceHeader sequenceHeader;
-
-//    //part of the composite primary key + unique field to identify parameter
-//    @Id
-//    @Column(name = "\"STARTTIME\"", nullable = false)
-//    private String startTime;
+    @Column(name = "\"SEQUENCE_PARAMETER_ID\"", nullable = false)
+    private String sequenceParameterId;
 
     @Column(name = "\"TYPE\"", nullable = false)
     private Integer type;
@@ -73,5 +62,19 @@ public class SysSequenceParameter implements Serializable {
 
     @Column(name = "\"VALUE\"", nullable = false)
     private String value;
+
+    @ManyToOne(optional = false)
+    @JoinColumns(
+            foreignKey = @ForeignKey(name = "\"T_SYS_SEQUENCE_PARAMETER_SEQUENCE_ID_STARTTIME_fkey\""),
+            value = {
+                @JoinColumn(name = "\"STARTTIME\"", referencedColumnName = "\"STARTTIME\"", nullable = false),
+                @JoinColumn(name = "\"SEQUENCE_ID\"", referencedColumnName = "\"SEQUENCE_ID\"", nullable = false)
+    })
+    private SysSequenceHeader sysSequenceHeader;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(foreignKey = @ForeignKey(name = "\"T_SYS_SEQUENCE_PARAMETER_TASK_NAME_fkey\""),
+                name = "\"TASK_NAME\"", referencedColumnName = "\"TASK_NAME\"", nullable = false)
+    private SysTaskScheduled sysTaskScheduled;
 
 }

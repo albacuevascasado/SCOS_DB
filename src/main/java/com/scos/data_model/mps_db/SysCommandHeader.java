@@ -67,18 +67,15 @@ public class SysCommandHeader implements Serializable {
         }
     }
 
-//    @Id
-//    @ManyToOne(optional = false)
-//    @JoinColumn(name = "\"TASK_NAME\"", referencedColumnName = "\"TASK_NAME\"", nullable = false)
-//    private TaskScheduled taskScheduled;
-
-//    @Id
-//    @Column(name = "\"COMMAND_PROGRESSIVE_ID\"", nullable = false)
-//    private BigInteger commandProgressiveId;
-
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "\"S_COMMAND_PROGRESSIVE_ID\"")
+    @SequenceGenerator(schema = "mps_schema", name = "\"S_COMMAND_PROGRESSIVE_ID\"", sequenceName = "\"S_COMMAND_PROGRESSIVE_ID\"", allocationSize = 1)
     @Id
-    @Column(name = "\"TASK_NAME\"")
-    private String taskName;
+    @Column(name = "\"COMMAND_PROGRESSIVE_ID\"", nullable = false)
+    private BigInteger commandProgressiveId;
+
+//    @Id
+//    @Column(name = "\"TASK_NAME\"")
+//    private String taskName;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "\"CMDTYPE\"", nullable = false)
@@ -162,6 +159,20 @@ public class SysCommandHeader implements Serializable {
 
     @Column(name = "\"ACK-FLAGS\"")
     private Integer ackFlags;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(foreignKey = @ForeignKey(name = "\"T_SYS_COMMAND_HEADER_TASK_NAME_fkey\""),
+                name = "\"TASK_NAME\"", referencedColumnName = "\"TASK_NAME\"", nullable = false)
+    private SysTaskScheduled sysTaskScheduled;
+
+    @OneToOne(optional = true)
+    @JoinColumns(
+
+            foreignKey = @ForeignKey(name = "\"T_SYS_COMMAND_HEADER_PARENT_STARTTIME_fkey\""),
+            value = {
+                @JoinColumn(name = "\"SEQUENCE_ID\"", referencedColumnName = "\"SEQUENCE_ID\"", nullable = true),
+                @JoinColumn(name = "\"SEQUENCE_STARTTIME\"", referencedColumnName = "\"STARTTIME\"", nullable = true)})
+    private SysSequenceHeader sysSequenceHeader;
 
     public enum Cmdtype {
         C,

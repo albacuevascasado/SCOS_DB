@@ -59,20 +59,18 @@ public class SysBaseHeader implements Serializable {
     //@Id -> MISSION_ID from T_SYS_MISSION
 
 //    @Id
-//    @OneToOne(optional = false)
-//    @JoinColumns({
-//            @JoinColumn(name = "\"SCHEDULING_ID\"", referencedColumnName = "\"SCHEDULING_ID\"", nullable = false),
-//            @JoinColumn(name = "\"TASK_NAME\"", referencedColumnName = "\"TASK_NAME\"", nullable = false)
-//    })
-//    private TaskScheduled taskScheduled;
+//    @Column(name = "\"SCHEDULING_ID\"", nullable = false)
+//    private BigInteger schedulingId;
+//
+//    @Id
+//    @Column(name = "\"TASK_NAME\"", nullable = false)
+//    private String taskName;
 
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "\"S_SYS_BASE_HEADER_ID\"")
+    @SequenceGenerator(schema = "mps_schema" ,name = "\"S_SYS_BASE_HEADER_ID\"", sequenceName = "\"S_SYS_BASE_HEADER_ID\"", allocationSize = 1)
     @Id
-    @Column(name = "\"SCHEDULING_ID\"", nullable = false)
-    private BigInteger schedulingId;
-
-    @Id
-    @Column(name = "\"TASK_NAME\"", nullable = false)
-    private String taskName;
+    @Column(name = "\"SYS_BASE_HEADER_ID\"", nullable = false)
+    private BigInteger baseHeaderId;
 
     @Column(name = "\"CATEGORY\"", nullable = false)
     private Integer category;
@@ -91,5 +89,12 @@ public class SysBaseHeader implements Serializable {
 
     @Column(name = "\"START_TIME\"", nullable = false)
     private BigInteger startTime;
+
+    @OneToOne(optional = false)
+    //@JoinColumn(name = "\"SCHEDULING_ID\"", referencedColumnName = "\"SCHEDULING_ID\"", nullable = false),
+    //@OneToMany?
+    @JoinColumn(foreignKey = @ForeignKey(name = "\"T_SYS_BASE_HEADER_TASK_NAME_fkey\""),
+                name = "\"TASK_NAME\"", referencedColumnName = "\"TASK_NAME\"", nullable = false)
+    private SysTaskScheduled sysTaskScheduled;
 
 }

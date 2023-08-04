@@ -1,6 +1,9 @@
 package com.scos;
 
 import com.scos.XSDToJava3.FlightPlan;
+import com.scos.data_model.mps_db.SysCommandHeader;
+import com.scos.data_model.mps_db.SysSequenceHeader;
+import com.scos.data_model.mps_db.SysTaskScheduled;
 import com.scos.services.MissionPlanService;
 import org.springframework.context.ApplicationContext;
 
@@ -21,7 +24,7 @@ public class MissionPlanCreation {
         System.out.println("Application Context from Mission Plan: " + applicationContext);
     }
 
-    public void  createMissionPlanSSF (BigInteger schedulingId, String taskName) throws IOException {
+    public void  createMissionPlanSSF (String taskName) throws IOException {
         MissionPlanService missionPlanService = this.applicationContext.getBean(MissionPlanService.class);
         //BufferedReader reader = new BufferedReader(new FileReader(missionPlanFile));
 
@@ -37,7 +40,7 @@ public class MissionPlanCreation {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 
         //CONTENT
-        bw.write(missionPlanService.baseHeaderLine(schedulingId));
+        bw.write(missionPlanService.baseHeaderLine(taskName));
         bw.newLine();
         List<String> sequenceFile = missionPlanService.sequenceHeaderLine(taskName);
         for(int i=0; i<sequenceFile.size(); i++) {
@@ -57,8 +60,8 @@ public class MissionPlanCreation {
     //read file is USELESS or at least, use it to insert data in DB -> data comes from DB
     public void readMissionPlan (String missionPlanFile) throws IOException {
         MissionPlanService missionPlanService = this.applicationContext.getBean(MissionPlanService.class);
-//        //create TaskScheduled
-//        missionPlanService.createTaskScheduled();
+        //TASK_SCHEDULED
+        SysTaskScheduled taskScheduled = missionPlanService.createSysTaskScheduled();
 
         BufferedReader reader = new BufferedReader(new FileReader(missionPlanFile));
         //Start file
@@ -69,7 +72,7 @@ public class MissionPlanCreation {
 
             if(rowNo != 1) {
                 if(rowSplit[0] == "S") {
-                    missionPlanService.createSequenceHeaderRecord(rowSplit);
+                    SysSequenceHeader sysSequenceHeader = missionPlanService.createSequenceHeaderRecord(rowSplit,taskScheduled);
                     /** after a header could be a parameter or another seq/comm header */
                     //boolean seqParam = checkSequencePARS(rowSplit[2]);
 
@@ -79,11 +82,11 @@ public class MissionPlanCreation {
                             row = reader.readLine();
                             rowNo++;
                             String[] rowSplitParam = row.split("\\|");
-                            missionPlanService.createSequenceParameterRecord(rowSplitParam);
+                            missionPlanService.createSequenceParameterRecord(rowSplitParam,taskScheduled,sysSequenceHeader);
                         }
                     }
                 } else {
-                    missionPlanService.createCommandHeaderRecord(rowSplit);
+                    SysCommandHeader sysCommandHeader = missionPlanService.createCommandHeaderRecord(rowSplit,taskScheduled);
                     /** after a header could be a parameter or another seq/comm header */
                     //boolean commParam = checkCommandPARS(rowSplit[13]);
 
@@ -93,12 +96,12 @@ public class MissionPlanCreation {
                             row = reader.readLine();
                             rowNo++;
                             String[] rowSplitParam = row.split("\\|");
-                            missionPlanService.createCommandParameterRecord(rowSplitParam);
+                            missionPlanService.createCommandParameterRecord(rowSplitParam,taskScheduled,sysCommandHeader);
                     }
                 }
             }
         } else {
-                missionPlanService.createBaseHeaderRecord(rowSplit);
+                missionPlanService.createBaseHeaderRecord(rowSplit,taskScheduled);
             }
             rowNo++;
             row = reader.readLine();

@@ -58,15 +58,6 @@ public class SysSequenceHeader implements Serializable {
     @Column(name = "\"SEQUENCE_ID\"", nullable = false)
     private String sequenceId;
 
-//    @Id
-//    @ManyToOne(optional = false)
-//    @JoinColumn(name = "\"TASK_NAME\"", referencedColumnName = "\"TASK_NAME\"", nullable = false)
-//    private TaskScheduled taskScheduled;
-
-    @Id
-    @Column(name = "\"TASK_NAME\"", nullable = false)
-    private String taskName;
-
     @Column(name = "\"PARS\"", nullable = false)
     private Integer pars;
 
@@ -91,5 +82,10 @@ public class SysSequenceHeader implements Serializable {
 
     @Column(name = "\"SUB-SCHED_ID\"", nullable = false)
     private BigInteger subSchedId;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(foreignKey = @ForeignKey(name = "\"T_SYS_SEQUENCE_HEADER_TASK_NAME_fkey\""),
+                name = "\"TASK_NAME\"", referencedColumnName = "\"TASK_NAME\"", nullable = false)
+    private SysTaskScheduled sysTaskScheduled;
 
 }

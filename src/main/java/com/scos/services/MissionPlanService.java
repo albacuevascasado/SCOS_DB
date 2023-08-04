@@ -1,5 +1,6 @@
 package com.scos.services;
 
+import com.scos.XSDToJava3.SequenceHeader;
 import com.scos.data_model.mps_db.*;
 import com.scos.repositories.MissionPlanRepository;
 import lombok.Getter;
@@ -23,23 +24,25 @@ public class MissionPlanService {
     @Autowired
     MissionPlanRepository missionplanRepository;
 
-    public void createTaskScheduled() {
-        TaskScheduled taskScheduled = new TaskScheduled();
-        taskScheduled.setTaskName("AAAA");
-        taskScheduled.setSchedulingId(BigInteger.valueOf(123L));
+    public SysTaskScheduled createSysTaskScheduled() {
+        SysTaskScheduled sysTaskScheduled = new SysTaskScheduled();
+        sysTaskScheduled.setTaskName("AAAA");
+        //sysTaskScheduled.setSchedulingId(BigInteger.valueOf(123L));
 
         if(missionplanRepository != null) {
-            missionplanRepository.saveTaskScheduledRecord(taskScheduled);
+            missionplanRepository.saveTaskScheduledRecord(sysTaskScheduled);
         } else {
             System.out.println("missionplanRepository has not been injected");
         }
+
+        return sysTaskScheduled;
     }
 
-    public void createBaseHeaderRecord(String[] baseheaderRow) {
+    public void createBaseHeaderRecord(String[] baseheaderRow, SysTaskScheduled sysTaskScheduled) {
         SysBaseHeader sysBaseHeader = new SysBaseHeader();
         //ADDED NOT IN THE RECORD FROM FILE
-        sysBaseHeader.setTaskName("AAAA");
-        sysBaseHeader.setSchedulingId(BigInteger.valueOf(123L));
+        sysBaseHeader.setSysTaskScheduled(sysTaskScheduled);
+        //sysBaseHeader.setSchedulingId(BigInteger.valueOf(123L));
 
         sysBaseHeader.setCategory(Integer.valueOf(baseheaderRow[0]));
         sysBaseHeader.setSource(baseheaderRow[1]);
@@ -55,8 +58,8 @@ public class MissionPlanService {
         }
     }
 
-    public String baseHeaderLine(BigInteger schedulingId) {
-        List<SysBaseHeader> baseheaderFromDB = missionplanRepository.baseHeaderRecord(schedulingId);
+    public String baseHeaderLine(String taskName) {
+        List<SysBaseHeader> baseheaderFromDB = missionplanRepository.baseHeaderRecord(taskName);
         String baseHeader = baseheaderFromDB.get(0).getCategory() + pipe
                 + baseheaderFromDB.get(0).getSource() + pipe
                 + baseheaderFromDB.get(0).getGenTime() + pipe
@@ -68,10 +71,10 @@ public class MissionPlanService {
         return baseHeader;
     }
 
-    public void createSequenceHeaderRecord(String[] sequenceheaderRow) {
+    public SysSequenceHeader createSequenceHeaderRecord(String[] sequenceheaderRow, SysTaskScheduled sysTaskScheduled) {
         SysSequenceHeader sysSequenceHeader = new SysSequenceHeader();
         //ADDED NOT IN THE FILE RECORD
-        sysSequenceHeader.setTaskName("AAAA");
+        sysSequenceHeader.setSysTaskScheduled(sysTaskScheduled);
 
         sysSequenceHeader.setSequenceId(sequenceheaderRow[1]);
         sysSequenceHeader.setPars(Integer.valueOf(sequenceheaderRow[2]));
@@ -90,6 +93,7 @@ public class MissionPlanService {
         } else {
             System.out.println("missionplanRepository has not been injected");
         }
+        return sysSequenceHeader;
     }
 
     public List<String> sequenceHeaderLine(String taskName) {
@@ -108,7 +112,7 @@ public class MissionPlanService {
                     + seqheaderFromDB.get(i).getSubSchedId() + pipe;
 
             sequenceFile.add(sequenceHeader);
-            List<String> sequenceParameters = sequenceParameterLines(seqheaderFromDB.get(i).getSequenceId());
+            List<String> sequenceParameters = sequenceParameterLines(seqheaderFromDB.get(i).getSysTaskScheduled().getTaskName(), seqheaderFromDB.get(i).getSequenceId(), seqheaderFromDB.get(i).getStartTime());
 
             for(int j=0; j<sequenceParameters.size(); j++) {
                 sequenceFile.add(sequenceParameters.get(j));
@@ -127,12 +131,13 @@ public class MissionPlanService {
         return sequenceFile;
     }
 
-    public void createSequenceParameterRecord(String[] sequenceparameterRow) {
+    public void createSequenceParameterRecord(String[] sequenceparameterRow, SysTaskScheduled sysTaskScheduled, SysSequenceHeader sysSequenceHeader) {
         SysSequenceParameter sysSequenceParameter = new SysSequenceParameter();
         //ADDED NOT IN THE FILE RECORD
-        sysSequenceParameter.setSequenceId("SEQUENCE");
+        sysSequenceParameter.setSysSequenceHeader(sysSequenceHeader);
+        sysSequenceParameter.setSysTaskScheduled(sysTaskScheduled);
 
-        sysSequenceParameter.setParameterId(sequenceparameterRow[0]);
+        sysSequenceParameter.setSequenceParameterId(sequenceparameterRow[0]);
         sysSequenceParameter.setType(Integer.valueOf(sequenceparameterRow[1]));
         sysSequenceParameter.setRepType(Integer.valueOf(sequenceparameterRow[2]));
         sysSequenceParameter.setValue(sequenceparameterRow[3]);
@@ -144,11 +149,11 @@ public class MissionPlanService {
         }
     }
 
-    public List<String> sequenceParameterLines(String sequenceId) {
-        List<SysSequenceParameter> seqparamFromDB = missionplanRepository.sequenceParameterRecords(sequenceId);
+    public List<String> sequenceParameterLines(String taskName, String sequenceId, BigInteger startTime) {
+        List<SysSequenceParameter> seqparamFromDB = missionplanRepository.sequenceParameterRecords(taskName, sequenceId, startTime);
         List<String> seqparamFile = new ArrayList<>();
         for(int i=0; i<seqparamFromDB.size(); i++) {
-            String sequenceParam = seqparamFromDB.get(i).getParameterId() + pipe
+            String sequenceParam = seqparamFromDB.get(i).getSequenceParameterId() + pipe
                     + seqparamFromDB.get(i).getType() + pipe
                     + seqparamFromDB.get(i).getRepType() + pipe
                     + seqparamFromDB.get(i).getValue() + pipe;
@@ -158,10 +163,10 @@ public class MissionPlanService {
         return seqparamFile;
     }
 
-    public void createCommandHeaderRecord(String[] commandheaderRow) {
+    public SysCommandHeader createCommandHeaderRecord(String[] commandheaderRow, SysTaskScheduled sysTaskScheduled) {
         SysCommandHeader sysCommandHeader = new SysCommandHeader();
         //ADDED NOT IN THE FILE RECORD
-        sysCommandHeader.setTaskName("AAAA");
+        sysCommandHeader.setSysTaskScheduled(sysTaskScheduled);
 
         sysCommandHeader.setCmdType(SysCommandHeader.Cmdtype.valueOf(commandheaderRow[0]));
         sysCommandHeader.setCommandId(commandheaderRow[1]);
@@ -196,6 +201,7 @@ public class MissionPlanService {
         } else {
             System.out.println("missionplanRepository has not been injected");
         }
+        return sysCommandHeader;
     }
 
     public List<String> commandHeaderLine(String taskName) {
@@ -231,9 +237,10 @@ public class MissionPlanService {
                     + commheaderFromDB.get(i).getSubSchedId() + pipe
                     + (commheaderFromDB.get(i).getAckFlags() != null? commheaderFromDB.get(i).getAckFlags():"") + pipe;
             System.out.println("Command Header: " + commandHeader);
+            System.out.println("Command Parameter Task Name: " + commheaderFromDB.get(i).getSysTaskScheduled().getTaskName());
             commandFile.add(commandHeader);
-            List<String> commandParameters = commandParameterLines(commheaderFromDB.get(i).getCommandId());
-            /** j<commandParameter.size() do the check when there are not parameters */
+            List<String> commandParameters = commandParameterLines(commheaderFromDB.get(i).getSysTaskScheduled().getTaskName(), commheaderFromDB.get(i).getCommandId(), commheaderFromDB.get(i).getCommandProgressiveId());
+            /** <commandParameter.size() do the check when there are not parameters */
             for(int j=0; j<commandParameters.size(); j++) {
                 commandFile.add(commandParameters.get(j));
             }
@@ -241,12 +248,13 @@ public class MissionPlanService {
         return commandFile;
     }
 
-    public void createCommandParameterRecord(String[] commandparameterRow) {
+    public void createCommandParameterRecord(String[] commandparameterRow, SysTaskScheduled sysTaskScheduled, SysCommandHeader sysCommandHeader) {
         SysCommandParameter sysCommandParameter = new SysCommandParameter();
         //ADDED NOT IN THE FILE RECORD
-        sysCommandParameter.setCommandId("HUA50201");
+        sysCommandParameter.setSysTaskScheduled(sysTaskScheduled);
+        sysCommandParameter.setSysCommandHeader(sysCommandHeader);
 
-        sysCommandParameter.setParameterId(commandparameterRow[0]);
+        sysCommandParameter.setCommandParameterId(commandparameterRow[0]);
         sysCommandParameter.setFormpos(Integer.valueOf(commandparameterRow[1]));
         sysCommandParameter.setType(Integer.valueOf(commandparameterRow[2]));
         sysCommandParameter.setEditable(Integer.valueOf(commandparameterRow[3]));
@@ -261,12 +269,12 @@ public class MissionPlanService {
         }
     }
 
-    public List<String> commandParameterLines(String commandId) {
-        List<SysCommandParameter> commparamFromDB = missionplanRepository.commandParameterRecords(commandId);
+    public List<String> commandParameterLines(String taskName, String commandId, BigInteger commProgId) {
+        List<SysCommandParameter> commparamFromDB = missionplanRepository.commandParameterRecords(taskName,commandId,commProgId);
         List<String> commparamFile = new ArrayList<>();
         if(commparamFromDB.size() != 0) {
             for(int i=0; i<commparamFromDB.size(); i++) {
-                String commandParam = commparamFromDB.get(i).getParameterId() + pipe
+                String commandParam = commparamFromDB.get(i).getCommandParameterId() + pipe
                         + commparamFromDB.get(i).getFormpos() + pipe
                         + commparamFromDB.get(i).getType() + pipe
                         + commparamFromDB.get(i).getEditable() + pipe

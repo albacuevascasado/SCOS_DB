@@ -13,7 +13,9 @@ import java.math.BigInteger;
 @AllArgsConstructor
 @Entity
 @Table(schema = "mps_schema" , name = "\"T_SYS_TASK_SCHEDULED\"")
-public class TaskScheduled implements Serializable {
+public class SysTaskScheduled implements Serializable {
+
+    /** missing FK relation due to non existence of T_SYS_SCHEDULING(SCHEDULED_ID) and T_POR_FILES(POR_FILE_ID, POR_FILE_NAME) */
 
     @Id
     @Column(name = "\"TASK_NAME\"", nullable = false)
@@ -24,23 +26,25 @@ public class TaskScheduled implements Serializable {
 //    @Column(name = "\"TASK_TYPE\"", nullable = false)
 //    private TaskType taskType;
 
-    @Id
-    @Column(name = "\"SCHEDULING_ID\"", nullable = false)
-    private BigInteger schedulingId;
+    //NOT NULL -> to avoid error
+//    @OneToOne(optional = false)
+//    @JoinColumn(foreignKey = @ForeignKey(name = "\"T_SYS_TASK_SCHEDULED_SCHEDULING_ID_fkey\""),
+//                  name = "\"SCHEDULING_ID\"",referencedColumnName = "\"SCHEDULING_ID\"" ,nullable = false
+//    private SysScheduling sysScheduling;
 
-    //NOT NULL
+    //NOT NULL -> to avoid errors
     @Column(name = "\"POR_FILE_ID\"")
     private BigInteger porFileId;
 
-    //NOT NULL
+    //NOT NULL -> to avoid errors
     @Column(name = "\"POR_FILE_NAME\"")
     private String porFileName;
 
-    public enum TaskType {
-        COMMAND,
-        SEQUENCE,
-        EVENT,
-        PROCEDURE
-    }
+//    public enum TaskType {
+//        COMMAND,
+//        SEQUENCE,
+//        EVENT,
+//        PROCEDURE
+//    }
 
 }
