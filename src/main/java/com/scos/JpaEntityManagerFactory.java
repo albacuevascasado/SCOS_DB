@@ -74,6 +74,7 @@ public class JpaEntityManagerFactory {
             SCOSTABLES.class,
             ODBFiles.class,
             ODBData.class,
+            SysSchedulingProva.class,
             SysTaskScheduled.class,
             SysBaseHeader.class,
             SysCommandHeader.class,

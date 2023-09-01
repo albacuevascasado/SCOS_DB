@@ -1,6 +1,5 @@
 package com.scos.services;
 
-import com.scos.XSDToJava3.SequenceHeader;
 import com.scos.data_model.mps_db.*;
 import com.scos.repositories.MissionPlanRepository;
 import lombok.Getter;
@@ -11,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /** BUSINESS LOGIC */
 @NoArgsConstructor //REQUIRED TO BE ABLE TO INVOKE METHOD
@@ -24,10 +26,29 @@ public class MissionPlanService {
     @Autowired
     MissionPlanRepository missionplanRepository;
 
-    public SysTaskScheduled createSysTaskScheduled() {
+    public SysSchedulingProva createSysSchedulingProva() {
+        SysSchedulingProva sysSchedulingProva = new SysSchedulingProva();
+        sysSchedulingProva.setSchedulingType(SysSchedulingProva.SchedulingType.MANUAL);
+
+        if(missionplanRepository != null) {
+            missionplanRepository.saveSysSchedulingProva(sysSchedulingProva);
+        } else {
+            System.out.println("missionplanRepository has not been injected");
+        }
+
+        return sysSchedulingProva;
+    }
+
+    //TO KNOW WHICH IS THE SCHEDULING_ID -> ONE RESULT (QUERY)
+    public SysSchedulingProva searchSchedulingProva(BigInteger schedulingId) {
+        SysSchedulingProva schedulingProvaFromDB = missionplanRepository.schedulingProvaRecord(schedulingId);
+        return schedulingProvaFromDB;
+    }
+
+    public SysTaskScheduled createSysTaskScheduled(SysSchedulingProva sysSchedulingProva) {
         SysTaskScheduled sysTaskScheduled = new SysTaskScheduled();
         sysTaskScheduled.setTaskName("AAAA");
-        //sysTaskScheduled.setSchedulingId(BigInteger.valueOf(123L));
+        sysTaskScheduled.setSysScheduling(sysSchedulingProva);
 
         if(missionplanRepository != null) {
             missionplanRepository.saveTaskScheduledRecord(sysTaskScheduled);
@@ -38,11 +59,15 @@ public class MissionPlanService {
         return sysTaskScheduled;
     }
 
-    public void createBaseHeaderRecord(String[] baseheaderRow, SysTaskScheduled sysTaskScheduled) {
+    public List<SysTaskScheduled> sysTaskScheduled(SysSchedulingProva sysSchedulingProva) {
+        List<SysTaskScheduled> sysTaskScheduledList = missionplanRepository.taskScheduledRecord(sysSchedulingProva);
+        return sysTaskScheduledList;
+    }
+
+    public void createBaseHeaderRecord(String[] baseheaderRow, SysSchedulingProva sysSchedulingProva) {
         SysBaseHeader sysBaseHeader = new SysBaseHeader();
         //ADDED NOT IN THE RECORD FROM FILE
-        sysBaseHeader.setSysTaskScheduled(sysTaskScheduled);
-        //sysBaseHeader.setSchedulingId(BigInteger.valueOf(123L));
+        sysBaseHeader.setSysScheduling(sysSchedulingProva);
 
         sysBaseHeader.setCategory(Integer.valueOf(baseheaderRow[0]));
         sysBaseHeader.setSource(baseheaderRow[1]);
@@ -58,14 +83,14 @@ public class MissionPlanService {
         }
     }
 
-    public String baseHeaderLine(String taskName) {
-        List<SysBaseHeader> baseheaderFromDB = missionplanRepository.baseHeaderRecord(taskName);
-        String baseHeader = baseheaderFromDB.get(0).getCategory() + pipe
-                + baseheaderFromDB.get(0).getSource() + pipe
-                + baseheaderFromDB.get(0).getGenTime() + pipe
-                + baseheaderFromDB.get(0).getRelType() + pipe
-                + baseheaderFromDB.get(0).getVersion() + pipe
-                + baseheaderFromDB.get(0).getStartTime() + pipe;
+    public String baseHeaderLine(SysSchedulingProva sysSchedulingProva) {
+        SysBaseHeader baseheaderFromDB = missionplanRepository.baseHeaderRecord(sysSchedulingProva);
+        String baseHeader = baseheaderFromDB.getCategory() + pipe
+                + baseheaderFromDB.getSource() + pipe
+                + baseheaderFromDB.getGenTime() + pipe
+                + baseheaderFromDB.getRelType() + pipe
+                + baseheaderFromDB.getVersion() + pipe
+                + baseheaderFromDB.getStartTime() + pipe;
 
         System.out.println("Base Header: " + baseHeader);
         return baseHeader;
@@ -96,38 +121,85 @@ public class MissionPlanService {
         return sysSequenceHeader;
     }
 
-    public List<String> sequenceHeaderLine(String taskName) {
-        List<SysSequenceHeader> seqheaderFromDB = missionplanRepository.sequenceHeaderRecords(taskName);
+    public List<String> sequenceHeaderLine(List<SysTaskScheduled> sysTaskScheduled) {
+        List<SysSequenceHeader> seqheaderFromDB = missionplanRepository.sequenceHeaderRecords(sysTaskScheduled);
+
+        /**GROUP BY TASK*/
+        //Streams are mainly used to perform operations on data | Collections are mainly used to store and group the data
+        Map<SysTaskScheduled, List<SysSequenceHeader>> sequenceheaderByTaskName = seqheaderFromDB.stream().collect(Collectors.groupingBy(SysSequenceHeader :: getSysTaskScheduled));
+
         List<String> sequenceFile = new ArrayList<>();
-        for(int i=0; i<seqheaderFromDB.size(); i++) {
-            String sequenceHeader = seqheaderFromDB.get(i).getSeqType() + pipe
-                    + seqheaderFromDB.get(i).getSequenceId() + pipe
-                    + seqheaderFromDB.get(i).getPars() + pipe
-                    + seqheaderFromDB.get(i).getCmds() + pipe
-                    + seqheaderFromDB.get(i).getStartTime() + pipe
-                    + seqheaderFromDB.get(i).getStartTime2() + pipe
-                    + (seqheaderFromDB.get(i).getSubsystem() != null? seqheaderFromDB.get(i).getSubsystem():"") + pipe
-                    + (seqheaderFromDB.get(i).getSource() != null? seqheaderFromDB.get(i).getSource():"") + pipe
-                    + (seqheaderFromDB.get(i).getTcRequestId() != null? seqheaderFromDB.get(i).getTcRequestId():"") + pipe
-                    + seqheaderFromDB.get(i).getSubSchedId() + pipe;
+        //sequenceheaderByTaskName.entrySet() -> to iterate through map
+        //sequenceheaderByTaskName.size() = size of keys
+        for (Map.Entry<SysTaskScheduled,List<SysSequenceHeader>> entry: sequenceheaderByTaskName.entrySet()) {
+            //entry.getValue().size() = size of values for EACH KEY
+            //System.out.println("Sequence Header with task name: " + entry.getKey().getTaskName());
 
-            sequenceFile.add(sequenceHeader);
-            List<String> sequenceParameters = sequenceParameterLines(seqheaderFromDB.get(i).getSysTaskScheduled().getTaskName(), seqheaderFromDB.get(i).getSequenceId(), seqheaderFromDB.get(i).getStartTime());
+            //INDEX(i) -> iterates through values and restart (i=0) when there is a new key
+            for(int i = 0; i < entry.getValue().size(); i++) {
+                boolean seqparamExists = false;
+                String sequenceHeader = entry.getValue().get(i).getSeqType() + pipe
+                        + entry.getValue().get(i).getSequenceId() + pipe
+                        + entry.getValue().get(i).getPars() + pipe   //sequence parameters?
+                        + entry.getValue().get(i).getCmds() + pipe   //commands? -> NO ORDER
+                        + entry.getValue().get(i).getStartTime() + pipe
+                        + entry.getValue().get(i).getStartTime2() + pipe
+                        + (entry.getValue().get(i).getSubsystem() != null? entry.getValue().get(i).getSubsystem():"") + pipe
+                        + (entry.getValue().get(i).getSource() != null? entry.getValue().get(i).getSource():"") + pipe
+                        + (entry.getValue().get(i).getTcRequestId() != null? entry.getValue().get(i).getTcRequestId():"") + pipe
+                        + (entry.getValue().get(i).getSubSchedId() != null? entry.getValue().get(i).getSubSchedId():"") + pipe;
 
-            for(int j=0; j<sequenceParameters.size(); j++) {
-                sequenceFile.add(sequenceParameters.get(j));
-            }
+                sequenceFile.add(sequenceHeader);
+                //System.out.println("Sequence Header Add: " + sequenceHeader);
 
-            //commands? -> how to know which commands are inside the sequences / nested sequences
-            //seqheader (CMDS) = there are commands + commheader(parent) = sequenceId
-            if(seqheaderFromDB.get(i).getCmds() > 0) {
-                List<String> seqCommands = commandHeaderLine(seqheaderFromDB.get(i).getSequenceId());
-                for(int k=0; k<seqCommands.size(); k++) {
-                    sequenceFile.add(seqCommands.get(k));
+                /** SEQUENCE PARAMETERS */
+                System.out.println("PARS " + entry.getValue().get(i).getSequenceId() + " " + entry.getValue().get(i).getPars());
+                seqparamExists = entry.getValue().get(i).getPars() > 0 ? true : false;
+                //when is TRUE add sequence parameters
+                if(seqparamExists) {
+                    List<String> sequenceParameters = sequenceParameterLines(entry.getValue().get(i).getSysTaskScheduled(), entry.getValue().get(i).getSequenceId());
+                    for(int j=0; j<sequenceParameters.size(); j++) {
+                        sequenceFile.add(sequenceParameters.get(j));
+                    }
                 }
             }
-
         }
+
+        for(int k = 0; k<sequenceFile.size();k++) {
+            System.out.println("Sequence: " + k + " " + sequenceFile.get(k));
+        }
+
+//        List<String> sequenceFile = new ArrayList<>();
+//        for(int i=0; i<seqheaderFromDB.size(); i++) {
+//            String sequenceHeader = seqheaderFromDB.get(i).getSeqType() + pipe
+//                    + seqheaderFromDB.get(i).getSequenceId() + pipe
+//                    + seqheaderFromDB.get(i).getPars() + pipe
+//                    + seqheaderFromDB.get(i).getCmds() + pipe
+//                    + seqheaderFromDB.get(i).getStartTime() + pipe
+//                    + seqheaderFromDB.get(i).getStartTime2() + pipe
+//                    + (seqheaderFromDB.get(i).getSubsystem() != null? seqheaderFromDB.get(i).getSubsystem():"") + pipe
+//                    + (seqheaderFromDB.get(i).getSource() != null? seqheaderFromDB.get(i).getSource():"") + pipe
+//                    + (seqheaderFromDB.get(i).getTcRequestId() != null? seqheaderFromDB.get(i).getTcRequestId():"") + pipe
+//                    + seqheaderFromDB.get(i).getSubSchedId() + pipe;
+//
+//            sequenceFile.add(sequenceHeader);
+//            List<String> sequenceParameters = sequenceParameterLines(seqheaderFromDB.get(i).getSysTaskScheduled(), seqheaderFromDB.get(i));
+//
+//            for(int j=0; j<sequenceParameters.size(); j++) {
+//                sequenceFile.add(sequenceParameters.get(j));
+//            }
+//
+//            //commands? -> how to know which commands are inside the sequences / nested sequences
+//            //seqheader (CMDS) = there are commands + commheader(parent) = sequenceId
+//            if(seqheaderFromDB.get(i).getCmds() > 0) {
+//                //List<String> seqCommands = commandHeaderLine(seqheaderFromDB.get(i).getSysTaskScheduled(), seqheaderFromDB.get(i));
+//                List<String> seqCommands = commandHeaderLine(seqheaderFromDB.get(i).getSysTaskScheduled());
+//                for(int k=0; k<seqCommands.size(); k++) {
+//                    sequenceFile.add(seqCommands.get(k));
+//                }
+//            }
+//
+//        }
         return sequenceFile;
     }
 
@@ -149,8 +221,10 @@ public class MissionPlanService {
         }
     }
 
-    public List<String> sequenceParameterLines(String taskName, String sequenceId, BigInteger startTime) {
-        List<SysSequenceParameter> seqparamFromDB = missionplanRepository.sequenceParameterRecords(taskName, sequenceId, startTime);
+    /** FILTER BY TASK AND SEQUENCE ID */
+    public List<String> sequenceParameterLines(SysTaskScheduled sysTaskScheduled, String sequenceId) {
+        //List<SysSequenceParameter> seqparamFromDB = missionplanRepository.sequenceParameterRecords(sysSequenceHeader);
+        List<SysSequenceParameter> seqparamFromDB = missionplanRepository.sequenceParametersForEachSequenceHeader(sysTaskScheduled, sequenceId);
         List<String> seqparamFile = new ArrayList<>();
         for(int i=0; i<seqparamFromDB.size(); i++) {
             String sequenceParam = seqparamFromDB.get(i).getSequenceParameterId() + pipe
@@ -181,7 +255,7 @@ public class MissionPlanService {
         sysCommandHeader.setStaticPTV(Integer.valueOf(commandheaderRow[10]));
         sysCommandHeader.setDynamicPTV(Integer.valueOf(commandheaderRow[11]));
         sysCommandHeader.setCev(Integer.valueOf(commandheaderRow[12]));
-        sysCommandHeader.setPars(BigInteger.valueOf(Integer.valueOf(commandheaderRow[13])));
+        sysCommandHeader.setPars(Integer.valueOf(commandheaderRow[13]));
         sysCommandHeader.setTimeTagged(Integer.valueOf(commandheaderRow[14]));
         sysCommandHeader.setPlanned(Integer.valueOf(commandheaderRow[15]));
         sysCommandHeader.setExecTime(BigInteger.valueOf(Integer.valueOf(commandheaderRow[16])));
@@ -204,47 +278,99 @@ public class MissionPlanService {
         return sysCommandHeader;
     }
 
-    public List<String> commandHeaderLine(String taskName) {
-        List<SysCommandHeader> commheaderFromDB = missionplanRepository.commandHeaderRecords(taskName);
+    public List<String> commandHeaderLine(List<SysTaskScheduled> sysTaskScheduled) {
+        List<SysCommandHeader> commheaderFromDB = missionplanRepository.commandHeaderRecords(sysTaskScheduled);
+
+        /**GROUP BY TASK*/
+        //Streams are mainly used to perform operations on data | Collections are mainly used to store and group the data
+        Map<SysTaskScheduled, List<SysCommandHeader>> commandheaderByTaskName = commheaderFromDB.stream().collect(Collectors.groupingBy(SysCommandHeader :: getSysTaskScheduled));
+
         List<String> commandFile = new ArrayList<>();
-        /** i<commheaderFromDb.size() do the check when there is not a header */
-        for(int i=0; i<commheaderFromDB.size(); i++) {
-            String commandHeader = commheaderFromDB.get(i).getCmdType() + pipe
-                    + commheaderFromDB.get(i).getCommandId() + pipe
-                    + commheaderFromDB.get(i).getManDispatch() + pipe
-                    + commheaderFromDB.get(i).getRelease() + pipe
-                    + commheaderFromDB.get(i).getRelTime() + pipe
-                    + commheaderFromDB.get(i).getRelTime2() + pipe
-                    + commheaderFromDB.get(i).getGroup() + pipe
-                    + commheaderFromDB.get(i).getBlock() + pipe
-                    + commheaderFromDB.get(i).getInterlock() + pipe
-                    + (commheaderFromDB.get(i).getIlStage() != null? commheaderFromDB.get(i).getIlStage():"") + pipe
-                    + commheaderFromDB.get(i).getStaticPTV() + pipe
-                    + commheaderFromDB.get(i).getDynamicPTV() + pipe
-                    + commheaderFromDB.get(i).getCev() + pipe
-                    + commheaderFromDB.get(i).getPars() + pipe
-                    + commheaderFromDB.get(i).getTimeTagged() + pipe
-                    + commheaderFromDB.get(i).getPlanned() + pipe
-                    + commheaderFromDB.get(i).getExecTime() + pipe
-                    + commheaderFromDB.get(i).getExecTime2() + pipe
-                    + (commheaderFromDB.get(i).getParent() != null? commheaderFromDB.get(i).getParent():"") + pipe
-                    + (commheaderFromDB.get(i).getStartTime() != null? commheaderFromDB.get(i).getStartTime():"") + pipe
-                    + (commheaderFromDB.get(i).getSubSystem() != null? commheaderFromDB.get(i).getSubSystem():"") + pipe
-                    + (commheaderFromDB.get(i).getSource() != null? commheaderFromDB.get(i).getSource():"") + pipe
-                    + (commheaderFromDB.get(i).getEarliest() != null? commheaderFromDB.get(i).getEarliest():"") + pipe
-                    + (commheaderFromDB.get(i).getLatest() != null? commheaderFromDB.get(i).getLatest():"") + pipe
-                    + (commheaderFromDB.get(i).getTcRequestId() != null? commheaderFromDB.get(i).getTcRequestId():"") + pipe
-                    + commheaderFromDB.get(i).getSubSchedId() + pipe
-                    + (commheaderFromDB.get(i).getAckFlags() != null? commheaderFromDB.get(i).getAckFlags():"") + pipe;
-            System.out.println("Command Header: " + commandHeader);
-            System.out.println("Command Parameter Task Name: " + commheaderFromDB.get(i).getSysTaskScheduled().getTaskName());
-            commandFile.add(commandHeader);
-            List<String> commandParameters = commandParameterLines(commheaderFromDB.get(i).getSysTaskScheduled().getTaskName(), commheaderFromDB.get(i).getCommandId(), commheaderFromDB.get(i).getCommandProgressiveId());
-            /** <commandParameter.size() do the check when there are not parameters */
-            for(int j=0; j<commandParameters.size(); j++) {
-                commandFile.add(commandParameters.get(j));
+        for (Map.Entry<SysTaskScheduled,List<SysCommandHeader>> entry: commandheaderByTaskName.entrySet()) {
+            //INDEX(i) -> iterates through values and restart (i=0) when there is a new key
+            for(int i = 0; i < entry.getValue().size(); i++) {
+                boolean commparamExists = false;
+                String commandheader = entry.getValue().get(i).getCmdType() + pipe
+                        + entry.getValue().get(i).getCommandId() + pipe
+                        + entry.getValue().get(i).getManDispatch() + pipe
+                        + entry.getValue().get(i).getRelease() + pipe
+                        + entry.getValue().get(i).getRelTime() + pipe
+                        + entry.getValue().get(i).getRelTime2() + pipe
+                        + entry.getValue().get(i).getGroup() + pipe
+                        + entry.getValue().get(i).getBlock() + pipe
+                        + entry.getValue().get(i).getInterlock() + pipe
+                        + (entry.getValue().get(i).getIlStage() != null? entry.getValue().get(i).getIlStage():"") + pipe
+                        + entry.getValue().get(i).getStaticPTV() + pipe
+                        + entry.getValue().get(i).getDynamicPTV() + pipe
+                        + entry.getValue().get(i).getCev() + pipe
+                        + entry.getValue().get(i).getPars() + pipe
+                        + entry.getValue().get(i).getTimeTagged() + pipe
+                        + entry.getValue().get(i).getPlanned() + pipe
+                        + entry.getValue().get(i).getExecTime() + pipe
+                        + entry.getValue().get(i).getExecTime2() + pipe
+                        + (entry.getValue().get(i).getParent() != null? entry.getValue().get(i).getParent():"") + pipe
+                        + (entry.getValue().get(i).getStartTime() != null? entry.getValue().get(i).getStartTime():"") + pipe
+                        + (entry.getValue().get(i).getSubSystem() != null? entry.getValue().get(i).getSubSystem():"") + pipe
+                        + (entry.getValue().get(i).getSource() != null? entry.getValue().get(i).getSource():"") + pipe
+                        + (entry.getValue().get(i).getEarliest() != null? entry.getValue().get(i).getEarliest():"") + pipe
+                        + (entry.getValue().get(i).getLatest() != null? entry.getValue().get(i).getLatest():"") + pipe
+                        + (entry.getValue().get(i).getTcRequestId() != null? entry.getValue().get(i).getTcRequestId():"") + pipe
+                        + entry.getValue().get(i).getSubSchedId() + pipe
+                        + (entry.getValue().get(i).getAckFlags() != null? entry.getValue().get(i).getAckFlags():"");
+
+                commandFile.add(commandheader);
+
+                /** COMMAND PARAMETERS */
+                System.out.println("PARS " + entry.getValue().get(i).getCommandId() + " " + entry.getValue().get(i).getPars());
+                commparamExists = entry.getValue().get(i).getPars().intValue() > 0? true : false;
+                //when is TRUE add sequence parameters
+                if(commparamExists) {
+                    List<String> commandParameters = commandParameterLines(entry.getValue().get(i).getSysTaskScheduled(), entry.getValue().get(i).getCommandId());
+                    for(int j=0; j<commandParameters.size(); j++) {
+                        commandFile.add(commandParameters.get(j));
+                    }
+                }
             }
         }
+
+//        /** i<commheaderFromDb.size() do the check when there is not a header */
+//        for(int i=0; i<commheaderFromDB.size(); i++) {
+//            String commandHeader = commheaderFromDB.get(i).getCmdType() + pipe
+//                    + commheaderFromDB.get(i).getCommandId() + pipe
+//                    + commheaderFromDB.get(i).getManDispatch() + pipe
+//                    + commheaderFromDB.get(i).getRelease() + pipe
+//                    + commheaderFromDB.get(i).getRelTime() + pipe
+//                    + commheaderFromDB.get(i).getRelTime2() + pipe
+//                    + commheaderFromDB.get(i).getGroup() + pipe
+//                    + commheaderFromDB.get(i).getBlock() + pipe
+//                    + commheaderFromDB.get(i).getInterlock() + pipe
+//                    + (commheaderFromDB.get(i).getIlStage() != null? commheaderFromDB.get(i).getIlStage():"") + pipe
+//                    + commheaderFromDB.get(i).getStaticPTV() + pipe
+//                    + commheaderFromDB.get(i).getDynamicPTV() + pipe
+//                    + commheaderFromDB.get(i).getCev() + pipe
+//                    + commheaderFromDB.get(i).getPars() + pipe
+//                    + commheaderFromDB.get(i).getTimeTagged() + pipe
+//                    + commheaderFromDB.get(i).getPlanned() + pipe
+//                    + commheaderFromDB.get(i).getExecTime() + pipe
+//                    + commheaderFromDB.get(i).getExecTime2() + pipe
+//                    + (commheaderFromDB.get(i).getParent() != null? commheaderFromDB.get(i).getParent():"") + pipe
+//                    + (commheaderFromDB.get(i).getStartTime() != null? commheaderFromDB.get(i).getStartTime():"") + pipe
+//                    + (commheaderFromDB.get(i).getSubSystem() != null? commheaderFromDB.get(i).getSubSystem():"") + pipe
+//                    + (commheaderFromDB.get(i).getSource() != null? commheaderFromDB.get(i).getSource():"") + pipe
+//                    + (commheaderFromDB.get(i).getEarliest() != null? commheaderFromDB.get(i).getEarliest():"") + pipe
+//                    + (commheaderFromDB.get(i).getLatest() != null? commheaderFromDB.get(i).getLatest():"") + pipe
+//                    + (commheaderFromDB.get(i).getTcRequestId() != null? commheaderFromDB.get(i).getTcRequestId():"") + pipe
+//                    + commheaderFromDB.get(i).getSubSchedId() + pipe
+//                    + (commheaderFromDB.get(i).getAckFlags() != null? commheaderFromDB.get(i).getAckFlags():"") + pipe;
+//            System.out.println("Command Header: " + commandHeader);
+//            System.out.println("Command Parameter Task Name: " + commheaderFromDB.get(i).getSysTaskScheduled().getTaskName());
+//            commandFile.add(commandHeader);
+//            List<String> commandParameters = commandParameterLines(commheaderFromDB.get(i).getSysTaskScheduled(), commheaderFromDB.get(i));
+//            /** <commandParameter.size() do the check when there are not parameters */
+//            for(int j=0; j<commandParameters.size(); j++) {
+//                commandFile.add(commandParameters.get(j));
+//            }
+//        }
         return commandFile;
     }
 
@@ -269,8 +395,9 @@ public class MissionPlanService {
         }
     }
 
-    public List<String> commandParameterLines(String taskName, String commandId, BigInteger commProgId) {
-        List<SysCommandParameter> commparamFromDB = missionplanRepository.commandParameterRecords(taskName,commandId,commProgId);
+    public List<String> commandParameterLines(SysTaskScheduled sysTaskScheduled, String commandId) {
+//        List<SysCommandParameter> commparamFromDB = missionplanRepository.commandParameterRecords(sysTaskScheduled, sysCommandHeader);
+        List<SysCommandParameter> commparamFromDB = missionplanRepository.commandParametersForEachCommandHeader(sysTaskScheduled, commandId);
         List<String> commparamFile = new ArrayList<>();
         if(commparamFromDB.size() != 0) {
             for(int i=0; i<commparamFromDB.size(); i++) {
@@ -281,7 +408,6 @@ public class MissionPlanService {
                         + commparamFromDB.get(i).getRepType() + pipe
                         + commparamFromDB.get(i).getValue() + pipe
                         + commparamFromDB.get(i).getDynamic() + pipe;
-                System.out.println("Command Parameter: " + commandParam);
                 commparamFile.add(commandParam);
             }
         }

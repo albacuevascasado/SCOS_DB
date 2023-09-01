@@ -3,6 +3,7 @@ package com.scos.data_model.mps_db;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.w3c.dom.ls.LSOutput;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.math.BigInteger;
 @AllArgsConstructor
 @Entity
 @Table(schema = "mps_schema" , name = "\"T_SYS_BASE_HEADER\"")
-public class SysBaseHeader implements Serializable {
+public class SysBaseHeader {
     //values = [CATEGORY,SOURCE,GEN_TIME,RELTYPE,VERSION,START_TIME]
     public enum COLUMNS {
         CATEGORY ("CATEGORY","number", null),
@@ -61,10 +62,6 @@ public class SysBaseHeader implements Serializable {
 //    @Id
 //    @Column(name = "\"SCHEDULING_ID\"", nullable = false)
 //    private BigInteger schedulingId;
-//
-//    @Id
-//    @Column(name = "\"TASK_NAME\"", nullable = false)
-//    private String taskName;
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "\"S_SYS_BASE_HEADER_ID\"")
     @SequenceGenerator(schema = "mps_schema" ,name = "\"S_SYS_BASE_HEADER_ID\"", sequenceName = "\"S_SYS_BASE_HEADER_ID\"", allocationSize = 1)
@@ -90,11 +87,16 @@ public class SysBaseHeader implements Serializable {
     @Column(name = "\"START_TIME\"", nullable = false)
     private BigInteger startTime;
 
+
     @OneToOne(optional = false)
-    //@JoinColumn(name = "\"SCHEDULING_ID\"", referencedColumnName = "\"SCHEDULING_ID\"", nullable = false),
-    //@OneToMany?
-    @JoinColumn(foreignKey = @ForeignKey(name = "\"T_SYS_BASE_HEADER_TASK_NAME_fkey\""),
-                name = "\"TASK_NAME\"", referencedColumnName = "\"TASK_NAME\"", nullable = false)
-    private SysTaskScheduled sysTaskScheduled;
+    @JoinColumn( foreignKey = @ForeignKey(name = "\"T_SYS_BASE_HEADER_SCHEDULING_ID_fkey\""),
+                 name = "\"SCHEDULING_ID\"", referencedColumnName = "\"SCHEDULING_ID\"", nullable = false)
+    private SysSchedulingProva sysScheduling;
+
+    //TASK_NAME IS NOT PART OF THIS TABLE ONLY SCHEDULING_ID
+//    @OneToOne
+//    @JoinColumn(foreignKey = @ForeignKey(name = "\"T_SYS_BASE_HEADER_TASK_NAME_fkey\""),
+//                name = "\"TASK_NAME\"", referencedColumnName = "\"TASK_NAME\"", nullable = false)
+//    private SysTaskScheduled sysTaskScheduled;
 
 }

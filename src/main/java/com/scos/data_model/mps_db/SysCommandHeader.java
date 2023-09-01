@@ -119,7 +119,7 @@ public class SysCommandHeader implements Serializable {
     private Integer cev;
 
     @Column(name = "\"PARS\"", nullable = false)
-    private BigInteger pars;
+    private Integer pars;
 
     @Column(name = "\"TIME_TAGGED\"", nullable = false)
     private Integer timeTagged;
@@ -165,9 +165,8 @@ public class SysCommandHeader implements Serializable {
                 name = "\"TASK_NAME\"", referencedColumnName = "\"TASK_NAME\"", nullable = false)
     private SysTaskScheduled sysTaskScheduled;
 
-    @OneToOne(optional = true)
+    @ManyToOne(optional = true)
     @JoinColumns(
-
             foreignKey = @ForeignKey(name = "\"T_SYS_COMMAND_HEADER_PARENT_STARTTIME_fkey\""),
             value = {
                 @JoinColumn(name = "\"SEQUENCE_ID\"", referencedColumnName = "\"SEQUENCE_ID\"", nullable = true),

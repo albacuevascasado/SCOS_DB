@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FlightPlan>
+    <Header>
+        <missionId>384764</missionId>
+        <startTime>2023-09-01T14:33:34.103</startTime>
+        <endTime>2023-09-01T14:33:39.278</endTime>
+        <schedulingId>1</schedulingId>
+    </Header>
+    <Tasks NoTask="2">
+        <BaseHeader>
+            <Field name="CATEGORY">
+                <Value>3</Value>
+                <Type>number</Type>
+            </Field>
+            <Field name="SOURCE">
+                <Value>MP</Value>
+                <Type>char</Type>
+            </Field>
+            <Field name="GEN TIME">
+                <Value>1570116436</Value>
+                <Type>number</Type>
+                <Units>seconds</Units>
+            </Field>
+            <Field name="RELTYPE">
+                <Value>1</Value>
+                <Type>number</Type>
+            </Field>
+            <Field name="VERSION">
+                <Value>SAT-DB</Value>
+                <Type>char</Type>
+            </Field>
+            <Field name="START TIME">
+                <Value>1564617601</Value>
+                <Type>number</Type>
+                <Units>seconds</Units>
+            </Field>
+        </BaseHeader>
+        <Task TaskId="AAAA">
+            <Sequence>
+                <SequenceHeader>
+                    <Field name="SEQ TYPE">
+                        <Value>S</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="ID">
+                        <Value>AQWE34</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="PARS">
+                        <Value>1</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="CMDS">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="STARTTIME">
+                        <Value>78246</Value>
+                        <Type>number</Type>
+                        <Units>seconds</Units>
+                    </Field>
+                    <Field name="STARTTIME2">
+                        <Value>965423</Value>
+                        <Type>number</Type>
+                        <Units>microseconds</Units>
+                    </Field>
+                    <Field name="SUB-SCHED ID">
+                        <Value>32145</Value>
+                        <Type>number</Type>
+                    </Field>
+                </SequenceHeader>
+                <SequenceParameter>
+                    <Field name="ID">
+                        <Value>LPO54</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="TYPE">
+                        <Value>21</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="REPTYPE">
+                        <Value>12</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="VALUE">
+                        <Value>AS</Value>
+                        <Type>char</Type>
+                    </Field>
+                </SequenceParameter>
+            </Sequence>
+            <Command>
+                <CommandHeader>
+                    <Field name="CMDTYPE">
+                        <Value>C</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="ID">
+                        <Value>HUA50201</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="MAN DISPATCH">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="RELEASE">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="RELTIME">
+                        <Value>1564600061</Value>
+                        <Type>number</Type>
+                        <Units>seconds</Units>
+                    </Field>
+                    <Field name="RELTIME2">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                        <Units>microseconds</Units>
+                    </Field>
+                    <Field name="GROUP">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="BLOCK">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="INTERLOCK">
+                        <Value>1</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="ILSTAGE">
+                        <Value>C</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="STATIC PTV">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="DYNAMIC PTV">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="CEV">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="PARS">
+                        <Value>3</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="TIME TAGGED">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="PLANNED">
+                        <Value>1</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="EXEC TIME">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                        <Units>seconds</Units>
+                    </Field>
+                    <Field name="EXEC TIME2">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                        <Units>microseconds</Units>
+                    </Field>
+                    <Field name="PARENT">
+                        <Value>MUSDS01I</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="SUBSYSTEM">
+                        <Value>1</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="SUB-SCHED ID">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                </CommandHeader>
+                <CommandParameter>
+                    <Field name="ID">
+                        <Value>TUA510AS</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="FORMPOS">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="TYPE">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="EDITABLE">
+                        <Value>2</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="REPTYPE">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="VALUE">
+                        <Value>182</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="DYNAMIC">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                </CommandParameter>
+                <CommandParameter>
+                    <Field name="ID">
+                        <Value>TUA502AU</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="FORMPOS">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="TYPE">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="EDITABLE">
+                        <Value>2</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="REPTYPE">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="VALUE">
+                        <Value>1</Value>
+                        <Type>char</Type>
+                    </Field>
+                </CommandParameter>
+                <CommandParameter>
+                    <Field name="ID">
+                        <Value>TUA502BU</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="FORMPOS">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="TYPE">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="EDITABLE">
+                        <Value>2</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="REPTYPE">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="VALUE">
+                        <Value>0</Value>
+                        <Type>char</Type>
+                    </Field>
+                </CommandParameter>
+            </Command>
+            <Command>
+                <CommandHeader>
+                    <Field name="CMDTYPE">
+                        <Value>C</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="ID">
+                        <Value>HGF00CA4</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="MAN DISPATCH">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="RELEASE">
+                        <Value>1</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="RELTIME">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                        <Units>seconds</Units>
+                    </Field>
+                    <Field name="RELTIME2">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                        <Units>microseconds</Units>
+                    </Field>
+                    <Field name="GROUP">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="BLOCK">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="INTERLOCK">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="STATIC PTV">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="DYNAMIC PTV">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="CEV">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="PARS">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="TIME TAGGED">
+                        <Value>1</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="PLANNED">
+                        <Value>1</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="EXEC TIME">
+                        <Value>1564639718</Value>
+                        <Type>number</Type>
+                        <Units>seconds</Units>
+                    </Field>
+                    <Field name="EXEC TIME2">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                        <Units>microseconds</Units>
+                    </Field>
+                    <Field name="PARENT">
+                        <Value>MFAOSMGT</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="SUBSYSTEM">
+                        <Value>1</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="SUB-SCHED ID">
+                        <Value>182</Value>
+                        <Type>number</Type>
+                    </Field>
+                </CommandHeader>
+            </Command>
+            <Command>
+                <CommandHeader>
+                    <Field name="CMDTYPE">
+                        <Value>C</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="ID">
+                        <Value>HTM38306</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="MAN DISPATCH">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="RELEASE">
+                        <Value>1</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="RELTIME">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                        <Units>seconds</Units>
+                    </Field>
+                    <Field name="RELTIME2">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                        <Units>microseconds</Units>
+                    </Field>
+                    <Field name="GROUP">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="BLOCK">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="INTERLOCK">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="STATIC PTV">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="DYNAMIC PTV">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="CEV">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="PARS">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="TIME TAGGED">
+                        <Value>1</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="PLANNED">
+                        <Value>1</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="EXEC TIME">
+                        <Value>1564639763</Value>
+                        <Type>number</Type>
+                        <Units>seconds</Units>
+                    </Field>
+                    <Field name="EXEC TIME2">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                        <Units>microseconds</Units>
+                    </Field>
+                    <Field name="PARENT">
+                        <Value>MFAOSMGT</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="SUBSYSTEM">
+                        <Value>1</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="SUB-SCHED ID">
+                        <Value>182</Value>
+                        <Type>number</Type>
+                    </Field>
+                </CommandHeader>
+            </Command>
+            <Command>
+                <CommandHeader>
+                    <Field name="CMDTYPE">
+                        <Value>C</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="ID">
+                        <Value>HPF00CA3</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="MAN DISPATCH">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="RELEASE">
+                        <Value>1</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="RELTIME">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                        <Units>seconds</Units>
+                    </Field>
+                    <Field name="RELTIME2">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                        <Units>microseconds</Units>
+                    </Field>
+                    <Field name="GROUP">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="BLOCK">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="INTERLOCK">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="STATIC PTV">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="DYNAMIC PTV">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="CEV">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="PARS">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="TIME TAGGED">
+                        <Value>1</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="PLANNED">
+                        <Value>1</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="EXEC TIME">
+                        <Value>1564640276</Value>
+                        <Type>number</Type>
+                        <Units>seconds</Units>
+                    </Field>
+                    <Field name="EXEC TIME2">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                        <Units>microseconds</Units>
+                    </Field>
+                    <Field name="PARENT">
+                        <Value>MFLOSMGT</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="SUBSYSTEM">
+                        <Value>1</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="SUB-SCHED ID">
+                        <Value>182</Value>
+                        <Type>number</Type>
+                    </Field>
+                </CommandHeader>
+            </Command>
+        </Task>
+        <Task TaskId="BBBB">
+            <Sequence>
+                <SequenceHeader>
+                    <Field name="SEQ TYPE">
+                        <Value>S</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="ID">
+                        <Value>PRTGF43</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="PARS">
+                        <Value>2</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="CMDS">
+                        <Value>0</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="STARTTIME">
+                        <Value>14257</Value>
+                        <Type>number</Type>
+                        <Units>seconds</Units>
+                    </Field>
+                    <Field name="STARTTIME2">
+                        <Value>4189</Value>
+                        <Type>number</Type>
+                        <Units>microseconds</Units>
+                    </Field>
+                    <Field name="SUB-SCHED ID">
+                        <Value>56784</Value>
+                        <Type>number</Type>
+                    </Field>
+                </SequenceHeader>
+                <SequenceParameter>
+                    <Field name="ID">
+                        <Value>ZCDE34</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="TYPE">
+                        <Value>54</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="REPTYPE">
+                        <Value>45</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="VALUE">
+                        <Value>XS</Value>
+                        <Type>char</Type>
+                    </Field>
+                </SequenceParameter>
+                <SequenceParameter>
+                    <Field name="ID">
+                        <Value>LIGT23</Value>
+                        <Type>char</Type>
+                    </Field>
+                    <Field name="TYPE">
+                        <Value>87</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="REPTYPE">
+                        <Value>78</Value>
+                        <Type>number</Type>
+                    </Field>
+                    <Field name="VALUE">
+                        <Value>GF</Value>
+                        <Type>char</Type>
+                    </Field>
+                </SequenceParameter>
+            </Sequence>
+        </Task>
+    </Tasks>
+</FlightPlan>

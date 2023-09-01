@@ -2,6 +2,7 @@ package com.scos;
 
 import com.scos.XSDToJava3.FlightPlan;
 import com.scos.data_model.mps_db.SysCommandHeader;
+import com.scos.data_model.mps_db.SysSchedulingProva;
 import com.scos.data_model.mps_db.SysSequenceHeader;
 import com.scos.data_model.mps_db.SysTaskScheduled;
 import com.scos.services.MissionPlanService;
@@ -19,36 +20,40 @@ public class MissionPlanCreation {
 
     static String new_line = "\n";
 
+    //inject application context to be able to call the bean required
     public MissionPlanCreation(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
         System.out.println("Application Context from Mission Plan: " + applicationContext);
     }
 
-    public void  createMissionPlanSSF (String taskName) throws IOException {
+    public void createMissionPlanSSF (SysSchedulingProva sysSchedulingProva) throws IOException {
         MissionPlanService missionPlanService = this.applicationContext.getBean(MissionPlanService.class);
         //BufferedReader reader = new BufferedReader(new FileReader(missionPlanFile));
+        //TASK SCHEDULED -> LIST
+        List<SysTaskScheduled> sysTaskScheduledList = missionPlanService.sysTaskScheduled(sysSchedulingProva);
 
         //File name + creation
         LocalDateTime nowDate = LocalDateTime.now();
         /** PROBLEM!! using two points in file name */
         DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("YYYY_D_HH.mm.ss"); //D = day of year
         String formattedDate = nowDate.format(formatDate);
-        String fileName = "MPLAN_" + formattedDate;
+        String fileName = "MPLAN_TASKS_" + formattedDate;
         File fout = new File("src/main/resources/FlightPlan/" + fileName + ".ssf");
         FileOutputStream fos = new FileOutputStream(fout);
 
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 
         //CONTENT
-        bw.write(missionPlanService.baseHeaderLine(taskName));
+        bw.write(missionPlanService.baseHeaderLine(sysSchedulingProva));
         bw.newLine();
-        List<String> sequenceFile = missionPlanService.sequenceHeaderLine(taskName);
+        //TODO ORDER BY POSITION
+        List<String> sequenceFile = missionPlanService.sequenceHeaderLine(sysTaskScheduledList);
         for(int i=0; i<sequenceFile.size(); i++) {
             bw.write(sequenceFile.get(i));
             bw.newLine();
         }
 
-        List<String> commandFile = missionPlanService.commandHeaderLine(taskName);
+        List<String> commandFile = missionPlanService.commandHeaderLine(sysTaskScheduledList);
         for(int i=0; i<commandFile.size(); i++) {
             bw.write(commandFile.get(i));
             bw.newLine();
@@ -57,11 +62,14 @@ public class MissionPlanCreation {
         bw.close();
     }
 
+    //TODO INSERT COLUMN POSITION ROWNO
     //read file is USELESS or at least, use it to insert data in DB -> data comes from DB
     public void readMissionPlan (String missionPlanFile) throws IOException {
         MissionPlanService missionPlanService = this.applicationContext.getBean(MissionPlanService.class);
+        //SCHEDULING
+        SysSchedulingProva sysSchedulingProva = missionPlanService.createSysSchedulingProva();
         //TASK_SCHEDULED
-        SysTaskScheduled taskScheduled = missionPlanService.createSysTaskScheduled();
+        SysTaskScheduled taskScheduled = missionPlanService.createSysTaskScheduled(sysSchedulingProva);
 
         BufferedReader reader = new BufferedReader(new FileReader(missionPlanFile));
         //Start file
@@ -101,7 +109,7 @@ public class MissionPlanCreation {
                 }
             }
         } else {
-                missionPlanService.createBaseHeaderRecord(rowSplit,taskScheduled);
+                missionPlanService.createBaseHeaderRecord(rowSplit,sysSchedulingProva);
             }
             rowNo++;
             row = reader.readLine();
