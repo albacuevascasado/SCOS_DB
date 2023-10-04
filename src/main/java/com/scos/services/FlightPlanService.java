@@ -3,7 +3,6 @@ package com.scos.services;
 import com.scos.XSDToJava3.*;
 import com.scos.data_model.mps_db.*;
 import com.scos.repositories.FlightPlanRepository;
-import com.sun.xml.internal.fastinfoset.util.StringArray;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

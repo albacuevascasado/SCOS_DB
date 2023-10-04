@@ -121,7 +121,7 @@ public class MissionPlanService {
         return sysSequenceHeader;
     }
 
-    public List<String> sequenceHeaderLine(List<SysTaskScheduled> sysTaskScheduled) {
+    public List<String> sequenceLines(List<SysTaskScheduled> sysTaskScheduled) {
         List<SysSequenceHeader> seqheaderFromDB = missionplanRepository.sequenceHeaderRecords(sysTaskScheduled);
 
         /**GROUP BY TASK*/
@@ -140,7 +140,7 @@ public class MissionPlanService {
                 boolean seqparamExists = false;
                 String sequenceHeader = entry.getValue().get(i).getSeqType() + pipe
                         + entry.getValue().get(i).getSequenceId() + pipe
-                        + entry.getValue().get(i).getPars() + pipe   //sequence parameters?
+                        + entry.getValue().get(i).getPars() + pipe
                         + entry.getValue().get(i).getCmds() + pipe   //commands? -> NO ORDER
                         + entry.getValue().get(i).getStartTime() + pipe
                         + entry.getValue().get(i).getStartTime2() + pipe
@@ -153,7 +153,7 @@ public class MissionPlanService {
                 //System.out.println("Sequence Header Add: " + sequenceHeader);
 
                 /** SEQUENCE PARAMETERS */
-                System.out.println("PARS " + entry.getValue().get(i).getSequenceId() + " " + entry.getValue().get(i).getPars());
+//                System.out.println("PARS " + entry.getValue().get(i).getSequenceId() + " " + entry.getValue().get(i).getPars());
                 seqparamExists = entry.getValue().get(i).getPars() > 0 ? true : false;
                 //when is TRUE add sequence parameters
                 if(seqparamExists) {
@@ -165,9 +165,9 @@ public class MissionPlanService {
             }
         }
 
-        for(int k = 0; k<sequenceFile.size();k++) {
-            System.out.println("Sequence: " + k + " " + sequenceFile.get(k));
-        }
+//        for(int k = 0; k<sequenceFile.size();k++) {
+//            System.out.println("Sequence: " + k + " " + sequenceFile.get(k));
+//        }
 
 //        List<String> sequenceFile = new ArrayList<>();
 //        for(int i=0; i<seqheaderFromDB.size(); i++) {
@@ -278,7 +278,7 @@ public class MissionPlanService {
         return sysCommandHeader;
     }
 
-    public List<String> commandHeaderLine(List<SysTaskScheduled> sysTaskScheduled) {
+    public List<String> commandLines(List<SysTaskScheduled> sysTaskScheduled) {
         List<SysCommandHeader> commheaderFromDB = missionplanRepository.commandHeaderRecords(sysTaskScheduled);
 
         /**GROUP BY TASK*/

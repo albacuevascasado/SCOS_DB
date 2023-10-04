@@ -2,6 +2,7 @@ package com.scos;
 
 import com.scos.data_model.mps_db.*;
 import com.scos.data_model.scos_db.*;
+import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl;
 import org.hibernate.jpa.boot.internal.PersistenceUnitInfoDescriptor;
@@ -35,9 +36,13 @@ public class JpaEntityManagerFactory {
             CCS.class,
             CDF.class,
             CPC.class,
+            CPS.class,
             CSF.class,
+            CSP.class,
+            CSS.class,
             CUR.class,
             CVE.class,
+            CVP.class,
             CVS.class,
             DPC.class,
             DPF.class,
@@ -61,7 +66,12 @@ public class JpaEntityManagerFactory {
             PLF.class,
             PRF.class,
             PRV.class,
+            PSM.class,
+            PST.class,
+            PSV.class,
             PTV.class,
+            PVS.class,
+            SDF.class,
             SPC.class,
             SPF.class,
             TCP.class,
@@ -96,13 +106,13 @@ public class JpaEntityManagerFactory {
     }
 
     protected EntityManagerFactory getEntityManagerFactory() {
-        PersistenceUnitInfo persistenceUnitInfo =
-                getPersistenceUnitInfo(
-                        persistenceUnitName);
+        PersistenceUnitInfo persistenceUnitInfo = getPersistenceUnitInfo(
+                    persistenceUnitName);
         Map<String,Object> configuration = new HashMap<>();
         return new EntityManagerFactoryBuilderImpl(
                 new PersistenceUnitInfoDescriptor(persistenceUnitInfo), configuration)
                 .build();
+
     }
 
     public  EntityManager getEntityManager() {
@@ -119,6 +129,7 @@ public class JpaEntityManagerFactory {
     protected Properties getProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
+//        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         properties.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
         /** REQUIRED to create tables */
 //        properties.put("hibernate.hbm2ddl.auto", "update");

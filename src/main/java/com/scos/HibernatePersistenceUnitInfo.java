@@ -25,7 +25,7 @@ public class HibernatePersistenceUnitInfo implements PersistenceUnitInfo {
         private PersistenceUnitTransactionType transactionType
                 = PersistenceUnitTransactionType.RESOURCE_LOCAL;
         private List<String> managedClassNames;
-        private List<String> mappingFileNames;
+        private List<String> mappingFileNames = new ArrayList<>();
         private Properties properties;
         private DataSource jtaDataSource;
         private DataSource nonjtaDataSource;
@@ -39,9 +39,6 @@ public class HibernatePersistenceUnitInfo implements PersistenceUnitInfo {
             this.properties = properties;
         }
 
-    //public String getJpaVersion() {
-    //        return JPA_VERSION;
-    //}
 
     @Override
     public String getPersistenceUnitName() {
@@ -120,7 +117,6 @@ public class HibernatePersistenceUnitInfo implements PersistenceUnitInfo {
 
     @Override
     public void addTransformer(ClassTransformer classTransformer) {
-
     }
 
     @Override

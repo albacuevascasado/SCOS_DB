@@ -47,13 +47,13 @@ public class MissionPlanCreation {
         bw.write(missionPlanService.baseHeaderLine(sysSchedulingProva));
         bw.newLine();
         //TODO ORDER BY POSITION
-        List<String> sequenceFile = missionPlanService.sequenceHeaderLine(sysTaskScheduledList);
+        List<String> sequenceFile = missionPlanService.sequenceLines(sysTaskScheduledList);
         for(int i=0; i<sequenceFile.size(); i++) {
             bw.write(sequenceFile.get(i));
             bw.newLine();
         }
 
-        List<String> commandFile = missionPlanService.commandHeaderLine(sysTaskScheduledList);
+        List<String> commandFile = missionPlanService.commandLines(sysTaskScheduledList);
         for(int i=0; i<commandFile.size(); i++) {
             bw.write(commandFile.get(i));
             bw.newLine();

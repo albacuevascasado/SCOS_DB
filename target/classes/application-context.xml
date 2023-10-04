@@ -16,7 +16,7 @@
         <!-- <bean id="applicationContext" class="com.scos.ApplicationContextFactory" /> -->
 
         <!-- same @Beans different constructors @Qualifier-->
-        <bean id="SCOSentityManager" class="com.scos.JpaEntityManagerFactory">
+        <bean id="SCOSEntityManager" class="com.scos.JpaEntityManagerFactory">
                 <constructor-arg name="persistenceUnitName" value="scosEMF" />
                 <property name="DB_URL" value="${DB_URL}" />
                 <property name="DB_USER_NAME" value="${DB_USER_NAME}" />
@@ -44,7 +44,7 @@
         <bean id="missionPlanRepository" class="com.scos.repositories.MissionPlanRepository" />
         <bean id="flightPlanRepository" class="com.scos.repositories.FlightPlanRepository" />
 
-        <!-- SERVICE -->
+        <!-- SERVICES -->
         <bean id="scosService" class="com.scos.services.SCOSService">
                 <property name="scosRepository" ref="scosRepository" />
         </bean>

@@ -30,8 +30,8 @@ public class Main {
 
         /** Watch for NEW_ENTRY */
         //OPTION 1
-//        FileWatcherService fileWatcherService = applicationContext.getBean(FileWatcherService.class);
-//        fileWatcherService.run();
+        FileWatcherService fileWatcherService = applicationContext.getBean(FileWatcherService.class);
+        fileWatcherService.run();
 
         //OPTION 2
 //        ReadFileUtility readFile = new ReadFileUtility(applicationContext);
@@ -54,16 +54,16 @@ public class Main {
 
 
         //MissionPlan
-        MissionPlanService missionPlanService = applicationContext.getBean(MissionPlanService.class);
+//        MissionPlanService missionPlanService = applicationContext.getBean(MissionPlanService.class);
 //        MissionPlanRepository missionPlanRepository = applicationContext.getBean(MissionPlanRepository.class);
 //        SysSchedulingProva sysSchedulingProva = missionPlanService.createSysSchedulingProva();
 //        System.out.println("Scheduling_ID " + sysSchedulingProva.getSchedulingId());
-        SysSchedulingProva sysSchedulingProva = missionPlanService.searchSchedulingProva(BigInteger.ONE);
+//        SysSchedulingProva sysSchedulingProva = missionPlanService.searchSchedulingProva(BigInteger.ONE);
 
-        MissionPlanCreation missionPlanCreation = new MissionPlanCreation(applicationContext);
+//        MissionPlanCreation missionPlanCreation = new MissionPlanCreation(applicationContext);
 //        missionPlanCreation.readMissionPlan("src/main/resources/FlightPlan/MissionPlan.ssf");
 //
-        missionPlanCreation.createMissionPlanSSF(sysSchedulingProva);
+//        missionPlanCreation.createMissionPlanSSF(sysSchedulingProva);
 
     }
 }

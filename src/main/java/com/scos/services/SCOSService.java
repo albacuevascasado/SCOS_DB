@@ -546,6 +546,45 @@ public class SCOSService {
 
     }
 
+    public void createCPSRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "CPS";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<CPS> listCPS = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                CPS cps = new CPS();
+                String[] recordSplit = record.split("\t");
+
+                cps.setCpsName(recordSplit[CPS.COLUMNS.CPS_NAME.ordinal()]);
+                cps.setCpsPar(recordSplit[CPS.COLUMNS.CPS_PAR.ordinal()]);
+                cps.setCpsBit(Integer.parseInt(recordSplit[CPS.COLUMNS.CPS_BIT.ordinal()]));
+
+                listCPS.add(cps);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listCPS,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listCPS, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveCPSRecords(listCPS,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
+
     public void createCSFRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
         String tableName = "CSF";
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -620,6 +659,162 @@ public class SCOSService {
 
         if(scosRepository != null) {
             scosRepository.saveCSFRecords(listCSF,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
+    public void createCSPRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "CSP";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<CSP> listCSP = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                CSP csp = new CSP();
+                String[] recordSplit = record.split("\t");
+
+                csp.setCspSqname(recordSplit[CSP.COLUMNS.CSP_SQNAME.ordinal()]);
+                csp.setCspFpname(recordSplit[CSP.COLUMNS.CSP_FPNAME.ordinal()]);
+                if(checkIntegerRange(Integer.parseInt(recordSplit[CSP.COLUMNS.CSP_FPNUM.ordinal()]),0,65535)) {
+                    csp.setCspFpnum(Integer.parseInt(recordSplit[CSP.COLUMNS.CSP_FPNUM.ordinal()]));
+                }
+                if(recordSplit[CSP.COLUMNS.CSP_DESCR.ordinal()].length() > 0) {
+                    csp.setCspDescr(recordSplit[CSP.COLUMNS.CSP_DESCR.ordinal()]);
+                }
+                csp.setCspPtc(Integer.parseInt(recordSplit[CSP.COLUMNS.CSP_PTC.ordinal()]));
+                csp.setCspPfc(Integer.parseInt(recordSplit[CSP.COLUMNS.CSP_PFC.ordinal()]));
+                if(recordSplit[CSP.COLUMNS.CSP_DISPFMT.ordinal()].length() > 0) {
+                    csp.setCspDispfmt(CSP.CspDispfmt.valueOf(recordSplit[CSP.COLUMNS.CSP_DISPFMT.ordinal()]));
+                }
+                if(recordSplit[CSP.COLUMNS.CSP_RADIX.ordinal()].length() > 0) {
+                    csp.setCspRadix(_RADIX.valueOf(recordSplit[CSP.COLUMNS.CSP_TYPE.ordinal()]));
+                }
+                csp.setCspType(CSP.CspType.valueOf(recordSplit[CSP.COLUMNS.CSP_TYPE.ordinal()]));
+                if(recordSplit.length > CSP.COLUMNS.CSP_VTYPE.ordinal() && recordSplit[CSP.COLUMNS.CSP_VTYPE.ordinal()].length() > 0) {
+                    csp.setCspVtype(CSP.CspVtype.valueOf(recordSplit[CSP.COLUMNS.CSP_VTYPE.ordinal()]));
+                }
+                if(recordSplit.length > CSP.COLUMNS.CSP_DEFVAL.ordinal() && recordSplit[CSP.COLUMNS.CSP_DEFVAL.ordinal()].length() > 0) {
+                    csp.setCspDefval(recordSplit[CSP.COLUMNS.CSP_DEFVAL.ordinal()]);
+                }
+                if(recordSplit.length > CSP.COLUMNS.CSP_CATEG.ordinal() && recordSplit[CSP.COLUMNS.CSP_CATEG.ordinal()].length() > 0) {
+                    csp.setCspCateg(CSP.CspCateg.valueOf(recordSplit[CSP.COLUMNS.CSP_CATEG.ordinal()]));
+                }
+                if(recordSplit.length > CSP.COLUMNS.CSP_PRFREF.ordinal() && recordSplit[CSP.COLUMNS.CSP_PRFREF.ordinal()].length() > 0) {
+                    csp.setCspPrfref(recordSplit[CSP.COLUMNS.CSP_PRFREF.ordinal()]);
+                }
+                if(recordSplit.length > CSP.COLUMNS.CSP_CCAREF.ordinal() && recordSplit[CSP.COLUMNS.CSP_CCAREF.ordinal()].length() > 0) {
+                    csp.setCspCcaref(recordSplit[CSP.COLUMNS.CSP_CCAREF.ordinal()]);
+                }
+                if(recordSplit.length > CSP.COLUMNS.CSP_PAFREF.ordinal() && recordSplit[CSP.COLUMNS.CSP_PAFREF.ordinal()].length() > 0) {
+                    csp.setCspPafref(recordSplit[CSP.COLUMNS.CSP_PAFREF.ordinal()]);
+                }
+                if(recordSplit.length > CSP.COLUMNS.CSP_UNIT.ordinal() && recordSplit[CSP.COLUMNS.CSP_UNIT.ordinal()].length() > 0) {
+                    csp.setCspUnit(recordSplit[CSP.COLUMNS.CSP_UNIT.ordinal()]);
+                }
+
+                listCSP.add(csp);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listCSP,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listCSP, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveCSPRecords(listCSP,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
+    public void createCSSRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "CSS";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<CSS> listCSS = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                CSS css = new CSS();
+                String[] recordSplit = record.split("\t");
+
+                css.setCssSqname(recordSplit[CSS.COLUMNS.CSS_SQNAME.ordinal()]);
+                if(recordSplit[CSS.COLUMNS.CSS_COMM.ordinal()].length() > 0) {
+                    css.setCssComm(recordSplit[CSS.COLUMNS.CSS_COMM.ordinal()]);
+                }
+                css.setCssEntry(Integer.parseInt(recordSplit[CSS.COLUMNS.CSS_ENTRY.ordinal()]));
+                css.setCssType(CSS.CssType.valueOf(recordSplit[CSS.COLUMNS.CSS_TYPE.ordinal()]));
+                if(recordSplit.length > CSS.COLUMNS.CSS_ELEMID.ordinal() && recordSplit[CSS.COLUMNS.CSS_ELEMID.ordinal()].length() > 0) {
+                    css.setCssElemid(recordSplit[CSS.COLUMNS.CSS_ELEMID.ordinal()]);
+                }
+                if(recordSplit.length > CSS.COLUMNS.CSS_NPARS.ordinal() && recordSplit[CSS.COLUMNS.CSS_NPARS.ordinal()].length() > 0) {
+                    css.setCssNpars(Integer.parseInt(recordSplit[CSS.COLUMNS.CSS_NPARS.ordinal()]));
+                }
+                if(recordSplit.length > CSS.COLUMNS.CSS_MANDISP.ordinal() && recordSplit[CSS.COLUMNS.CSS_MANDISP.ordinal()].length() > 0) {
+                   css.setCssMandisp(_YN.valueOf(recordSplit[CSS.COLUMNS.CSS_MANDISP.ordinal()]));
+                }
+                if(recordSplit.length > CSS.COLUMNS.CSS_RELTYPE.ordinal() && recordSplit[CSS.COLUMNS.CSS_RELTYPE.ordinal()].length() > 0) {
+                    css.setCssReltype(CSS.CssPrev_Rel.valueOf(recordSplit[CSS.COLUMNS.CSS_RELTYPE.ordinal()]));
+                }
+                if(recordSplit.length > CSS.COLUMNS.CSS_RELTIME.ordinal() && recordSplit[CSS.COLUMNS.CSS_RELTIME.ordinal()].length() > 0) {
+                    css.setCssReltime(recordSplit[CSS.COLUMNS.CSS_RELTIME.ordinal()]);
+                }
+                if(recordSplit.length > CSS.COLUMNS.CSS_EXTIME.ordinal() && recordSplit[CSS.COLUMNS.CSS_EXTIME.ordinal()].length() > 0) {
+                    css.setCssExtime(recordSplit[CSS.COLUMNS.CSS_EXTIME.ordinal()]);
+                }
+                if(recordSplit.length > CSS.COLUMNS.CSS_PREVREL.ordinal() && recordSplit[CSS.COLUMNS.CSS_PREVREL.ordinal()].length() > 0) {
+                    css.setCssPrevRel(CSS.CssPrev_Rel.valueOf(recordSplit[CSS.COLUMNS.CSS_PREVREL.ordinal()]));
+                }
+                if(recordSplit.length > CSS.COLUMNS.CSS_GROUP.ordinal() && recordSplit[CSS.COLUMNS.CSS_GROUP.ordinal()].length() > 0) {
+                    css.setCssGroup(CSS.CssGroup_Block.valueOf(recordSplit[CSS.COLUMNS.CSS_GROUP.ordinal()]));
+                }
+                if(recordSplit.length > CSS.COLUMNS.CSS_BLOCK.ordinal() && recordSplit[CSS.COLUMNS.CSS_BLOCK.ordinal()].length() > 0) {
+                    css.setCssBlock(CSS.CssGroup_Block.valueOf(recordSplit[CSS.COLUMNS.CSS_BLOCK.ordinal()]));
+                }
+                if(recordSplit.length > CSS.COLUMNS.CSS_ILSCOPE.ordinal() && recordSplit[CSS.COLUMNS.CSS_ILSCOPE.ordinal()].length() > 0) {
+                    css.setCssIlscope(CSS.CssIlscope.valueOf(recordSplit[CSS.COLUMNS.CSS_ILSCOPE.ordinal()]));
+                }
+                if(recordSplit.length > CSS.COLUMNS.CSS_ILSTAGE.ordinal() && recordSplit[CSS.COLUMNS.CSS_ILSTAGE.ordinal()].length() > 0) {
+                    css.setCssIlstage(CSS.CssIlstage.valueOf(recordSplit[CSS.COLUMNS.CSS_ILSTAGE.ordinal()]));
+                }
+                if(recordSplit.length > CSS.COLUMNS.CSS_DYNPTV.ordinal() && recordSplit[CSS.COLUMNS.CSS_DYNPTV.ordinal()].length() > 0) {
+                    css.setCssDynptv(_YN.valueOf(recordSplit[CSS.COLUMNS.CSS_DYNPTV.ordinal()]));
+                }
+                if(recordSplit.length > CSS.COLUMNS.CSS_STAPTV.ordinal() && recordSplit[CSS.COLUMNS.CSS_STAPTV.ordinal()].length() > 0) {
+                    css.setCssStaptv(_YN.valueOf(recordSplit[CSS.COLUMNS.CSS_STAPTV.ordinal()]));
+                }
+                if(recordSplit.length > CSS.COLUMNS.CSS_CEV.ordinal() && recordSplit[CSS.COLUMNS.CSS_CEV.ordinal()].length() > 0) {
+                    css.setCssCev(_YN.valueOf(recordSplit[CSS.COLUMNS.CSS_CEV.ordinal()]));
+                }
+
+                listCSS.add(css);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listCSS,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listCSS, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveCSSRecords(listCSS,scostables,odbData);
         } else {
             System.out.println("scosRepository has not been injected");
         }
@@ -779,7 +974,7 @@ public class SCOSService {
                 if(recordSplit.length > CVS.COLUMNS.CVS_SPID.ordinal() && recordSplit[CVS.COLUMNS.CVS_SPID.ordinal()].length() > 0) {
                     cvs.setCvsSpid(BigInteger.valueOf(Integer.parseInt(recordSplit[CVS.COLUMNS.CVS_SPID.ordinal()])));
                 }
-                if(recordSplit.length > CVS.COLUMNS.CVS_UNCERTAINTY.ordinal() && recordSplit[CVS.COLUMNS.CVS_UNCERTAINTY.ordinal()].length() > 0 && checkLowerBoundary(Integer.parseInt(recordSplit[6]),0)) {
+                if(recordSplit.length > CVS.COLUMNS.CVS_UNCERTAINTY.ordinal() && recordSplit[CVS.COLUMNS.CVS_UNCERTAINTY.ordinal()].length() > 0 && checkLowerBoundary(Integer.parseInt(recordSplit[6]),-1)) {
                     cvs.setCvsUncertainty(Integer.parseInt(recordSplit[CVS.COLUMNS.CVS_UNCERTAINTY.ordinal()]));
                 }
 
@@ -1811,7 +2006,7 @@ public class SCOSService {
                 if(recordSplit.length > PLF.COLUMNS.PLF_NBOCC.ordinal() && recordSplit[PLF.COLUMNS.PLF_NBOCC.ordinal()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[4]),1,9999)) {
                     plf.setPlfNbocc(Integer.parseInt(recordSplit[PLF.COLUMNS.PLF_NBOCC.ordinal()]));
                 }
-                if(recordSplit.length > PLF.COLUMNS.PLF_LGOCC.ordinal() && recordSplit[PLF.COLUMNS.PLF_LGOCC.ordinal()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[5]),1,32767)) {
+                if(recordSplit.length > PLF.COLUMNS.PLF_LGOCC.ordinal() && recordSplit[PLF.COLUMNS.PLF_LGOCC.ordinal()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[5]),0,32767)) {
                     plf.setPlfLgocc(Integer.parseInt(recordSplit[PLF.COLUMNS.PLF_LGOCC.ordinal()]));
                 }
                 if(recordSplit.length > PLF.COLUMNS.PLF_TIME.ordinal() && recordSplit[PLF.COLUMNS.PLF_TIME.ordinal()].length() > 0 && checkIntegerRange(Integer.parseInt(recordSplit[6]),-4080000, 4080000)) {
@@ -1939,6 +2134,123 @@ public class SCOSService {
         }
     }
 
+    public void createPSMRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "PSM";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<PSM> listPSM = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                PSM psm = new PSM();
+                String[] recordSplit = record.split("\t");
+
+                psm.setPsmName(recordSplit[PSM.COLUMNS.PSM_NAME.ordinal()]);
+                psm.setPsmType(PSM.PsmType.valueOf(recordSplit[PSM.COLUMNS.PSM_TYPE.ordinal()]));
+                psm.setPsmParset(recordSplit[PSM.COLUMNS.PSM_PARSET.ordinal()]);
+
+                listPSM.add(psm);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listPSM,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listPSM, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.savePSMRecords(listPSM,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
+    public void createPSTRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "PST";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<PST> listPST = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                PST pst = new PST();
+                String[] recordSplit = record.split("\t");
+
+                pst.setPstName(recordSplit[PST.COLUMNS.PST_NAME.ordinal()]);
+                if(recordSplit.length > PST.COLUMNS.PST_DESCR.ordinal() && recordSplit[PST.COLUMNS.PST_DESCR.ordinal()].length() > 0) {
+                    pst.setPstDescr(recordSplit[PST.COLUMNS.PST_DESCR.ordinal()]);
+                }
+
+                listPST.add(pst);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listPST,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listPST, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.savePSTRecords(listPST,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
+    public void createPSVRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "PSV";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<PSV> listPSV = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                PSV psv = new PSV();
+                String[] recordSplit = record.split("\t");
+
+                psv.setPsvName(recordSplit[PSV.COLUMNS.PSV_NAME.ordinal()]);
+                psv.setPsvPvsid(recordSplit[PSV.COLUMNS.PSV_PVSID.ordinal()]);
+                if(recordSplit.length > PSV.COLUMNS.PSV_DESCR.ordinal() && recordSplit[PSV.COLUMNS.PSV_DESCR.ordinal()].length() > 0) {
+                    psv.setPsvDescr(recordSplit[PSV.COLUMNS.PSV_DESCR.ordinal()]);
+                }
+
+                listPSV.add(psv);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listPSV,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listPSV, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.savePSVRecords(listPSV,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
     public void createPTVRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
         String tableName = "PTV";
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -1975,6 +2287,104 @@ public class SCOSService {
 
         if(scosRepository != null) {
             scosRepository.savePTVRecords(listPTV,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
+    public void createPVSRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "PVS";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<PVS> listPVS = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                PVS pvs = new PVS();
+                String[] recordSplit = record.split("\t");
+
+                pvs.setPvsId(recordSplit[PVS.COLUMNS.PVS_ID.ordinal()]);
+                pvs.setPvsPsid(recordSplit[PVS.COLUMNS.PVS_PSID.ordinal()]);
+                pvs.setPvsPname(recordSplit[PVS.COLUMNS.PVS_PNAME.ordinal()]);
+                if(recordSplit[PVS.COLUMNS.PVS_INTER.ordinal()].length() > 0) {
+                    pvs.setPvsInter(PVS.PvsInter.valueOf(recordSplit[PVS.COLUMNS.PVS_INTER.ordinal()]));
+                }
+                if(recordSplit[PVS.COLUMNS.PVS_VALS.ordinal()].length() > 0) {
+                    pvs.setPvsVals(recordSplit[PVS.COLUMNS.PVS_VALS.ordinal()]);
+                }
+                pvs.setPvsBit(Integer.valueOf(recordSplit[PVS.COLUMNS.PVS_BIT.ordinal()]));
+
+                listPVS.add(pvs);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listPVS,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listPVS, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.savePVSRecords(listPVS,scostables,odbData);
+        } else {
+            System.out.println("scosRepository has not been injected");
+        }
+    }
+
+    public void createSDFRecord(File file, SCOSDB scosdb, ODBFiles odbFiles) throws IOException {
+        String tableName = "SDF";
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        List<SDF> listSDF = new ArrayList<>();
+        //Start file
+        String record = reader.readLine();
+        while (record != null) {
+            try {
+                SDF sdf = new SDF();
+                String[] recordSplit = record.split("\t");
+
+                sdf.setSdfSqname(recordSplit[SDF.COLUMNS.SDF_SQNAME.ordinal()]);
+                sdf.setSdfEntry(Integer.parseInt(recordSplit[SDF.COLUMNS.SDF_ENTRY.ordinal()]));
+                sdf.setSdfElemid(recordSplit[SDF.COLUMNS.SDF_ELEMID.ordinal()]);
+                sdf.setSdfPos(Integer.parseInt(recordSplit[SDF.COLUMNS.SDF_POS.ordinal()]));
+                sdf.setSdfPname(recordSplit[SDF.COLUMNS.SDF_PNAME.ordinal()]);
+                if(recordSplit[SDF.COLUMNS.SDF_FTYPE.ordinal()].length() > 0) {
+                    sdf.setSdfFtype(SDF.SdfFtype.valueOf(recordSplit[SDF.COLUMNS.SDF_FTYPE.ordinal()]));
+                }
+                sdf.setSdfVtype(SDF.SdfVtype.valueOf(recordSplit[SDF.COLUMNS.SDF_VTYPE.ordinal()]));
+                if(recordSplit.length > SDF.COLUMNS.SDF_VALUE.ordinal() && recordSplit[SDF.COLUMNS.SDF_VALUE.ordinal()].length() > 0) {
+                    sdf.setSdfValue(recordSplit[SDF.COLUMNS.SDF_VALUE.ordinal()]);
+                }
+                if(recordSplit.length > SDF.COLUMNS.SDF_VALSET.ordinal() && recordSplit[SDF.COLUMNS.SDF_VALSET.ordinal()].length() > 0) {
+                    sdf.setSdfValset(recordSplit[SDF.COLUMNS.SDF_VALSET.ordinal()]);
+                }
+                if(recordSplit.length > SDF.COLUMNS.SDF_REPPOS.ordinal() && recordSplit[SDF.COLUMNS.SDF_REPPOS.ordinal()].length() > 0) {
+                    sdf.setSdfReppos(Integer.parseInt(recordSplit[SDF.COLUMNS.SDF_REPPOS.ordinal()]));
+                }
+
+                listSDF.add(sdf);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            record = reader.readLine();
+        }
+
+        reader.close();
+
+        //INSERT SCOS TABLES
+        SCOSTABLES scostables = createSCOSTABLESRecord(tableName,listSDF,scosdb);
+        //INSERT ODB DATA
+        ODBData odbData = createODBDATARecord(tableName,listSDF, odbFiles);
+
+        if(scosRepository != null) {
+            scosRepository.saveSDFRecords(listSDF,scostables,odbData);
         } else {
             System.out.println("scosRepository has not been injected");
         }
@@ -2390,6 +2800,7 @@ public class SCOSService {
         }
     }
 
+    //TODO check for ALL arrays?
     public boolean checkAlphaNumericRange(char c, char[] array) throws Exception {
        for(char x: array) {
            if(x == c) {
